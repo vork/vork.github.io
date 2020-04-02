@@ -3,7 +3,11 @@
 &lt;iframe src="https://www.youtube.com/embed/CyC6PutoJO8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
 &lt;/div>
 &lt;h3 id="results">Results&lt;/h3>
-&lt;p>Click the images for an interactive 3D visualization.&lt;/p>
+&lt;div class="alert alert-note">
+&lt;div>
+Click the images for an interactive 3D visualization.
+&lt;/div>
+&lt;/div>
 &lt;h4 id="aksoy-et-al---a-dataset-of-flash-and-ambient-illumination-pairs-from-the-crowd">Aksoy et al. - A Dataset of Flash and Ambient Illumination Pairs from the Crowd&lt;/h4>
 &lt;div class="gallery">
 &lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf0" href="javascript:;">
