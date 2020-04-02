@@ -13,15 +13,18 @@ var meshCreatedCallback = function (mesh) {
 }
 
 var createGridColumn = function (grid, basepath, matId, mapFile, mapName, pos) {
+    var col = pos % grid.columnCount;
+    var row = Math.floor(pos / grid.columnCount) * 2;
+
     var text = new BABYLON.GUI.TextBlock();
     text.text = mapName;
     text.color = "white";
-    text.fontSize = 24;
-    grid.addControl(text, 0, pos);
+    text.fontSize = 14;
+    grid.addControl(text, row, col);
 
     var image = new BABYLON.GUI.Image(mapName, basepath + matId + "/" + mapFile);
     image.stretch = BABYLON.GUI.Image.STRETCH_UNIFORM;
-    grid.addControl(image, 1, pos);
+    grid.addControl(image, row + 1, col);
 }
 
 var createScene = function () {
@@ -80,21 +83,40 @@ var createScene = function () {
     //pbrMaterial.invertNormalMapY = true;
 
     var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    var uiSize = advancedTexture.getSize();
+    var aspectRatio = uiSize.width / uiSize.height;
+    console.log(uiSize, aspectRatio);
 
     var grid = new BABYLON.GUI.Grid();
-    console.log(1.0 / 7.0);
-    grid.addColumnDefinition(1.0 / 7.0); // 0 - Input
-    grid.addColumnDefinition(1.0 / 7.0); // 1 - Diffuse
-    grid.addColumnDefinition(1.0 / 7.0); // 2 - Specular
-    grid.addColumnDefinition(1.0 / 7.0); // 3 - Roughness
-    grid.addColumnDefinition(1.0 / 7.0); // 4 - Normal
-    grid.addColumnDefinition(1.0 / 7.0); // 5 - Depth
-    grid.addColumnDefinition(1.0 / 7.0 * 2.0); // 6 - Env (2 wide)
-    grid.addRowDefinition(0.05); // Header 
-    grid.addRowDefinition(0.25); // Images
-    grid.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-    grid.height = 0.25 + 0.05;
-    grid.width = 1.0;
+
+
+    var textHeight = 0.03;
+    if (aspectRatio < 1.0) {
+        grid.addColumnDefinition(1.0 / 4.0); // 0 
+        grid.addColumnDefinition(1.0 / 4.0); // 1
+        grid.addColumnDefinition(1.0 / 4.0); // 2
+        grid.addColumnDefinition(1.0 / 4.0); // 3
+        grid.addRowDefinition(textHeight); // Header 
+        grid.addRowDefinition(0.125); // Images
+        grid.addRowDefinition(textHeight); // Header 
+        grid.addRowDefinition(0.125); // Images
+        grid.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        grid.height = (0.125 + textHeight) * 2.0;
+        grid.width = 1.0;
+    } else {
+        grid.addColumnDefinition(1.0 / 7.0); // 0 - Input
+        grid.addColumnDefinition(1.0 / 7.0); // 1 - Diffuse
+        grid.addColumnDefinition(1.0 / 7.0); // 2 - Specular
+        grid.addColumnDefinition(1.0 / 7.0); // 3 - Roughness
+        grid.addColumnDefinition(1.0 / 7.0); // 4 - Normal
+        grid.addColumnDefinition(1.0 / 7.0); // 5 - Depth
+        grid.addColumnDefinition(1.0 / 7.0 * 2.0); // 6 - Env (2 wide)
+        grid.addRowDefinition(textHeight); // Header 
+        grid.addRowDefinition(0.2); // Images
+        grid.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        grid.height = 0.2 + textHeight;
+        grid.width = 1.0;
+    }
 
     advancedTexture.addControl(grid);
 
