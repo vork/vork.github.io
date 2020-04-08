@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mark Boss</title><link>https://www.markboss.me/</link><atom:link href="https://www.markboss.me/index.xml" rel="self" type="application/rss+xml"/><description>Mark Boss</description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 28 Jun 2018 00:00:00 +0100</lastBuildDate><image><url>img/map[gravatar:%!s(bool=false) shape:circle]</url><title>Mark Boss</title><link>https://www.markboss.me/</link></image><item><title>Two-shot Spatially-varying BRDF and Shape Estimation</title><link>https://www.markboss.me/publication/cvpr20-two-shot-brdf/</link><pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate><guid>https://www.markboss.me/publication/cvpr20-two-shot-brdf/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mark Boss</title><link>https://markboss.me/</link><atom:link href="https://markboss.me/index.xml" rel="self" type="application/rss+xml"/><description>Mark Boss</description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 28 Jun 2018 00:00:00 +0100</lastBuildDate><image><url>img/map[gravatar:%!s(bool=false) shape:circle]</url><title>Mark Boss</title><link>https://markboss.me/</link></image><item><title>Two-shot Spatially-varying BRDF and Shape Estimation</title><link>https://markboss.me/publication/cvpr20-two-shot-brdf/</link><pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/cvpr20-two-shot-brdf/</guid><description>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/CyC6PutoJO8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
 &lt;/div>
@@ -10,88 +10,88 @@ Click the images for an interactive 3D visualization.
 &lt;/div>
 &lt;h4 id="aksoy-et-al---a-dataset-of-flash-and-ambient-illumination-pairs-from-the-crowd">Aksoy et al. - A Dataset of Flash and Ambient Illumination Pairs from the Crowd&lt;/h4>
 &lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf0" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf0/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf0" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf0/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf1" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf1/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf1" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf1/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf2" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf2/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf2" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf2/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf3" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf3/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf3" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf3/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf4" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf4/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf4" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf4/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf5" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf5/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf5" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf5/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf6" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf6/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf6" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf6/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf7" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf7/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf7" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf7/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf8" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf8/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf8" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf8/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf9" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf9/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf9" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf9/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf10" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf10/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf10" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf10/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf11" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf11/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf11" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf11/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf12" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf12/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf12" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf12/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf13" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf13/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf13" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf13/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf14" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf14/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf14" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf14/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=fnf15" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/fnf15/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf15" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf15/input_flash.jpg" alt="">
 &lt;/a>
 &lt;/div>
 &lt;h5 id="real-world-examples">Real-world Examples&lt;/h5>
 &lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=rw0" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/rw0/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw0" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw0/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=rw1" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/rw1/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw1" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw1/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=rw2" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/rw2/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw2" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw2/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=rw3" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/rw3/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw3" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw3/input_flash.jpg" alt="">
 &lt;/a>
 &lt;/div>
 &lt;h5 id="synthetic-examples">Synthetic Examples&lt;/h5>
 &lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=syn0" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/syn0/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn0" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn0/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=syn1" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/syn1/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn1" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn1/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=syn2" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/syn2/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn2" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn2/input_flash.jpg" alt="">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://www.markboss.me/files/cvpr20-results/renderer.html?mat=syn3" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://www.markboss.me/files/cvpr20-results/predictions/syn3/input_flash.jpg" alt="">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn3" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn3/input_flash.jpg" alt="">
 &lt;/a>
 &lt;/div>
 &lt;h3 id="copyright">Copyright&lt;/h3>
 &lt;p>This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to
-&lt;a href="mailto:pubs-permissions@ieee.org">pubs-permissions@ieee.org&lt;/a>.&lt;/p></description></item><item><title>Two-shot Spatially-varying BRDF and Shape Estimation</title><link>https://www.markboss.me/news/cvpr20-accept/</link><pubDate>Mon, 24 Feb 2020 00:00:00 +0000</pubDate><guid>https://www.markboss.me/news/cvpr20-accept/</guid><description/></item><item><title>Infomark</title><link>https://www.markboss.me/project/infomark/</link><pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate><guid>https://www.markboss.me/project/infomark/</guid><description/></item><item><title>Single Image BRDF Parameter Estimation with a Conditional Adversarial Network</title><link>https://www.markboss.me/publication/single-image-brdf-parameter-estimation-with-conditional-adversarial-network/</link><pubDate>Fri, 11 Oct 2019 00:00:00 +0000</pubDate><guid>https://www.markboss.me/publication/single-image-brdf-parameter-estimation-with-conditional-adversarial-network/</guid><description/></item><item><title>Deep Dual Loss BRDF Parameter Estimation</title><link>https://www.markboss.me/publication/deep-dual-loss-brdf-parameter-estimation/</link><pubDate>Sun, 01 Jul 2018 00:00:00 +0000</pubDate><guid>https://www.markboss.me/publication/deep-dual-loss-brdf-parameter-estimation/</guid><description/></item><item><title>Legal details</title><link>https://www.markboss.me/terms/</link><pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate><guid>https://www.markboss.me/terms/</guid><description>&lt;h3 id="legal-disclosure">Legal Disclosure&lt;/h3>
+&lt;a href="mailto:pubs-permissions@ieee.org">pubs-permissions@ieee.org&lt;/a>.&lt;/p></description></item><item><title>Two-shot Spatially-varying BRDF and Shape Estimation</title><link>https://markboss.me/news/cvpr20-accept/</link><pubDate>Mon, 24 Feb 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/news/cvpr20-accept/</guid><description/></item><item><title>Infomark</title><link>https://markboss.me/project/infomark/</link><pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate><guid>https://markboss.me/project/infomark/</guid><description/></item><item><title>Single Image BRDF Parameter Estimation with a Conditional Adversarial Network</title><link>https://markboss.me/publication/single-image-brdf-parameter-estimation-with-conditional-adversarial-network/</link><pubDate>Fri, 11 Oct 2019 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/single-image-brdf-parameter-estimation-with-conditional-adversarial-network/</guid><description/></item><item><title>Deep Dual Loss BRDF Parameter Estimation</title><link>https://markboss.me/publication/deep-dual-loss-brdf-parameter-estimation/</link><pubDate>Sun, 01 Jul 2018 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/deep-dual-loss-brdf-parameter-estimation/</guid><description/></item><item><title>Legal details</title><link>https://markboss.me/terms/</link><pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate><guid>https://markboss.me/terms/</guid><description>&lt;h3 id="legal-disclosure">Legal Disclosure&lt;/h3>
 &lt;p>Information in accordance with Section 5 TMG&lt;/p>
 &lt;p>Mark Boss&lt;br>
 Bismarckstr. 114&lt;br>
@@ -105,11 +105,11 @@ Internet address: markboss.me&lt;/p>
 &lt;h3 id="accountability-for-links">Accountability for links&lt;/h3>
 &lt;p>Responsibility for the content of external links (to web pages of third parties) lies solely with the operators of the linked pages. No violations were evident to us at the time of linking. Should any legal infringement become known to us, we will remove the respective link immediately.&lt;/p>
 &lt;h3 id="copyright">Copyright&lt;/h3>
-&lt;p>Our web pages and their contents are subject to German copyright law. Unless expressly permitted by law, every form of utilizing, reproducing or processing works subject to copyright protection on our web pages requires the prior consent of the respective owner of the rights. Individual reproductions of a work are only allowed for private use. The materials from these pages are copyrighted and any unauthorized use may violate copyright laws.&lt;/p></description></item><item><title>Privacy Policy</title><link>https://www.markboss.me/privacy/</link><pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate><guid>https://www.markboss.me/privacy/</guid><description>&lt;p>Your privacy is important to us. It is Mark Boss&amp;rsquo; policy to respect your privacy regarding any information we may collect from you across our website, &lt;a href="https://www.markboss.me">https://www.markboss.me&lt;/a>, and other sites we own and operate.&lt;/p>
+&lt;p>Our web pages and their contents are subject to German copyright law. Unless expressly permitted by law, every form of utilizing, reproducing or processing works subject to copyright protection on our web pages requires the prior consent of the respective owner of the rights. Individual reproductions of a work are only allowed for private use. The materials from these pages are copyrighted and any unauthorized use may violate copyright laws.&lt;/p></description></item><item><title>Privacy Policy</title><link>https://markboss.me/privacy/</link><pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate><guid>https://markboss.me/privacy/</guid><description>&lt;p>Your privacy is important to us. It is Mark Boss&amp;rsquo; policy to respect your privacy regarding any information we may collect from you across our website, &lt;a href="https://www.markboss.me">https://www.markboss.me&lt;/a>, and other sites we own and operate.&lt;/p>
 &lt;p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.&lt;/p>
 &lt;p>We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or modification.&lt;/p>
 &lt;p>We don’t share any personally identifying information publicly or with third-parties, except when required to by law.&lt;/p>
 &lt;p>Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.&lt;/p>
 &lt;p>You are free to refuse our request for your personal information, with the understanding that we may be unable to provide you with some of your desired services.&lt;/p>
 &lt;p>Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.&lt;/p>
-&lt;p>This policy is effective as of 1 April 2020.&lt;/p></description></item><item><title>CNN-based BRDF parameter estimation</title><link>https://www.markboss.me/publication/master_thesis/</link><pubDate>Tue, 01 May 2018 00:00:00 +0000</pubDate><guid>https://www.markboss.me/publication/master_thesis/</guid><description/></item></channel></rss>
+&lt;p>This policy is effective as of 1 April 2020.&lt;/p></description></item><item><title>CNN-based BRDF parameter estimation</title><link>https://markboss.me/publication/master_thesis/</link><pubDate>Tue, 01 May 2018 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/master_thesis/</guid><description/></item></channel></rss>
