@@ -1,4 +1,4 @@
-/* Source Themes Academic v4.7.0 | https://sourcethemes.com/academic/ */
+/* Source Themes Academic v4.8.0 | https://sourcethemes.com/academic/ */
 
 ;
 /*!
