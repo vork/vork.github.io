@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kihwan Kim | Mark Boss</title><link>https://markboss.me/author/kihwan-kim/</link><atom:link href="https://markboss.me/author/kihwan-kim/index.xml" rel="self" type="application/rss+xml"/><description>Kihwan Kim</description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/images/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_2.png</url><title>Kihwan Kim</title><link>https://markboss.me/author/kihwan-kim/</link></image><item><title>Two-shot Spatially-varying BRDF and Shape Estimation</title><link>https://markboss.me/publication/cvpr20-two-shot-brdf/</link><pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/cvpr20-two-shot-brdf/</guid><description>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe src="https://www.youtube.com/embed/CyC6PutoJO8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
+&lt;/div>
+&lt;h3 id="results">Results&lt;/h3>
+&lt;div class="alert alert-note">
+&lt;div>
+Click the images for an interactive 3D visualization.
+&lt;/div>
+&lt;/div>
+&lt;h4 id="aksoy-et-al---a-dataset-of-flash-and-ambient-illumination-pairs-from-the-crowd">Aksoy et al. - A Dataset of Flash and Ambient Illumination Pairs from the Crowd&lt;/h4>
+&lt;div class="gallery">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf0" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf0/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf1" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf1/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf2" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf2/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf3" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf3/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf4" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf4/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf5" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf5/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf6" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf6/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf7" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf7/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf8" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf8/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf9" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf9/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf10" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf10/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf11" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf11/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf12" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf12/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf13" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf13/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf14" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf14/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf15" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf15/input_flash.jpg" alt="">
+&lt;/a>
+&lt;/div>
+&lt;h5 id="real-world-examples">Real-world Examples&lt;/h5>
+&lt;div class="gallery">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw0" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw0/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw1" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw1/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw2" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw2/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw3" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw3/input_flash.jpg" alt="">
+&lt;/a>
+&lt;/div>
+&lt;h5 id="synthetic-examples">Synthetic Examples&lt;/h5>
+&lt;div class="gallery">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn0" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn0/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn1" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn1/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn2" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn2/input_flash.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn3" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn3/input_flash.jpg" alt="">
+&lt;/a>
+&lt;/div>
+&lt;h3 id="copyright">Copyright&lt;/h3>
+&lt;p>This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to
+&lt;a href="mailto:pubs-permissions@ieee.org">pubs-permissions@ieee.org&lt;/a>.&lt;/p></description></item></channel></rss>
