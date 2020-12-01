@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <title>BRDF Explorer</title>
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #WebGL-output {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="WebGL-output" touch-action="none"></canvas>
+
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="dat.gui.js"></script>
+    <link rel="stylesheet" href="datGui-presentation.css">
+    <script>
+        Math.clip = function(number, min, max) {
+            return Math.max(min, Math.min(number, max));
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            for (let p of urlParams) {
+                console.log(p);
+            }
+
+            var rng = urlParams.get('rngesus');
+            var no_ui = urlParams.get('no_ui');
+            if (no_ui === null) {
+                no_ui = "0"
+            }
+            no_ui = parseInt(no_ui);
+            if (rng === null) {
+                rng = "0";
+            }
+            rng = parseInt(rng);
+            if (rng) {
+                no_ui = true;
+            }
+
+            var scene;
+            var sphere;
+            var plane;
+            var material;
+            var engine;
+            var canvas;
+            var shaderMaterial;
+            var colorMapTexture;
+            var animationProgress = 0.0;
+
+            BABYLON.Effect.ShadersStore["brdfVertexShader"] = "precision highp float;\r\n" +
+
+                "// Attributes\r\n" +
+                "attribute vec3 position;\r\n" +
+                "attribute vec3 normal;\r\n" +
+                "attribute vec2 uv;\r\n" +
+
+                "// Uniforms\r\n" +
+                "uniform mat4 worldViewProjection;\r\n" +
+                "uniform float diffuse;\r\n" +
+                "uniform float specular;\r\n" +
+                "uniform float roughness;\r\n" +
+                "uniform sampler2D colorMapSampler;\r\n" +
+
+                "// Varying\r\n" +
+                "varying vec3 vColor;\r\n" +
+
+                "// Constants\r\n" +
+                "const vec3 lo = normalize(vec3(-1.0, 1.0, 0.0));\r\n" +
+                "const vec3 lo_mirror = normalize(vec3(1.0, 1.0, 0.0));\r\n" +
+
+                "const float PI = 3.1415926535897932384626433832795;\r\n" +
+                "const float PI_2 = 1.57079632679489661923;\r\n" +
+                "const float PI_4 = 0.785398163397448309616;\r\n" +
+                "const float REC_PI = 0.318309886183790671537767526745;\r\n" +
+
+                "const float scale = 0.3;\r\n" +
+
+                "float geometric_func(float vdh, float alpha) {\r\n" +
+                "    return (vdh * 2.0) / (vdh + (sqrt(alpha + (1.0 - alpha) * vdh * vdh)));\r\n" +
+                "}\r\n" +
+
+                "float eval_brdf(vec3 li) {\r\n" +
+                "    vec3 n = vec3(0.0, 1.0, 0.0);\r\n" +
+                "    vec3 h = normalize(li + lo);\r\n" +
+                "    \r\n" +
+                "    float ndv = dot(n, lo);\r\n" +
+                "    float ndl = dot(n, li);\r\n" +
+                "    float ldh = dot(li, h);\r\n" +
+                "    float ndh = dot(n, h);\r\n" +
+                "    \r\n" +
+                "    float diff = diffuse * ndv * REC_PI;\r\n" +
+                "    \r\n" +
+                "    float a = roughness * roughness;\r\n" +
+                "    float a2 = a * a;\r\n" +
+                "    \r\n" +
+                "    // Fresnel\r\n" +
+                "    float ct = 1.0 - ldh;\r\n" +
+                "    float ctsq = ct * ct;\r\n" +
+                "    float ct5 = ctsq * ctsq * ct;\r\n" +
+                "    float f = specular + (1.0 - specular) * ct5;\r\n" +
+                "    \r\n" +
+                "    // Geometric self attenuation\r\n" +
+                "    float g = geometric_func(ndl, a2) * geometric_func(ndv, a2);\r\n" +
+                "    \r\n" +
+                "    // ndf\r\n" +
+                "    float denom = (ndh * ndh) * (a2 - 1.0) + 1.0;\r\n" +
+                "    float denom2 = denom * denom;\r\n" +
+                "    \r\n" +
+                "    float d = a2 / (PI * denom2);\r\n" +
+                "    \r\n" +
+                "    float spec = (f * g * d) / (4.0 * ndl);\r\n" +
+                "    \r\n" +
+                "    float brdf = diff + spec;\r\n" +
+                "    \r\n" +
+                "    return brdf;\r\n" +
+                "}\r\n" +
+
+                "vec3 sperical_to_cartesian(vec2 uv) {\r\n" +
+                "    float theta = uv.x * PI;\r\n" +
+                "    float phi = uv.y * PI;\r\n" +
+                "    \r\n" +
+                "    float x = sin(phi) * cos(theta);\r\n" +
+                "    float y = sin(phi) * sin(theta);\r\n" +
+                "    float z = cos(phi);\r\n" +
+                "    \r\n" +
+                "    return vec3(x, y, z);\r\n" +
+                "}\r\n" +
+
+                "void main() {\r\n" +
+                "    vec3 li = sperical_to_cartesian(uv);\r\n" +
+                "    float brdf = eval_brdf(li);\r\n" +
+                "    float max_brdf = eval_brdf(lo_mirror);\r\n" +
+                "    \r\n" +
+                "    float scaled_brdf = clamp(brdf / max_brdf, 0.0, 1.0);\r\n" +
+                "    \r\n" +
+                "    vec3 c = texture2D(colorMapSampler, vec2(scaled_brdf, 0.0)).rgb;\r\n" +
+                "    vec4 p = vec4(li * scaled_brdf * scale, 1. );\r\n" +
+
+                "    vColor = c;\r\n" +
+
+                "    gl_Position = worldViewProjection * p;\r\n" +
+
+                "}\r\n";
+
+            BABYLON.Effect.ShadersStore["brdfFragmentShader"] = "precision highp float;\r\n" +
+
+                "uniform mat4 worldView;\r\n" +
+
+                "varying vec3 vColor;\r\n" +
+
+                "void main(void) {\r\n" +
+                "    gl_FragColor = vec4( vColor, 1. );\r\n" +
+                "}\r\n";
+
+
+            function hexToRgb(hex) {
+                var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? [
+                    parseInt(result[1], 16) / 255.0,
+                    parseInt(result[2], 16) / 255.0,
+                    parseInt(result[3], 16) / 255.0
+                ] : null;
+            }
+
+            function enforceBounds(x) {
+                if (x < 0) {
+                    return 0;
+                } else if (x > 1) {
+                    return 1;
+                } else {
+                    return x;
+                }
+            }
+
+            var matParam = new function() {
+                this.diffuse = "#18324a";
+                this.specular = "#363637";
+                this.roughness = 0.7;
+            };
+
+            function init() {
+                canvas = document.getElementById("WebGL-output");
+                console.log("init");
+                engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+
+                var scene = new BABYLON.Scene(engine);
+                scene.useRightHandedSystem = true; // x left, y up, z camera direction
+                scene.clearColor = new BABYLON.Color3(1.0, 1.0, 1.0);
+
+                var fov = 32;
+                var fovrad = Math.tan((fov * Math.PI / 180));
+                // Align camera with coordinate system assumption
+                var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI * 1.5, Math.PI * 0.5, 1.5, BABYLON.Vector3.Zero(), scene);
+
+                camera.fov = fovrad;
+                camera.lowerRadiusLimit = 0.1;
+                camera.upperRadiusLimit = 3;
+
+                //camera.attachControl(canvas, true);
+
+                var light = new BABYLON.PointLight("light1", new BABYLON.Vector3(2, 2, -2), scene);
+                light.intensity = 15
+
+                material = new BABYLON.PBRSpecularGlossinessMaterial("pbr", scene);
+                d = hexToRgb(matParam.diffuse);
+                material.diffuseColor = new BABYLON.Color3(d[0], d[1], d[2]);
+                s = hexToRgb(matParam.specular);
+                material.specularColor = new BABYLON.Color3(s[0], s[1], s[2]);
+                material.glossiness = 1.0 - matParam.roughness;
+
+                sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {
+                    diameter: 1
+                }, scene);
+                sphere.material = material;
+                sphere.translate(BABYLON.Axis.Z, 0.5, BABYLON.Space.WORLD);
+
+                plane = BABYLON.MeshBuilder.CreateGround("eval", {
+                    subdivisions: 150,
+                    updatable: true
+                }, scene);
+                // Compile
+                if (!shaderMaterial)
+                    shaderMaterial = new BABYLON.ShaderMaterial("shader", scene, {
+                        vertex: "brdf",
+                        fragment: "brdf",
+                    }, {
+                        attributes: ["position", "normal", "uv"],
+                        uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
+                    });
+
+                if (!colorMapTexture) {
+                    var colorMapTexture = new BABYLON.Texture("JetColormap.png", scene);
+                    colorMapTexture.wrapU = BABYLON.Texture.CLAMP_ADDRESSMODE;
+                    colorMapTexture.wrapV = BABYLON.Texture.CLAMP_ADDRESSMODE;
+                }
+
+                function setBrdf(dff, spc, rgh) {
+                    shaderMaterial.setFloat("diffuse", (dff.r + dff.g + dff.b) / 3.0);
+                    shaderMaterial.setFloat("specular", (spc.r + spc.g + spc.b) / 3.0);
+                    shaderMaterial.setFloat("roughness", rgh);
+                }
+
+                setBrdf(new BABYLON.Color3(d[0], d[1], d[2]), new BABYLON.Color3(s[0], s[1], s[2]), matParam.roughness);
+                shaderMaterial.setTexture("colorMapSampler", colorMapTexture);
+
+                shaderMaterial.backFaceCulling = true;
+                plane.material = shaderMaterial;
+
+                // Face the viewer
+                plane.rotateAround(BABYLON.Vector3.Zero(), BABYLON.Vector3.Up(), Math.PI);
+                plane.translate(BABYLON.Axis.Z, -0.15, BABYLON.Space.WORLD);
+                plane.translate(BABYLON.Axis.Y, -0.35, BABYLON.Space.WORLD);
+                plane.translate(BABYLON.Axis.X, 0.25, BABYLON.Space.WORLD);
+
+                function animateMaterial(diffuse, specular, roughness) {
+                    gloss = 1.0 - roughness;
+                    originalDiffuse = material.diffuseColor;
+                    originalSpecular = material.specularColor;
+                    originalGloss = material.glossiness;
+
+                    var easingFunction = new BABYLON.CubicEase();
+                    var animationEnd = () => randomMaterial();
+                    BABYLON.Animation.CreateAndStartAnimation("diffuseAnimation", material, "diffuseColor", 30, 30, originalDiffuse, diffuse, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easingFunction, animationEnd);
+                    BABYLON.Animation.CreateAndStartAnimation("specularAnimation", material, "specularColor", 30, 30, originalSpecular, specular, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easingFunction);
+                    BABYLON.Animation.CreateAndStartAnimation("glossAnimation", material, "glossiness", 30, 30, originalGloss, gloss, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT, easingFunction);
+                }
+
+                if (!no_ui) {
+                    var gui = new dat.GUI({
+                        height: 3 * 8 - 1,
+                        width: 400,
+                    });
+
+                    diffuseCtrl = gui.addColor(matParam, "diffuse");
+                    specularCtrl = gui.addColor(matParam, "specular");
+                    roughnessCtrl = gui.add(matParam, "roughness", 0, 1);
+
+                    function updateFromGui() {
+                        setBrdf(material.diffuseColor, material.specularColor, 1.0 - material.glossiness);
+                    }
+
+                    diffuseCtrl.onChange(function(value) {
+                        val = hexToRgb(value);
+                        console.log("Diffuse:", val);
+                        material.diffuseColor = new BABYLON.Color3(val[0], val[1], val[2]);
+                        updateFromGui();
+                    });
+                    specularCtrl.onChange(function(value) {
+                        val = hexToRgb(value);
+                        console.log("Specular:", val);
+                        material.specularColor = new BABYLON.Color3(val[0], val[1], val[2]);
+                        updateFromGui();
+                    });
+                    roughnessCtrl.onChange(function(value) {
+                        val = 1.0 - value;
+                        console.log("Roughness:", val);
+                        material.glossiness = val;
+                        updateFromGui();
+                    });
+                }
+
+                var diffuse;
+                var specular;
+                var glossiness;
+
+                function randomMaterial() {
+                    metal = Math.random() >= 0.3;
+                    if (metal) {
+                        diffuseVals = [0, 0, 0];
+                        minMetal = 170.0 / 255.0;
+                        scaler = (1.0 - minMetal);
+                        specularVals = [
+                            Math.random() * scaler + minMetal,
+                            Math.random() * scaler + minMetal,
+                            Math.random() * scaler + minMetal
+                        ];
+                    } else {
+                        specularVals = [0.04, 0, 04, 0.04];
+                        minNm = 10.0 / 255.0;
+                        maxNm = 240.0 / 255.0;
+                        scaler = (maxNm - minNm);
+                        diffuseVals = [
+                            Math.random() * scaler + minNm,
+                            Math.random() * scaler + minNm,
+                            Math.random() * scaler + minNm
+                        ];
+                    }
+
+                    diffuse = new BABYLON.Color3(diffuseVals[0], diffuseVals[1], diffuseVals[2]);
+                    specular = new BABYLON.Color3(specularVals[0], specularVals[1], specularVals[2]);
+                    roughness = Math.random() * (1.0 - 0.6) + 0.3;
+                    glossiness = 1 - roughness;
+                }
+
+                if (rng) {
+                    var seconds = 5;
+                    var updateSteps = 1.0 / (60 * seconds);
+                    console.log(" UpdateSteps", updateSteps);
+                    var easingFunction = new BABYLON.CubicEase();
+
+                    originalDiffuse = material.diffuseColor;
+                    originalSpecular = material.specularColor;
+                    originalGloss = material.glossiness;
+                    randomMaterial();
+                    scene.registerBeforeRender(function() {
+                        if (animationProgress >= 1.0) {
+                            originalDiffuse = material.diffuseColor;
+                            originalSpecular = material.specularColor;
+                            originalGloss = material.glossiness;
+                            randomMaterial();
+                            animationProgress = 0.0;
+                            return;
+                        }
+                        animationProgress += updateSteps;
+
+                        animDiffuse = BABYLON.Animation.prototype.color3InterpolateFunction(originalDiffuse, diffuse, easingFunction.ease(animationProgress));
+                        animSpecular = BABYLON.Animation.prototype.color3InterpolateFunction(originalSpecular, specular, easingFunction.ease(animationProgress));
+                        animGloss = BABYLON.Animation.prototype.floatInterpolateFunction(originalGloss, glossiness, easingFunction.ease(animationProgress));
+
+                        setBrdf(animDiffuse, animSpecular, 1.0 - animGloss);
+                        material.diffuseColor = animDiffuse;
+                        material.specularColor = animSpecular;
+                        material.glossiness = animGloss;
+                    });
+                }
+
+                return scene;
+            }
+
+            scene = init();
+
+
+
+            engine.runRenderLoop(function() {
+                scene.render();
+            });
+
+            window.addEventListener("resize", function() {
+                engine.resize();
+            });
+        });
+    </script>
+</body>
+
+</html>

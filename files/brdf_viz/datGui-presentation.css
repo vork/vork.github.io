@@ -1,0 +1,42 @@
+.dg .slider {
+    float: left;
+    width: 66%;
+    margin-left: -5px;
+    margin-right: 0;
+    height: 56px;
+    margin-top: 4px
+}
+
+.dg .cr {
+    clear: both;
+    padding-left: 3px;
+    height: 64px;
+    overflow: hidden
+}
+
+.dg li:not(.folder) {
+    cursor: auto;
+    height: 64px;
+    line-height: 64px;
+    padding: 0 4px 0 5px;
+    font-size: 2.5em;
+}
+
+.dg .cr.number input[type=text] {
+    color: #2FA1D6;
+    height: 56px;
+    font-size: 1.25em;
+}
+
+.dg .c input[type=text] {
+    background: #303030;
+    outline: none;
+    height: 56px;
+    font-size: 1.25em;
+}
+
+.dg .c input[type=checkbox] {
+    width: 36px;
+    height: 36px;
+    margin-top: 14px;
+}
