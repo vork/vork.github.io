@@ -88,7 +88,7 @@
                 "const float PI_4 = 0.785398163397448309616;\r\n" +
                 "const float REC_PI = 0.318309886183790671537767526745;\r\n" +
 
-                "const float scale = 0.3;\r\n" +
+                "const float scale = 0.45;\r\n" +
 
                 "float geometric_func(float vdh, float alpha) {\r\n" +
                 "    return (vdh * 2.0) / (vdh + (sqrt(alpha + (1.0 - alpha) * vdh * vdh)));\r\n" +
@@ -263,9 +263,9 @@
 
                 // Face the viewer
                 plane.rotateAround(BABYLON.Vector3.Zero(), BABYLON.Vector3.Up(), Math.PI);
-                plane.translate(BABYLON.Axis.Z, -0.15, BABYLON.Space.WORLD);
+                plane.translate(BABYLON.Axis.Z, -0., BABYLON.Space.WORLD);
                 plane.translate(BABYLON.Axis.Y, -0.35, BABYLON.Space.WORLD);
-                plane.translate(BABYLON.Axis.X, 0.25, BABYLON.Space.WORLD);
+                plane.translate(BABYLON.Axis.X, 0.15, BABYLON.Space.WORLD);
 
                 function animateMaterial(diffuse, specular, roughness) {
                     gloss = 1.0 - roughness;
