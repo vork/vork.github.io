@@ -74,24 +74,14 @@
             var uiSize = uiTexture.getSize();
             var aspectRatio = uiSize.width / uiSize.height;
             var grid = new BABYLON.GUI.Grid();
-            if (aspectRatio < 1.0) {
-                grid.addColumnDefinition(1.0 / 2.0); // 0 
-                grid.addColumnDefinition(1.0 / 2.0); // 1
-                grid.addRowDefinition(1.0 / 4.0); // Images
-                grid.addRowDefinition(1.0 / 4.0);
-                grid.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-                grid.height = (1.0 / 4.0) * 2;
-                grid.width = 1.0;
-            } else {
-                grid.addColumnDefinition(1.0 / 4.0); // 0 
-                grid.addColumnDefinition(1.0 / 4.0); // 1
-                grid.addColumnDefinition(1.0 / 4.0); // 3 
-                grid.addColumnDefinition(1.0 / 4.0); // 4
-                grid.addRowDefinition(1.0 / 8.0);
-                grid.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-                grid.height = (1.0 / 8.0);
-                grid.width = 1.0;
-            }
+            grid.addColumnDefinition(1.0 / 4.0); // 0 
+            grid.addColumnDefinition(1.0 / 4.0); // 1
+            grid.addColumnDefinition(1.0 / 4.0); // 3 
+            grid.addColumnDefinition(1.0 / 4.0); // 4
+            grid.addRowDefinition(1.0 / 8.0);
+            grid.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+            grid.height = (1.0 / 8.0);
+            grid.width = 1.0;
 
             var hdri_func = function (path) {
                 var hdrTexture = new BABYLON.CubeTexture.CreateFromPrefilteredData(path, scene);
