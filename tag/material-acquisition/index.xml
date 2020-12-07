@@ -1,4 +1,77 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Material Acquisition | Mark Boss</title><link>https://markboss.me/tag/material-acquisition/</link><atom:link href="https://markboss.me/tag/material-acquisition/index.xml" rel="self" type="application/rss+xml"/><description>Material Acquisition</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 16 Jun 2020 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/images/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_2.png</url><title>Material Acquisition</title><link>https://markboss.me/tag/material-acquisition/</link></image><item><title>Two-shot Spatially-varying BRDF and Shape Estimation</title><link>https://markboss.me/publication/cvpr20-two-shot-brdf/</link><pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/cvpr20-two-shot-brdf/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Material Acquisition | Mark Boss</title><link>https://markboss.me/tag/material-acquisition/</link><atom:link href="https://markboss.me/tag/material-acquisition/index.xml" rel="self" type="application/rss+xml"/><description>Material Acquisition</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 27 Nov 2020 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/images/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_2.png</url><title>Material Acquisition</title><link>https://markboss.me/tag/material-acquisition/</link></image><item><title>NeRD: Neural Reflectance Decomposition from Image Collections</title><link>https://markboss.me/publication/2021-nerd/</link><pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-nerd/</guid><description>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe src="https://www.youtube.com/embed/JL-qMTXw9VU" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
+&lt;/div>
+&lt;h3 id="introduction">Introduction&lt;/h3>
+&lt;p>NeRD is a novel method that can decompose image collections from multiple views taken under varying or fixed illumination conditions. The object can be rotated, or the camera can turn around the object. The result is a neural volume with an explicit representation of the appearance and illumination in the form of the BRDF and Spherical Gaussian (SG) environment illumination.&lt;/p>
+&lt;p>The method is based on the general structure of &lt;a href="https://www.matthewtancik.com/nerf" target="_blank" rel="noopener">NeRF&lt;/a>. However, NeRF encodes the scene to an implicit BRDF representation where a Multi-Layer-Perceptron (MLP) is queried for outgoing view directions at every point. Extracting information from NeRF is therefore not easily done, and the inference time for novel views takes around 30 seconds. Also, NeRF is not capable of relighting an object under any illumination. By introducing physically-based representations for lighting and appearance, NeRD can relighting an object, and information can be extracted from the neural volume. After our extraction process, the result is a regular texture mesh that can be rendered in real-time. See our &lt;a href="#results">results&lt;/a> where we provide a web-based interactive renderer.&lt;/p>
+&lt;h3 id="method">Method&lt;/h3>
+&lt;p>Decomposing the scene requires that the integral over the hemisphere from the rendering equation is decomposed into its parts. Here, we use a simplified version without self-emittance.
+$$L_o(x,\omega_o) = \int_\Omega L_i(x,\omega_i) f_r(x,\omega_i,\omega_o) (\omega_i \cdot n) d\omega_i$$
+Here, $L_o$ is the outgoing radiance for a point $x$ in the direction $\omega_o$. This radiance is calculated by integrating all influences over the hemisphere $\Omega$, which are based on the incoming light $L_i$ for each direction $\omega_i$. The surface behavior is expressed as the BRDF $f_r$, which describes how incoming light $\omega_i$ is directed to the outgoing direction $\omega_o$. Lastly, a cosine term is used $(\omega_i \cdot n)$, which reduces the received light based on the angle towards the light source.&lt;/p>
+&lt;p>The inverse of this integral is highly ambiguous, and we use several approximations to solve it. We do not use any interreflections or shadowing, which means that we do not compute the incoming radiance recursively. Additionally, our illumination is expressed as SG, which reduces a full continuous integral to - in our case - 24 evaluation of the environment SGs.&lt;/p>
+&lt;!-- Our image formation is now expressed as:
+$$L_o(x,\omega_o) \approx \sum^{24}_{m=1} \rho_d(\omega_o,\Gamma,x) + \rho_s(\omega_o,\Gamma,x)$$
+Where $\Gamma$ defines the parameters for the SGs, $\rho_d$ defines the evaluation for the diffuse part of the BRDF, and $\rho_s$ for the specular component. -->
+&lt;figure id="figure-steps-of-the-query-process-in-a-the-volume-is-constructed-by-tracing-rays-from-each-camera-into-the-scene-then-samples-are-placed-along-with-the-rays-in-b-and-based-on-the-density-at-each-sampling-point-additional-samples-are-placed-in-c-the-samples-are-then-evaluated-into-a-brdf-which-is-re-rendered-using-the-jointly-optimized-illumination-in-d">
+&lt;a data-fancybox="" href="https://markboss.me/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_2000x2000_fit_q80_lanczos.jpg" data-caption="Steps of the query process. In a) the volume is constructed by tracing rays from each camera into the scene. Then samples are placed along with the rays in b), and based on the density at each sampling point, additional samples are placed in c). The samples are then evaluated into a BRDF, which is re-rendered using the jointly optimized illumination in d).">
+&lt;img data-src="https://markboss.me/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_2000x2000_fit_q80_lanczos.jpg" class="lazyload" alt="" width="960" height="540">
+&lt;/a>
+&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+Steps of the query process. In a) the volume is constructed by tracing rays from each camera into the scene. Then samples are placed along with the rays in b), and based on the density at each sampling point, additional samples are placed in c). The samples are then evaluated into a BRDF, which is re-rendered using the jointly optimized illumination in d).
+&lt;/figcaption>
+&lt;/figure>
+&lt;p>Inspired by NeRF the method uses two MLPs, which encode the each position in the volume $\textbf{x} = (x,y,z)$ to a volume density $\sigma$ and a color or BRDF parameters. &lt;a href="#figure-steps-of-the-query-process-in-a-the-volume-is-consturcted-by-tracing-rays-from-each-camera-into-the-scene-then-samples-are-placed-along-the-rays-in-b-and-based-on-the-density-at-each-sampling-point-additional-samples-are-placed-in-c-the-samples-are-then-evaluated-into-a-brdf-which-is-re-rendered-using-the-jointly-optimized-illumination-in-d">Figure 1&lt;/a> shows an overview of this optimization process.&lt;/p>
+&lt;!-- Similar to NeRF, two networks are trained in conjunction. A training and inference step consists of first creating a rough sampling pattern using our *sampling network*, which learns the object's rough shape. Samp -->
+&lt;!--
+&lt;figure id="figure-overview-of-the-sampling-network">
+&lt;a data-fancybox="" href="https://markboss.me/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_2000x2000_fit_q80_lanczos.jpg" data-caption="Overview of the sampling network.">
+&lt;img data-src="https://markboss.me/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_2000x2000_fit_q80_lanczos.jpg" class="lazyload" alt="" width="712" height="340">
+&lt;/a>
+&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+Overview of the sampling network.
+&lt;/figcaption>
+&lt;/figure>
+&lt;figure id="figure-overview-of-the-decomposition-network">
+&lt;a data-fancybox="" href="https://markboss.me/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_2000x2000_fit_q80_lanczos.jpg" data-caption="Overview of the decomposition network.">
+&lt;img data-src="https://markboss.me/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_2000x2000_fit_q80_lanczos.jpg" class="lazyload" alt="" width="1055" height="482">
+&lt;/a>
+&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+Overview of the decomposition network.
+&lt;/figcaption>
+&lt;/figure>
+-->
+&lt;!--
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe src="https://www.youtube.com/embed/CyC6PutoJO8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
+&lt;/div>
+-->
+&lt;h3 id="results">Results&lt;/h3>
+&lt;div class="alert alert-note">
+&lt;div>
+Click the images for an interactive 3D visualization.
+&lt;/div>
+&lt;/div>
+&lt;h4 id="real-world">Real-world&lt;/h4>
+&lt;div class="gallery">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=gnome" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/gnome/input.jpg" alt="">
+&lt;/a>
+&lt;/div>
+&lt;h5 id="synthetic-examples">Synthetic Examples&lt;/h5>
+&lt;div class="gallery">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=car" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/car/input.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=chair" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/chair/input.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=globe" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/globe/input.jpg" alt="">
+&lt;/a>
+&lt;/div>
+&lt;!-- ### Copyright
+This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item><item><title>Two-shot Spatially-varying BRDF and Shape Estimation</title><link>https://markboss.me/publication/cvpr20-two-shot-brdf/</link><pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/cvpr20-two-shot-brdf/</guid><description>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/CyC6PutoJO8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
 &lt;/div>
