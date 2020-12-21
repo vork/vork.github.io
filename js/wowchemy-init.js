@@ -1,5 +1,6 @@
 (() => {
-  // ns-hugo:/tmp/hugo_cache/modules/filecache/modules/pkg/mod/github.com/wowchemy/wowchemy-hugo-modules/wowchemy@v0.0.0-20201211023654-f6090cd7e55d/assets/js/wowchemy-theming.js
+  // ns-hugo:/tmp/hugo_cache/modules/filecache/modules/pkg/mod/github.com/wowchemy/wowchemy-hugo-modules/wowchemy@v0.0.0-20201221153245-e47738df5972/assets/js/wowchemy-theming.js
+  const body = document.body;
   function getThemeMode() {
     return parseInt(localStorage.getItem("wcTheme") || 2);
   }
@@ -8,7 +9,10 @@
   }
   function initThemeVariation() {
     if (!canChangeTheme()) {
-      return;
+      return {
+        isDarkTheme: window.wc.isSiteThemeDark,
+        themeMode: window.wc.isSiteThemeDark ? 1 : 0
+      };
     }
     let currentThemeMode = getThemeMode();
     let isDarkTheme;
@@ -29,11 +33,17 @@
         }
         break;
     }
-    if (isDarkTheme) {
+    if (isDarkTheme && !body.classList.contains("dark")) {
+      console.debug("Applying Wowchemy dark theme");
       document.body.classList.add("dark");
-    } else {
+    } else if (body.classList.contains("dark")) {
+      console.debug("Applying Wowchemy light theme");
       document.body.classList.remove("dark");
     }
+    return {
+      isDarkTheme,
+      themeMode: currentThemeMode
+    };
   }
 
   // ns-params:@params
