@@ -75,7 +75,8 @@ Click the images for an interactive 3D visualization.
 &lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/goldcape/input.jpg" alt="">
 &lt;/a>
 &lt;/div>
-&lt;h4 id="real-world-from-image-collections">Real-world from Image Collections&lt;/h4>
+&lt;h4 id="real-world-preliminary-in-the-wild">Real-world (Preliminary in the wild)&lt;/h4>
+&lt;p>The images from the Statue of Liberty are collected from Flickr, Unsplash, Youtube and Vimeo videos. In total about 120 images are used for training from various phones, cameras and drones. Overall even the COLMAP registration is not perfect due to the simplistic shared camera model.&lt;/p>
 &lt;div class="gallery">
 &lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=statue" href="javascript:;">
 &lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/statue/input.jpg" alt="">
