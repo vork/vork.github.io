@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>ML on Graphics - Inverse Rendering</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/tuebingen.css" id="theme">
+		<link rel="stylesheet" href="dist/grid.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<header id="header">
+				<div class="header_item left_header_item">
+					<img class="plain" src="/files/logos/uni_tuebingen.svg" style="width: 100%; max-width: 200px; " />
+				</div>
+			</header>
+			<div class="slides">
+				<section>
+					<iframe data-src="/files/brdf_viz/brdf_eval.html?rngesus=1" style="top: 0; left: 0; right: 0; width: 100%;
+						    height: 40vh;" data-preload></iframe>
+					<h3 class="emph">ML on Graphics - Inverse Rendering</h3>
+					<p style="margin-bottom: 5px; font-size: 0.5em; font-variant: petite-caps;">Mark Boss, Hendrik Lensch</p>
+				</section>
+
+				<section>
+					<h3>Rendering Equation</h3>
+
+					<div class="row">
+						<div class="column">
+							<p class="fragment" data-fragment-index="1">$$
+								\definecolor{out}{RGB}{219,135,217}
+								\definecolor{emit}{RGB}{125,194,103}
+								\definecolor{int}{RGB}{127,151,236}
+								\definecolor{in}{RGB}{225,145,83}
+								\definecolor{brdf}{RGB}{0,202,207}
+								\definecolor{ndl}{RGB}{235,120,152}
+
+								\color{out}L_{o}({\mathbf x},\,\omega_{o})\color{black}\,=
+								\,\color{emit}L_{e}({\mathbf x},\,\omega_{o})
+								\color{white} + \\ \color{int}\int_{\Omega }
+								\color{brdf}f_{r}({\mathbf x},\,\omega_{i},\,\omega_{o}) \\
+								\color{in}L_{i}({\mathbf x},\,\omega_{i})\,
+								\color{ndl}(\omega_{i}\,\cdot\,{\mathbf n})\,
+								\color{int}\operatorname d\omega_{i}$$
+							</p>
+						</div>
+						<div class="column">
+							<svg width="100%" height="100%" viewBox="0 0 135 100" version="1.1"
+								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+								xml:space="preserve" xmlns:serif="http://www.serif.com/"
+								style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:15;">
+								<g id="RenderingEquation">
+									<g class="fragment" data-fragment-index="3" id="Integral">
+										<path
+											d="M116.184,69.201c0,0 -2.259,12.188 -49.043,12.188c-46.785,0 -49.044,-12.048 -49.044,-12.048c0,-27.068 21.975,-49.044 49.044,-49.044c27.068,0 49.043,21.836 49.043,48.904Z"
+											style="fill:none;stroke:#5eb2ff;stroke-width:2.4px;" />
+										<ellipse cx="67.141" cy="69.201" rx="49.044" ry="12.188"
+											style="fill:none;stroke:#5eb2ff;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;stroke-dasharray:2.2,6.6,0,0;" />
+									</g>
+									<g class="fragment" data-fragment-index="4" id="Li">
+										<path
+											d="M57.117,64.276l5.494,4.925l-7.237,1.44c2.027,-1.155 2.899,-4.338 1.743,-6.365Z"
+											style="fill:#ff9d46;" />
+										<path d="M25.115,58.936c0,0 22.153,6.065 32.404,8.871"
+											style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+										<path
+											d="M63.245,58.303l1.163,7.286l-6.527,-3.44c2.302,0.379 4.984,-1.544 5.364,-3.846Z"
+											style="fill:#ff9d46;" />
+										<path d="M41.795,34.05c0,0 13.352,18.623 19.537,27.248"
+											style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+										<path
+											d="M78.683,71.496l-7.013,-2.295l6.043,-4.234c-1.389,1.875 -0.904,5.139 0.97,6.529Z"
+											style="fill:#ff9d46;" />
+										<path d="M110.386,63.451c0,0 -22.925,3.405 -33.493,4.974"
+											style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+									</g>
+									<path class="fragment" data-fragment-index="5" id="Brdf"
+										d="M82.214,34.634c11.767,-16.324 24.197,-27.503 27.739,-24.95c3.543,2.554 -3.135,17.88 -14.902,34.204c-11.768,16.324 -24.198,27.503 -27.74,24.95c-3.543,-2.554 3.135,-17.88 14.903,-34.204Z"
+										style="fill:none;stroke:#00ffe6;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+									<path class="fragment" data-fragment-index="6" id="dot"
+										d="M63.981,32.396l3.33,-6.585l3.27,6.615c-1.643,-1.657 -4.942,-1.672 -6.6,-0.03Z"
+										style="fill:#ff79ba;" />
+									<path class="fragment" data-fragment-index="6"
+										d="M67.141,63.551c0,0 0.099,-22.076 0.146,-32.46"
+										style="fill:none;stroke:#ff79ba;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+									<g class="fragment" data-fragment-index="2" id="Le">
+										<path
+											d="M33.977,53.139l-3.928,-6.247l7.354,0.606c-2.267,0.554 -3.98,3.374 -3.426,5.641Z"
+											style="fill:#89d73d;" />
+										<path d="M62.25,66.451c0,0 -18.825,-11.434 -27.688,-16.818"
+											style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+										<path
+											d="M84.862,36.75l6.475,-3.537l-1.055,7.303c-0.414,-2.297 -3.124,-4.179 -5.42,-3.766Z"
+											style="fill:#89d73d;" />
+										<path d="M69.774,64.254c0,0 12.62,-18.167 18.551,-26.705"
+											style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+										<path
+											d="M98.01,49.166l7.376,-0.224l-4.246,6.035c0.67,-2.235 -0.895,-5.14 -3.13,-5.811Z"
+											style="fill:#89d73d;" />
+										<path d="M72.24,66.793c0,0 19.373,-10.433 28.497,-15.347"
+											style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+									</g>
+									<path class="fragment" data-fragment-index="1" id="Out"
+										d="M103.753,12.604l6.633,-3.234l-1.392,7.247c-0.307,-2.313 -2.927,-4.32 -5.241,-4.013Z"
+										style="fill:#fc90ff;" />
+									<path class="fragment" data-fragment-index="1"
+										d="M95.903,28.285c0,0 7.006,-9.151 11.273,-14.722"
+										style="fill:none;stroke:#fc90ff;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+									<circle class="fragment" data-fragment-index="1" cx="67.141" cy="69.201" r="2.356"
+										style="fill:#e80013;" />
+								</g>
+							</svg>
+						</div>
+					</div>
+
+					<ul style="list-style: none; font-size:24px;">
+						<li class="fragment" data-fragment-index="1"><span style="color: #db87d9">Light directed towards
+								the viewer for a specific
+								points is.</li></span>
+						<li class="fragment" data-fragment-index="2"><span style="color: #7dc267">the light from own
+								emission</span></li>
+						<li class="fragment" data-fragment-index="3"><span style="color: #7f97ec">plus the integral over
+								the hemisphere</span></li>
+						<li class="fragment" data-fragment-index="4"><span style="color: #e19153">of the incoming
+								light</span></li>
+						<li class="fragment" data-fragment-index="5"><span style="color: #00cacf">multiplied by the
+								chance of rays bouncing towards the viewer</span></li>
+						<li class="fragment" data-fragment-index="6"><span style="color: #eb7898">and an irradiance
+								factor due to the normal direction.</span></li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Inverse Rendering</h3>
+
+					<div class="row">
+						<div class="double-column">
+							<ul>
+								<li>Ambigious problem</li>
+								<li>Workshop metaphor</li>
+							</ul>
+							<p style="font-size: 0.5em;"><a href="https://dl.acm.org/doi/10.5555/239481.239494">[Adelson et al. - The perception of shading and reflectance]</a></p>
+						</div>
+						<div class="column">
+							<img src="/files/slides/ml-on-graphics-inverse-rendering/workshop-metaphor/Image.jpg" />
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>Inverse Rendering</h3>
+
+					<div class="row">
+						<div class="column fragment">
+							<img src="/files/slides/ml-on-graphics-inverse-rendering/workshop-metaphor/Painter.jpg" />
+							<p>Painter's Solution</p>
+						</div>
+						<div class="column fragment">
+							<img src="/files/slides/ml-on-graphics-inverse-rendering/workshop-metaphor/Sculptor.jpg" />
+							<p>Sculptor's Solution</p>
+						</div>
+						<div class="column fragment">
+							<img src="/files/slides/ml-on-graphics-inverse-rendering/workshop-metaphor/Gaffer.jpg" />
+							<p>Gaffer's Solution</p>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>My Research on Inverse Rendering</h3>
+
+					<small>
+					<ul>
+						<li><a href="https://markboss.me/publication/single-image-brdf-parameter-estimation-with-conditional-adversarial-network/">
+							Mark Boss, Hendrik P. A. Lensch - Single Image BRDF Parameter Estimation with a Conditional Adversarial Network</a>
+						</li>
+						<li>
+							<a href="https://markboss.me/publication/cvpr20-two-shot-brdf/">
+								Mark Boss, Varun Jampani, Kihwan Kim, Hendrik P. A. Lensch, Jan Kautz - Two-shot Spatially-varying BRDF and Shape Estimation</a>
+						</li>
+						<li>
+							<b><a href="https://markboss.me/publication/2021-nerd/">
+								Mark Boss, Raphael Braun, Varun Jampani, Jonathan T. Barron, Ce Liu, Hendrik P. A. Lensch - NeRD: Neural Reflectance Decomposition from Image Collections</a></b>
+						</li>
+					</ul>
+					</small>
+				</section>
+
+				<section>
+					<h3>NeRD - Neural Reflectance Decomposition from Image Collections</h3>
+
+					<div class="row">
+						<div class="column">
+							<img src="/files/slides/ml-on-graphics-inverse-rendering/gnome-montage-dataset.jpg"/>
+							<p style="max-width: 95%;">NeRD converts a collection of images to a textured and relightable 3D model.</p>
+						</div>
+						<div class="column">
+							<iframe style="min-height: 100%;" data-src="/files/nerd-results/render.html?scene=gnome" data-preload></iframe>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>NeRF - Representing Scenes as Neural Radiance Fields for View Synthesis</h3>
+
+					<img src="/files/slides/ml-on-graphics-inverse-rendering/NeRF.png"/>
+					<ul>
+						<li>NeRF constructs a neural volume in simple MLPs based on x, y, z coordinates</li>
+						<li>Each position encodes a color and a density, which can be composed by volume tracing.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Downsides of NeRF</h3>
+
+					<ul>
+						<li>Results can not be relighted</li>
+						<li>Only works for images captured in a single session</li>
+						<li>Long inference times of 30 seconds per image</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Adaptation to NeRD</h3>
+
+					<img style="max-height: 35vh;" src="/files/slides/ml-on-graphics-inverse-rendering/nerd-teaser.jpg"/>
+
+					<ul style="font-size: 80%;">
+						<li>NeRD stores material parameters instead of colors</li>
+						<li>The illumination has a explicit representation (varying or fixed per scene)</li>
+						<li>The geometry and material properties can be extracted</li>
+						<li>Real-time rendering of novel views and illuminations is now possible</li>
+					</ul>
+					
+				</section>
+
+				<section>
+					<h3>Future directions</h3>
+
+					<ul>
+						<li>Decomposing entire scenes (not only objects)</li>
+						<li>Complex materials, i.e. glass or brushed metal</li>
+						<li>Deep priors to reduce train time</li>
+					</ul>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				math: {
+					mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+					config: 'TeX-AMS_HTML-full',
+					TeX: {
+						extensions: ["color.js"]
+					}
+				},
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealMath, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
