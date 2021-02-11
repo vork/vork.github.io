@@ -242,6 +242,36 @@
 				</section>
 
 				<section>
+					<h3>Overview</h3>
+
+					<div class="row">
+						<div class="column" style="justify-content: flex-end;">
+							<img src="/files/slides/ml-on-graphics-inverse-rendering/sampling_network.png"/>
+						</div>
+						<div class="column" style="justify-content: flex-end;">
+							<img src="/files/slides/ml-on-graphics-inverse-rendering/decomposition_network.png"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="column">
+							<h5>Sampling Network</h5>
+							<ul style="max-width: 90%; font-size: 80%;">
+								<li>Learns the coarse geometry</li>
+								<li>Knowledge used to place samples where surface lies</li>
+							</ul>
+						</div>
+						<div class="column">
+							<h5>Decomposition Network</h5>
+							<ul style="max-width: 90%; font-size: 80%;">
+								<li>Decomposition into BRDF, geometry and illumination</li>
+								<li>Uses coarse sampling locations and additional ones in high density areas</li>
+							</ul>
+						</div>
+					</div>
+
+				</section>
+
+				<section>
 					<h3>Future directions</h3>
 
 					<ul>
