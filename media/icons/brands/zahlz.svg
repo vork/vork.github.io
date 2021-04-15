@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 444 444" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <rect x="0" y="0" width="444" height="444" style="fill:white;"/>
+    <g transform="matrix(10.3523,0,0,10.7664,-992.754,-4029.22)">
+        <text x="102.921px" y="413.915px" style="font-family:'SFOldRepublic', 'SF Old Republic';font-size:12px;fill:rgb(0,175,255);">z<tspan x="108.648px 115.988px 122.829px 125.469px " y="413.915px 413.915px 413.915px 413.915px ">ahlz</tspan></text>
+    </g>
+    <g transform="matrix(1.24678,0,0,1.24678,-110.082,-122.392)">
+        <path d="M265.5,111C328.142,111 379,161.858 379,224.5C379,287.142 328.142,338 265.5,338C202.858,338 152,287.142 152,224.5C152,161.858 202.858,111 265.5,111ZM265.5,120.221C323.053,120.221 369.779,166.947 369.779,224.5C369.779,282.053 323.053,328.779 265.5,328.779C207.947,328.779 161.221,282.053 161.221,224.5C161.221,166.947 207.947,120.221 265.5,120.221Z" style="fill:rgb(0,175,255);"/>
+    </g>
+</svg>
