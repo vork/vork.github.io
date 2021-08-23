@@ -1,6 +1,6 @@
 {
-    "latestVersion": "0.1",
-    "latestVersionCode": 1,
+    "latestVersion": "0.2",
+    "latestVersionCode": 2,
     "url": "https://markboss.me/files/tlcyzer/tlcyzer.apk",
     "releaseNotes": [
       "- Fix crashes if blobs are set outside of the image"
