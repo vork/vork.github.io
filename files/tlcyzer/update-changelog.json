@@ -1,8 +1,10 @@
 {
-    "latestVersion": "0.2",
-    "latestVersionCode": 2,
+    "latestVersion": "0.3",
+    "latestVersionCode": 3,
     "url": "https://markboss.me/files/tlcyzer/app-debug.apk",
     "releaseNotes": [
-      "- Fix crashes if blobs are set outside of the image"
+      "- Fixes deleting items after a delete was triggered.",
+      "- The issue is also fixed for sharing.",
+      "- Selecting items now does not require hitting the checkboxes and can be canceld by longpressing the items again."
     ]
   }
