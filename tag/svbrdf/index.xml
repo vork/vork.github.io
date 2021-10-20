@@ -1,4 +1,56 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SVBRDF | Mark Boss</title><link>https://markboss.me/tag/svbrdf/</link><atom:link href="https://markboss.me/tag/svbrdf/index.xml" rel="self" type="application/rss+xml"/><description>SVBRDF</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 27 Nov 2020 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_2.png</url><title>SVBRDF</title><link>https://markboss.me/tag/svbrdf/</link></image><item><title>NeRD: Neural Reflectance Decomposition from Image Collections</title><link>https://markboss.me/publication/2021-nerd/</link><pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-nerd/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SVBRDF | Mark Boss</title><link>https://markboss.me/tag/svbrdf/</link><atom:link href="https://markboss.me/tag/svbrdf/index.xml" rel="self" type="application/rss+xml"/><description>SVBRDF</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 19 Oct 2021 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_2.png</url><title>SVBRDF</title><link>https://markboss.me/tag/svbrdf/</link></image><item><title>Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition</title><link>https://markboss.me/publication/2021-neural-pil/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-neural-pil/</guid><description>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe src="https://www.youtube.com/embed/AsdAR5u3vQ8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
+&lt;/div>
+&lt;h3 id="introduction">Introduction&lt;/h3>
+&lt;p>Besides the general &lt;a href="https://dellaert.github.io/NeRF/" target="_blank" rel="noopener">NeRF Explosion&lt;/a> of 2020, a subfield of introducing explicit material representations in to neural volume representation emerged with papers such as &lt;a href="https://markboss.me/publication/2021-nerd/">NeRD&lt;/a>, &lt;a href="https://pratulsrinivasan.github.io/nerv/" target="_blank" rel="noopener">NeRV&lt;/a>, &lt;a href="https://arxiv.org/abs/2008.03824" target="_blank" rel="noopener">Neural Reflectance Fields for Appearance Acquisition&lt;/a>, &lt;a href="https://kai-46.github.io/PhySG-website/" target="_blank" rel="noopener">PhySG&lt;/a> or &lt;a href="https://people.csail.mit.edu/xiuming/projects/nerfactor/" target="_blank" rel="noopener">NeRFactor&lt;/a>. The way illumination is represented varies drastically between the methods. Either the methods focus on single-point lights such as in &lt;a href="https://arxiv.org/abs/2008.03824" target="_blank" rel="noopener">Neural Reflectance Fields for Appearance Acquisition&lt;/a>, it is assumed to be known (NeRV), it is extracted from a trained NeRF as an illumination map (NeRFactor), or it is represented as Spherical Gaussians (NeRD and PhySG). It is also worth pointing out that nearly all methods focus on a single illumination per scene, except NeRD.&lt;/p>
+&lt;p>While NeRD enabled decomposition from multiple views under different illumination, SGs only allowed for rather diffuse illuminations. Inspired from &lt;a href="https://cdn2.unrealengine.com/Resources/files/2013SiggraphPresentationsNotes-26915738.pdf" target="_blank" rel="noopener">Pre-integrated Lighting&lt;/a> from real-time rendering, we transfer this concept to a neural network, which handles the integration and can represent illuminations from a manifold of natural illuminations.&lt;/p>
+&lt;h2 id="method">Method&lt;/h2>
+&lt;figure id="figure-the-neural-pil-architecture">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="The Neural-PIL architecture." srcset="
+/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_c412149258908da14fc71b792ae359aa.jpg 400w,
+/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_18d6c73f63294850bb923329f5b1c6d0.jpg 760w,
+/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_1200x1200_fit_q80_lanczos.jpg 1200w"
+src="https://markboss.me/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_c412149258908da14fc71b792ae359aa.jpg"
+width="375"
+height="253"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+The Neural-PIL architecture.
+&lt;/figcaption>&lt;/figure>
+&lt;p>In &lt;a href="#figure-the-neural-pil-architecture">&lt;strong>FIGURE 1&lt;/strong>&lt;/a> visualizes the Neural-PIL architecture, which is inspired by &lt;a href="https://marcoamonteiro.github.io/pi-GAN-website/" target="_blank" rel="noopener">pi-GAN&lt;/a>. As seen, the mapping networks are used on the embedding $z^l$, which describes the general content of the environment map and the roughness $b_r$, which defines how rough and therefore how blurry the environment should be.&lt;/p>
+&lt;figure id="figure-pre-integrated-lighting-visualzed">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Pre-integrated Lighting visualzed." srcset="
+/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_a1cebbbe4111cb6ecac812e80b919d61.jpg 400w,
+/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_cb2dee979f9e232c67888ef0f1517bcc.jpg 760w,
+/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_1200x1200_fit_q80_lanczos.jpg 1200w"
+src="https://markboss.me/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_a1cebbbe4111cb6ecac812e80b919d61.jpg"
+width="760"
+height="108"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+Pre-integrated Lighting visualzed.
+&lt;/figcaption>&lt;/figure>
+&lt;p>Visually this can be seen in &lt;a href="#figure-pre-integrated-lighting-visualzed">&lt;strong>FIGURE 2&lt;/strong>&lt;/a>. If the BRDF, shown on the left for each pair, becomes rougher, the illuminations from a larger area get integrated. The result is a blurrier environment map.&lt;/p>
+&lt;p>As a joint decomposition of illumination, shape, and appearance is a challenging, ill-posed task, we introduce priors to the BRDF and illumination. The illumination should only lie on a smooth manifold of natural illumination and the BRDF on possible materials. Here, we introduce a Smooth Manifold Auto-Encoder (SMAE).&lt;/p>
+&lt;figure id="figure-smooth-manifold-auto-encoder">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Smooth-Manifold-Auto-Encoder." srcset="
+/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_46c9204db72042a8ed75dc1280e0dfa4.jpg 400w,
+/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_2fdd046ceef4b4b18ce58ccf1eb8a884.jpg 760w,
+/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_1200x1200_fit_q80_lanczos.jpg 1200w"
+src="https://markboss.me/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_46c9204db72042a8ed75dc1280e0dfa4.jpg"
+width="408"
+height="249"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+Smooth-Manifold-Auto-Encoder.
+&lt;/figcaption>&lt;/figure>
+&lt;p>Inspired by Berthelot et al. - &lt;a href="https://arxiv.org/abs/1807.07543" target="_blank" rel="noopener">Understanding and Improving Interpolation in Autoencoders via an Adversarial Regularizer&lt;/a>, we introduce the interpolation in latent space during training, we further introduce three additional losses which further aid in a smooth manifold formation. The smoothness loss encourages a smooth gradient w.r.t. to the interpolation factor and therefore achieves a smooth interpolation between two points in the latent space. The cyclic loss enforces that the encoder and decoder perform the same step by re-encoding the decoded interpolated embeddings and ensuring the re-encoded latent vectors are the same as the initial ones. Lastly, we add a discriminator trained on the examples from the dataset as real ones and the interpolated ones as fake and try to fool it with our interpolated embeddings. With these three losses, a smooth latent space is formed, which allows for an easy introduction in our framework, where the corresponding networks are frozen, and only the latent space is optimized.&lt;/p>
+&lt;!-- ### Copyright
+This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item><item><title>NeRD: Neural Reflectance Decomposition from Image Collections</title><link>https://markboss.me/publication/2021-nerd/</link><pubDate>Fri, 27 Nov 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-nerd/</guid><description>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/IM9OgMwHNTI" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
 &lt;/div>
