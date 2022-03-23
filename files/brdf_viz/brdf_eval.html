@@ -91,17 +91,17 @@
                 "const float scale = 0.45;\r\n" +
 
                 "float geometric_func(float vdh, float alpha) {\r\n" +
-                "    return (vdh * 2.0) / (vdh + (sqrt(alpha + (1.0 - alpha) * vdh * vdh)));\r\n" +
+                "    return (vdh * 2.0) / max(0.00001, vdh + (sqrt(max(0.00001, alpha + (1.0 - alpha) * vdh * vdh))));\r\n" +
                 "}\r\n" +
 
                 "float eval_brdf(vec3 li) {\r\n" +
                 "    vec3 n = vec3(0.0, 1.0, 0.0);\r\n" +
                 "    vec3 h = normalize(li + lo);\r\n" +
                 "    \r\n" +
-                "    float ndv = dot(n, lo);\r\n" +
-                "    float ndl = dot(n, li);\r\n" +
-                "    float ldh = dot(li, h);\r\n" +
-                "    float ndh = dot(n, h);\r\n" +
+                "    float ndv = clamp(dot(n, lo), 0.0, 1.0);\r\n" +
+                "    float ndl = clamp(dot(n, li), 0.0, 1.0);\r\n" +
+                "    float ldh = clamp(dot(li, h), 0.0, 1.0);\r\n" +
+                "    float ndh = clamp(dot(n, h), 0.0, 1.0);\r\n" +
                 "    \r\n" +
                 "    float diff = diffuse * ndv * REC_PI;\r\n" +
                 "    \r\n" +
@@ -109,7 +109,7 @@
                 "    float a2 = a * a;\r\n" +
                 "    \r\n" +
                 "    // Fresnel\r\n" +
-                "    float ct = 1.0 - ldh;\r\n" +
+                "    float ct = clamp(1.0 - ldh, 0.0, 1.0);\r\n" +
                 "    float ctsq = ct * ct;\r\n" +
                 "    float ct5 = ctsq * ctsq * ct;\r\n" +
                 "    float f = specular + (1.0 - specular) * ct5;\r\n" +
@@ -121,9 +121,9 @@
                 "    float denom = (ndh * ndh) * (a2 - 1.0) + 1.0;\r\n" +
                 "    float denom2 = denom * denom;\r\n" +
                 "    \r\n" +
-                "    float d = a2 / (PI * denom2);\r\n" +
+                "    float d = a2 / max(0.00001, PI * denom2);\r\n" +
                 "    \r\n" +
-                "    float spec = (f * g * d) / (4.0 * ndl);\r\n" +
+                "    float spec = (f * g * d) / max(0.00001, 4.0 * ndl);\r\n" +
                 "    \r\n" +
                 "    float brdf = diff + spec;\r\n" +
                 "    \r\n" +
@@ -244,7 +244,7 @@
                     });
 
                 if (!colorMapTexture) {
-                    var colorMapTexture = new BABYLON.Texture("JetColormap.png", scene);
+                    var colorMapTexture = new BABYLON.Texture("Cmap.png", scene);
                     colorMapTexture.wrapU = BABYLON.Texture.CLAMP_ADDRESSMODE;
                     colorMapTexture.wrapV = BABYLON.Texture.CLAMP_ADDRESSMODE;
                 }

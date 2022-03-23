@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Varun Jampani | Mark Boss</title><link>https://markboss.me/author/varun-jampani/</link><atom:link href="https://markboss.me/author/varun-jampani/index.xml" rel="self" type="application/rss+xml"/><description>Varun Jampani</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 19 Oct 2021 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_2.png</url><title>Varun Jampani</title><link>https://markboss.me/author/varun-jampani/</link></image><item><title>Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition</title><link>https://markboss.me/publication/2021-neural-pil/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-neural-pil/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Varun Jampani | Mark Boss</title><link>https://markboss.me/author/varun-jampani/</link><atom:link href="https://markboss.me/author/varun-jampani/index.xml" rel="self" type="application/rss+xml"/><description>Varun Jampani</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 19 Oct 2021 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_3.png</url><title>Varun Jampani</title><link>https://markboss.me/author/varun-jampani/</link></image><item><title>Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition</title><link>https://markboss.me/publication/2021-neural-pil/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-neural-pil/</guid><description>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/p5cKaNwVp4M" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
 &lt;/div>
@@ -9,10 +9,10 @@
 &lt;figure id="figure-the-neural-pil-architecture">
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="The Neural-PIL architecture." srcset="
-/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_c412149258908da14fc71b792ae359aa.jpg 400w,
-/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_18d6c73f63294850bb923329f5b1c6d0.jpg 760w,
-/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_1200x1200_fit_q80_lanczos.jpg 1200w"
-src="https://markboss.me/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_c412149258908da14fc71b792ae359aa.jpg"
+/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_f65ed7f0eae768f8d2fe04858fedb038.webp 400w,
+/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_c8d406d520e0d639062f4ba09d83e4b1.webp 760w,
+/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/publication/2021-neural-pil/NeuralPIL_hu4172eccdb630b879972ccb5c83230ade_17271_f65ed7f0eae768f8d2fe04858fedb038.webp"
 width="375"
 height="253"
 loading="lazy" data-zoomable />&lt;/div>
@@ -23,10 +23,10 @@ The Neural-PIL architecture.
 &lt;figure id="figure-pre-integrated-lighting-visualzed">
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Pre-integrated Lighting visualzed." srcset="
-/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_a1cebbbe4111cb6ecac812e80b919d61.jpg 400w,
-/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_cb2dee979f9e232c67888ef0f1517bcc.jpg 760w,
-/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_1200x1200_fit_q80_lanczos.jpg 1200w"
-src="https://markboss.me/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_a1cebbbe4111cb6ecac812e80b919d61.jpg"
+/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_9b482253ec45a6df9381bef693190cf0.webp 400w,
+/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_71abc23863cc4b37e7472a0d5c76b9fa.webp 760w,
+/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/publication/2021-neural-pil/PreintegratedIllumViz_hu8b613da489dbe18525fd7f969d376644_20971_9b482253ec45a6df9381bef693190cf0.webp"
 width="760"
 height="108"
 loading="lazy" data-zoomable />&lt;/div>
@@ -38,10 +38,10 @@ Pre-integrated Lighting visualzed.
 &lt;figure id="figure-smooth-manifold-auto-encoder">
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Smooth-Manifold-Auto-Encoder." srcset="
-/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_46c9204db72042a8ed75dc1280e0dfa4.jpg 400w,
-/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_2fdd046ceef4b4b18ce58ccf1eb8a884.jpg 760w,
-/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_1200x1200_fit_q80_lanczos.jpg 1200w"
-src="https://markboss.me/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_46c9204db72042a8ed75dc1280e0dfa4.jpg"
+/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_712e77003ea0bdb06796212f28cc6030.webp 400w,
+/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_ee450154c756a0c55d12b6eab27b418a.webp 760w,
+/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/publication/2021-neural-pil/SMAE_hu6144a3c158b55ef5327a5cd6fa3058f9_21047_712e77003ea0bdb06796212f28cc6030.webp"
 width="408"
 height="249"
 loading="lazy" data-zoomable />&lt;/div>
@@ -68,10 +68,10 @@ Where $\Gamma$ defines the parameters for the SGs, $\rho_d$ defines the evaluati
 &lt;figure id="figure-steps-of-the-query-process-in-a-the-volume-is-constructed-by-tracing-rays-from-each-camera-into-the-scene-then-samples-are-placed-along-with-the-rays-in-b-and-based-on-the-density-at-each-sampling-point-additional-samples-are-placed-in-c-the-samples-are-then-evaluated-into-a-brdf-which-is-re-rendered-using-the-jointly-optimized-illumination-in-d">
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Steps of the query process. In a) the volume is constructed by tracing rays from each camera into the scene. Then samples are placed along with the rays in b), and based on the density at each sampling point, additional samples are placed in c). The samples are then evaluated into a BRDF, which is re-rendered using the jointly optimized illumination in d)." srcset="
-/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_e404f3516a023f9d09d675e3263fbfb2.jpg 400w,
-/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_ca38656784becfcb4a8a388f026ddd6f.jpg 760w,
-/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_1200x1200_fit_q80_lanczos.jpg 1200w"
-src="https://markboss.me/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_e404f3516a023f9d09d675e3263fbfb2.jpg"
+/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_1bbd1c3ac16b86cda9f44a5e77471f36.webp 400w,
+/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_49a191e91129f1c86af0cceaab5489f7.webp 760w,
+/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/publication/2021-nerd/methodoverview_hu30910665284931ace4f57faa1e01d828_73318_1bbd1c3ac16b86cda9f44a5e77471f36.webp"
 width="760"
 height="428"
 loading="lazy" data-zoomable />&lt;/div>
@@ -84,10 +84,10 @@ Steps of the query process. In a) the volume is constructed by tracing rays from
 &lt;figure id="figure-overview-of-the-sampling-network">
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Overview of the sampling network." srcset="
-/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_b591bfd34db8cd2be2e838969388dedc.jpg 400w,
-/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_07efd09cdd09594000a744e1d9f09d0e.jpg 760w,
-/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_1200x1200_fit_q80_lanczos.jpg 1200w"
-src="https://markboss.me/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_b591bfd34db8cd2be2e838969388dedc.jpg"
+/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_35d1538a7833f8bc008f37225f81cbca.webp 400w,
+/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_58e3423051f5c144464c778a5662a18d.webp 760w,
+/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/publication/2021-nerd/sampling_hu196f0511f68819ecb55f8ee2b8043621_32888_35d1538a7833f8bc008f37225f81cbca.webp"
 width="712"
 height="340"
 loading="lazy" data-zoomable />&lt;/div>
@@ -97,10 +97,10 @@ Overview of the sampling network.
 &lt;figure id="figure-overview-of-the-decomposition-network">
 &lt;div class="d-flex justify-content-center">
 &lt;div class="w-100" >&lt;img alt="Overview of the decomposition network." srcset="
-/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_a9a62b2101aec959f32e423ac5a98619.jpg 400w,
-/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_e011d515e47f32ecdc1a19db25a706a2.jpg 760w,
-/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_1200x1200_fit_q80_lanczos.jpg 1200w"
-src="https://markboss.me/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_a9a62b2101aec959f32e423ac5a98619.jpg"
+/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_23296c69e2599015e5425e33d6db0bfb.webp 400w,
+/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_a1c6d74b033f6ca373eefbf110124f8a.webp 760w,
+/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/publication/2021-nerd/decomposition_huf360bbca0ddfda6b4bca5b3617a09fb5_64813_23296c69e2599015e5425e33d6db0bfb.webp"
 width="760"
 height="347"
 loading="lazy" data-zoomable />&lt;/div>
