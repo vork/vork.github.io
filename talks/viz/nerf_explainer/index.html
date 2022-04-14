@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>NeRF Explainer</title>
+		<style>
+			body { margin: 0; }
+
+            .steps {
+                position: absolute;
+                top: 2vh;
+                left: 5vw;
+                right: 5vw;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                background-color: #009688;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                min-width: 10em; 
+            }
+            button:hover {
+                background-color: #42CFC1;
+            }
+
+            button:disabled,
+            button[disabled]{
+                background-color: #4A5755;
+            }
+
+		</style>
+	</head>
+	<body>
+        <div class="steps">
+            <button type="button" class="btn" id="cast">Cast Rays</button>
+            <button type="button" class="btn" id="crs_sample">Coarse Sample</button>
+            <button type="button" class="btn" id="crs_compose">Compose</button>
+            <button type="button" class="btn" id="distribute">Distribute</button>
+            <button type="button" class="btn" id="fn_sample">Fine Sample</button>
+            <button type="button" class="btn" id="fn_compose">Compose</button>
+            <button type="button" class="btn" id="reset">Reset</button>
+        </div>
+        <div id="container"></div>
+
+        <script src="https://unpkg.com/xstate@4.30.6/dist/xstate.js"></script>
+
+        <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.139.0/build/three.module.js",
+                "meshline": "https://unpkg.com/meshline@2.0.4/dist/meshline.es.js",
+                "gltf_loader": "https://unpkg.com/three@0.139.0/examples/jsm/loaders/GLTFLoader.js",
+                "orbit_control": "https://unpkg.com/three@0.139.0/examples/jsm/controls/OrbitControls.js",
+                "stats_module": "https://unpkg.com/three@0.139.0/examples/jsm/libs/stats.module.js",
+                "dat_gui": "https://unpkg.com/dat.gui@0.7.9/build/dat.gui.js",
+                "tweenjs": "https://unpkg.com/@tweenjs/tween.js@18.6.4/dist/tween.esm.js"
+            }
+        }
+        </script>
+
+        <script src="https://unpkg.com/xstate@4.30.6/lib/index.js"></script>
+
+        <script type="module" src="main.js">
+        </script>
+	</body>
+</html>

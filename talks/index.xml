@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Presentation</title>
+    <link>https://markboss.me/talks/</link>
+    <description>Recent content on Presentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://markboss.me/talks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Interview Presentation</title>
+      <link>https://markboss.me/talks/g_interview/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://markboss.me/talks/g_interview/</guid>
+      <description>Neural Reflectance DecompositionExtracting BRDF, shape, and illumination from imagesPresented ByMark BossPhD. Student  You found the speaker notes!   </description>
+    </item>
+    
+    <item>
+      <title>Phd. Defense</title>
+      <link>https://markboss.me/talks/phd_defense/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://markboss.me/talks/phd_defense/</guid>
+      <description>Neural Reflectance DecompositionExtracting BRDF, shape, and illumination from imagesPresented ByMark BossPhD. Student  You found the speaker notes!   </description>
+    </item>
+    
+  </channel>
+</rss>

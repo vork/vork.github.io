@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Illumination SMAE</title>
+        <style>
+            html,
+            body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            #WebGL-output {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container"></div>
+
+        <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.139.0/build/three.module.js",
+                "exr_loader": "https://unpkg.com/three@0.139.0/examples/jsm/loaders/EXRLoader.js",
+                "stats_module": "https://unpkg.com/three@0.139.0/examples/jsm/libs/stats.module.js",
+                "dat_gui": "https://unpkg.com/dat.gui@0.7.9/build/dat.gui.js"
+            }
+        }
+        </script>
+
+        <script src="../brdf_smae/dat.gui.js"></script>
+        <script src="../brdf_smae/tf.min.js"></script>
+
+        <link rel="stylesheet" href="../brdf_smae/datGui-presentation.css">
+
+        <script type="module" src="main.js">
+        </script>
+	</body>
+</html>

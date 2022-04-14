@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <title>Blending Test</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #WebGL-output {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+        .grid-container {
+            display: grid;
+            column-gap: 0px;
+            row-gap: 0px;
+            grid-template-columns: auto min(33vh, 33vw)  min(33vh, 33vw)  min(33vh, 33vw) auto;
+            grid-auto-rows: min(33vh, 33vw);
+            width: auto;
+            height: auto;
+        }
+        .grid-container div {
+            background-size: contain;
+            background-repeat: no-repeat;
+            max-width: 100%;
+            max-height: 100%
+        }
+
+        .canvas_container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        #WebGL-output {
+            position: absolute;
+        }
+
+        .circleBase {
+            border-radius: 50%;
+            behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+        }
+
+        #drag-1 {
+            width: 2em;
+            height: 2em;
+            background: #333;
+            border: 3px solid #222;
+            position: absolute;
+            touch-action: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <canvas id="WebGL-output" touch-action="none"></canvas> -->
+    <div class="grid-container">
+        <div class="grid-item"></div>
+        <div class="grid-item" id="img_top_left" style="background-position: right bottom"></div>
+        <div class="grid-item"></div>
+        <div class="grid-item" id="img_top_right" style="background-position: left bottom"></div>
+        <div class="grid-item"></div>
+
+        <div class="grid-item"></div>
+        <div class="grid-item"></div>
+        <div class="grid-item" touch-action="none">
+            <div class="canvas_container">
+                <canvas id="WebGL-output" touch-action="none"></canvas>
+                <div id="drag-1" class="draggable circleBase"></div>
+            </div>
+        </div>
+        <div class="grid-item"></div>
+        <div class="grid-item"></div>
+
+        <div class="grid-item"></div>
+        <div class="grid-item" id="img_bot_left" style="background-position: right top"></div>
+        <div class="grid-item"></div>
+        <div class="grid-item" id="img_bot_right" style="background-position: left top"></div>
+        <div class="grid-item"></div>
+
+    </div>
+    <script  id="vertex-shader-2d" type="x-shader/x-vertex">
+        attribute vec2 a_position;
+        attribute vec2 a_texCoord;
+        
+        uniform vec2 u_resolution;
+        
+        varying vec2 v_texCoord;
+        
+        void main() {
+           // convert the rectangle from pixels to 0.0 to 1.0
+           vec2 zeroToOne = a_position / u_resolution;
+        
+           // convert from 0->1 to 0->2
+           vec2 zeroToTwo = zeroToOne * 2.0;
+        
+           // convert from 0->2 to -1->+1 (clipspace)
+           vec2 clipSpace = zeroToTwo - 1.0;
+        
+           gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+        
+           // pass the texCoord to the fragment shader
+           // The GPU will interpolate this value between points.
+           v_texCoord = a_texCoord;
+        }
+    </script>
+    <script  id="fragment-shader-2d" type="x-shader/x-fragment">
+        precision mediump float;
+    
+        // our textures
+        uniform sampler2D u_image0;
+        uniform sampler2D u_image1;
+        uniform sampler2D u_image2;
+        uniform sampler2D u_image3;
+        
+        uniform vec2 blend_alpha;
+            
+        // the texCoords passed in from the vertex shader.
+        varying vec2 v_texCoord;
+            
+        void main() {
+            vec4 color0 = texture2D(u_image0, v_texCoord);
+            vec4 color1 = texture2D(u_image1, v_texCoord);
+            vec4 color2 = texture2D(u_image2, v_texCoord);
+            vec4 color3 = texture2D(u_image3, v_texCoord);
+        
+            float lr_blend = clamp(blend_alpha.x, 0.0, 1.0);
+            float tb_blend = clamp(blend_alpha.y, 0.0, 1.0);
+
+            vec4 xblend1 = color0 * (1.0 - lr_blend) + color1 * lr_blend;
+            vec4 xblend2 = color2 * (1.0 - lr_blend) + color3 * lr_blend;
+
+            gl_FragColor = xblend1 * (1.0 - tb_blend) + xblend2 * tb_blend;
+        }
+    </script>
+    <script src="webgl-utils.js"></script>
+    <script src="blend.js"  type="module"></script>
+</body>
+
+</html>
