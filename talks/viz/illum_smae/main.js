@@ -299,9 +299,9 @@ new EXRLoader().load("brdflut.exr", function (brdflut, brdflut_data) {
     fragmentShader: fragmentShader(),
   });
 
-  const CONDITIONAL = "/viz/illum_smae/conditional/model.json";
-  const MAPPING = "/viz/illum_smae/mapping/model.json";
-  const OUTPUT = "/viz/illum_smae/output/model.json";
+  const CONDITIONAL = "conditional/model.json";
+  const MAPPING = "mapping/model.json";
+  const OUTPUT = "output/model.json";
 
   const models = [
     setup_model(MAPPING),

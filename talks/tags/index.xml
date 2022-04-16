@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Presentation</title>
-    <link>https://markboss.me/talks/tags/</link>
+    <link>http://markboss.me/talks/tags/</link>
     <description>Recent content in Tags on Presentation</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://markboss.me/talks/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://markboss.me/talks/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

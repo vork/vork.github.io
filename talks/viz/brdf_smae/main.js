@@ -2,7 +2,7 @@ const mean = [0.06426890185123511, 0.09494116318799094, 0.2332199619523088, 2.38
 const std = [0.03009282929277891, 0.011115828710593561, 0.015823922071621217, 0.5211065446711474]
 
 async function setup_model() {
-    const MODEL_URL = '/viz/brdf_smae/model.json';
+    const MODEL_URL = 'network/model.json';
     const model = await tf.loadGraphModel(MODEL_URL);
     return model
 }
@@ -252,7 +252,7 @@ window.addEventListener('DOMContentLoaded', function () {
         light1.groundColor = new BABYLON.Color3(0, 0, 0);
         light1.excludedMeshes.push(plane, sphere);
 
-        BABYLON.SceneLoader.Append("/viz/nerf_explainer/", "Camera.glb", scene, function (scene) {
+        BABYLON.SceneLoader.Append("../nerf_explainer/", "Camera.glb", scene, function (scene) {
             // do something with the scene
             const geoms = scene.meshes
             const new_append = geoms[geoms.length - 1]
@@ -267,7 +267,7 @@ window.addEventListener('DOMContentLoaded', function () {
             console.log(new_append);
         });
 
-        BABYLON.SceneLoader.Append("/viz/infinite_distant_explainer/", "LightBulb.glb", scene, function (scene) {
+        BABYLON.SceneLoader.Append("../infinite_distant_explainer/", "LightBulb.glb", scene, function (scene) {
             // do something with the scene
             const geoms = scene.meshes
             const new_append = geoms[geoms.length - 1]
