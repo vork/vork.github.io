@@ -33,9 +33,9 @@ async function predict_values(model, values) {
 
 window.addEventListener('DOMContentLoaded', function () {
     var scene;
-    var sphere;
+    var sphere_interpol, sphere_left, sphere_right;
     var plane;
-    var material;
+    var material_interpol, material_left, material_right;
     var engine;
     var canvas;
     var shaderMaterial;
@@ -212,7 +212,9 @@ window.addEventListener('DOMContentLoaded', function () {
         shaderMaterial.backFaceCulling = true;
         plane.material = shaderMaterial;
 
-        material = new BABYLON.PBRSpecularGlossinessMaterial("pbr", scene);
+        material_interpol = new BABYLON.PBRSpecularGlossinessMaterial("pbr_interpol", scene);
+        material_left = new BABYLON.PBRSpecularGlossinessMaterial("pbr_left", scene);
+        material_right = new BABYLON.PBRSpecularGlossinessMaterial("pbr_right", scene);
         function run_predict_from_params() {
             const val1 = [matParam.embd1_1, matParam.embd1_2, matParam.embd1_3, matParam.embd1_4];
             const val2 = [matParam.embd2_1, matParam.embd2_2, matParam.embd2_3, matParam.embd2_4];
@@ -222,22 +224,54 @@ window.addEventListener('DOMContentLoaded', function () {
             })
 
             predict_values(brdf_model, interpol).then(params => {
-                material.diffuseColor = new BABYLON.Color3(...params[0]);
-                material.specularColor = new BABYLON.Color3(...params[1]);
-                material.glossiness = 1.0 - params[2];
+                material_interpol.diffuseColor = new BABYLON.Color3(...params[0]);
+                material_interpol.specularColor = new BABYLON.Color3(...params[1]);
+                material_interpol.glossiness = 1.0 - params[2];
 
                 setBrdf(new BABYLON.Color3(...params[0]), new BABYLON.Color3(...params[1]), params[2])
             })
         }
         run_predict_from_params()
 
-        sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {
+        function set_endpoints() {
+            const val1 = [matParam.embd1_1, matParam.embd1_2, matParam.embd1_3, matParam.embd1_4];
+            const val2 = [matParam.embd2_1, matParam.embd2_2, matParam.embd2_3, matParam.embd2_4];
+
+            predict_values(brdf_model, val2).then(params => {
+                material_left.diffuseColor = new BABYLON.Color3(...params[0]);
+                material_left.specularColor = new BABYLON.Color3(...params[1]);
+                material_left.glossiness = 1.0 - params[2];
+            })
+
+            predict_values(brdf_model, val1).then(params => {
+                material_right.diffuseColor = new BABYLON.Color3(...params[0]);
+                material_right.specularColor = new BABYLON.Color3(...params[1]);
+                material_right.glossiness = 1.0 - params[2];
+            })
+        }
+        set_endpoints()
+
+        sphere_interpol = BABYLON.MeshBuilder.CreateSphere("sphere_interpol", {
             diameter: 1
         }, scene);
-        sphere.material = material;
-        sphere.translate(BABYLON.Axis.Z, 0.5, BABYLON.Space.WORLD);
+        sphere_interpol.material = material_interpol;
+        sphere_interpol.translate(BABYLON.Axis.Z, 0.5, BABYLON.Space.WORLD);
 
-        light.includedOnlyMeshes.push(sphere)
+        sphere_left = BABYLON.MeshBuilder.CreateSphere("sphere_left", {
+            diameter: 1
+        }, scene);
+        sphere_left.material = material_left;
+        sphere_left.translate(BABYLON.Axis.Z, 1.0, BABYLON.Space.WORLD);
+        sphere_left.translate(BABYLON.Axis.X, -1.0, BABYLON.Space.WORLD);
+
+        sphere_right = BABYLON.MeshBuilder.CreateSphere("sphere_right", {
+            diameter: 1
+        }, scene);
+        sphere_right.material = material_right;
+        sphere_right.translate(BABYLON.Axis.Z, 1.0, BABYLON.Space.WORLD);
+        sphere_right.translate(BABYLON.Axis.X, 1.0, BABYLON.Space.WORLD);
+
+        light.includedOnlyMeshes.push(sphere_interpol, sphere_left, sphere_right)
 
         // Face the viewer
         plane.rotateAround(BABYLON.Vector3.Zero(), BABYLON.Vector3.Up(), Math.PI);
@@ -250,7 +284,7 @@ window.addEventListener('DOMContentLoaded', function () {
         light1.diffuse = new BABYLON.Color3(1, 1, 1);
         light1.specular = new BABYLON.Color3(1, 1, 1);
         light1.groundColor = new BABYLON.Color3(0, 0, 0);
-        light1.excludedMeshes.push(plane, sphere);
+        light1.excludedMeshes.push(plane, sphere_interpol, sphere_left, sphere_right);
 
         BABYLON.SceneLoader.Append("../nerf_explainer/", "Camera.glb", scene, function (scene) {
             // do something with the scene
@@ -314,6 +348,7 @@ window.addEventListener('DOMContentLoaded', function () {
             matParam.embd2_4 = Math.random() * 2 - 1;
 
             run_predict_from_params()
+            set_endpoints()
         }};
 
         gui.add(btn,'reroll').name("New Random");

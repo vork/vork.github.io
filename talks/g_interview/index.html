@@ -57,6 +57,49 @@
 
   
 
+    
+<section data-noprocess data-shortcode-slide
+      class="biography">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Biography</div>
+    </div>
+    <div class="content">
+        <div class="profile">
+    <div class="image">
+        <img src="../images/avatar.jpg">
+    </div>
+    <div class="details">
+        <h2>Profile</h2>
+        <p>Mark Boss is a Ph.D. student working under the supervision of Prof. Hendrik P. A. Lensch in the Computer Graphics Group at the University of Tübingen. His research interests lie at the intersection of machine learning and computer graphics. The main research question is how to perform inverse rendering on sparse and casual captured images.</p>
+    </div>
+    <div class="experience">
+        <div class="experience-wrapper">
+        <h2>Experience</h2>
+            <div class="experience-items">
+                <p class="position">Student Researcher</p>
+                <p class="company">Google</p>
+                <p class="time">June 2021 - April 2022
+            </div>
+            <div class="experience-items">
+                <p class="position">Research Intern</p>
+                <p class="company">Nvidia</p>
+                <p class="time">April 2019 - Juli 2019
+            </div>
+            <div class="experience-items">
+                <p class="position">Ph.D. Student</p>
+                <p class="company">University of Tübingen</p>
+                <p class="time">June 2018 - Juli 2022
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+</section>
     <section><div class="grid-wrapper">
     <div class="header">
         <div class="logo"></div>
@@ -370,7 +413,9 @@ L_{i}(\omega_{i})\,
     </div>
     <div class="content">
         
-            <div class="column"> <h2 id="plenoptic-function">Plenoptic function</h2>
+            <div class="column"> <p><video data-autoplay loop src="../images/per_scene_decomposition/trike_200k_rgb.mp4" style="width: 60%;
+object-fit: contain;"></video></p>
+<h2 id="plenoptic-function">Plenoptic function</h2>
 <ul>
 <li>Main use-case: novel view synthesis</li>
 <li>Learns the radiance</li>
@@ -378,7 +423,8 @@ L_{i}(\omega_{i})\,
 </ul>
  </div>
         
-            <div class="column"> <h2 id="intrinsic-image">Intrinsic image</h2>
+            <div class="column"> <img src="../images/inverse_rendering/intrinsic_images.jpg">
+<h2 id="intrinsic-image">Intrinsic image</h2>
 <ul>
 <li>Splits an image into layers:
 <ul>
@@ -392,7 +438,9 @@ L_{i}(\omega_{i})\,
 </ul>
  </div>
         
-            <div class="column"> <h2 id="full-decomposition">Full decomposition</h2>
+            <div class="column"> <p><video data-autoplay loop src="../images/per_scene_decomposition/neural_pil/chair.mp4" style="width: 45%;
+object-fit: contain;"></video></p>
+<h2 id="full-decomposition">Full decomposition</h2>
 <ul>
 <li>Decomposes the rendering equation</li>
 <li>Reflectance modelled as BRDF
@@ -563,18 +611,18 @@ L_{i}(\omega_{i})\,
 <h2 id="generalized-decomposition">Generalized decomposition</h2>
 <ul>
 <li>Models are trained on large synthetic, supervised datasets</li>
-<li>For novel scenes the pre-trained weights are only evaluated</li>
+<li>For novel objects the pre-trained weights are only evaluated</li>
 <li>The results are typically of lower quality</li>
 </ul>
 </div>
  </div>
         
             <div class="column"> <div class="fragment">
-<h2 id="per-scene-decomposition">Per-scene decomposition</h2>
+<h2 id="per-object-decomposition">Per-object decomposition</h2>
 <ul>
-<li>Network is trained on the scene without ground truth supervision</li>
-<li>The network is optimized per-scene</li>
-<li>Training and fine tuning to the scene allows for higher quality</li>
+<li>Network is trained on the object without ground truth supervision</li>
+<li>The network is optimized per-object</li>
+<li>Training and fine tuning to the object allows for higher quality</li>
 </ul>
 </div>
  </div>
@@ -593,7 +641,7 @@ L_{i}(\omega_{i})\,
     <h1> Generalized Decomposition</h1>
     <div class="description">
         
-Methods which do not require training per Scene
+Methods which do not require training per object
 
 
     </div>
@@ -697,6 +745,65 @@ Mark Boss, Varun Jampani, Kihwan Kim, Hendrik P. A. Lensch, Jan Kautz
 </figure>
 </div>
 
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Spherical Gaussians</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Spherical Gaussian (<em>SG</em>) have convenient properties</li>
+<li>Close-form solution exists for integration 2 SGs</li>
+<li>Product of 2 SGs is a SG</li>
+</ul>
+<div class="fragment" data-fragment-index="2">
+<br/><br/>
+<ul>
+<li>Represent illumination as SG</li>
+<li>Simpler differentiation
+<ul>
+<li>No sampling noise compared to Monte Carlo integration</li>
+</ul>
+</li>
+</ul>
+</div>
+ </div>
+        
+            <div class="column"> <div 
+    class="grid-column" style="
+        display: grid; 
+        width: 100%; height: 100%;
+        overflow: hidden;
+        place-content: space-evenly; 
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    300px,
+                    40vmin),
+                1fr
+            )
+        );;"
+>
+    <figure><img src="../images/per_scene_decomposition/nerd/polar1d_gaussian.jpg"/><figcaption>
+            <h4>Polar plot of 1D Gaussian</h4>
+        </figcaption>
+</figure>
+<div style="display: flex;
+  justify-content: flex-end;
+  flex-direction: column;" class="fragment" data-fragment-index="1">
+<figure><img src="../images/per_scene_decomposition/nerd/specular_lobe.jpg"/><figcaption>
+            <h4>Specular lobe of BRDF</h4>
+        </figcaption>
+</figure>
+</div>
+</div>
+ </div>
+        
     </div>
 </div>
 </section><section>
@@ -842,10 +949,10 @@ object-fit: contain;"></video>
     <div class="header">
         <div class="logo"></div>
     </div>
-    <h1> Per-Scene Decomposition</h1>
+    <h1> Per-Object Decomposition</h1>
     <div class="description">
         
-Methods which are optimized per scene
+Methods which are optimized per object
 
 
     </div>
@@ -893,9 +1000,10 @@ Methods which are optimized per scene
         
             <div class="column"> <ul>
 <li>Decompose the rendering equation into geometry, illumination &amp; reflectance</li>
-<li>Neural volume rendering (NeRF-style) used [1, 2, 3, 4, 5, 6, 7]</li>
-<li>Can be also used to decompose a trained NeRF model [5]</li>
-<li>Specialized methods exist which directly optimize assets [6]
+<li>Neural volume rendering (NeRF-style) used [1, 2, 3, 4]</li>
+<li>Can be also used to decompose a trained NeRF model [3]</li>
+<li>Specialized methods exist which directly optimize assets [4]</li>
+<li>Related works focus on single illumination per object
 <br/><br/></li>
 </ul>
 <div style="display: flex;
@@ -909,15 +1017,10 @@ Methods which are optimized per scene
 </div>
 </div>
 <div class="cite-area">
-    <small>
-<p>[1] Boss <em>et al.</em> - NeRD: Neural Reflectance Decomposition from Image Collections - 2021</p>
-<p>[2] Boss <em>et al.</em> - Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition - 2021</p>
-<p>[3] Zhang <em>et al.</em> - PhySG: Inverse Rendering with Spherical Gaussians for Physics-based Material Editing and Relighting - 2021</p>
-<p>[4] Srinivasan <em>et al.</em> - NeRV: Neural Reflectance and Visibility Fields for Relighting and View Synthesis - 2021</p>
-<p>[5] Zhang <em>et al.</em> - NeRFactor: Neural Factorization of Shape and Reflectance Under an Unknown Illumination - 2021</p>
-<p>[6] Munkberg <em>et al.</em> - Extracting Triangular 3D Models, Materials, and Lighting From Images - 2022</p>
-<p>[7] Kuang <em>et al.</em> - NeROIC: Neural Object Capture and Rendering from Online Image Collections - 2022</p>
-</small>
+    <p>[1] Zhang <em>et al.</em> - PhySG: Inverse Rendering with Spherical Gaussians for Physics-based Material Editing and Relighting - 2021</p>
+<p>[2] Srinivasan <em>et al.</em> - NeRV: Neural Reflectance and Visibility Fields for Relighting and View Synthesis - 2021</p>
+<p>[3] Zhang <em>et al.</em> - NeRFactor: Neural Factorization of Shape and Reflectance Under an Unknown Illumination - 2021</p>
+<p>[4] Munkberg <em>et al.</em> - Extracting Triangular 3D Models, Materials, and Lighting From Images - 2022</p>
 </div>
  </div>
         
@@ -1069,65 +1172,6 @@ Mark Boss, Raphael Braun, Varun Jampani, Jonathan T. Barron, Ce Liu, Hendrik P. 
             <h4>NeRD architecture</h4>
         </figcaption>
 </figure>
-</div>
- </div>
-        
-    </div>
-</div>
-</section><section>
-<div class="grid-wrapper">
-    <div class="header">
-        <div class="logo"></div>
-        <div class="section"> Spherical Gaussians</div>
-    </div>
-    <div class="content">
-        
-            <div class="column"> <ul>
-<li>Spherical Gaussian (<em>SG</em>) have convenient properties</li>
-<li>Close-form solution exists for integration 2 SGs</li>
-<li>Product of 2 SGs is a SG</li>
-</ul>
-<div class="fragment" data-fragment-index="2">
-<br/><br/>
-<ul>
-<li>Represent illumination as SG</li>
-<li>Simpler differentiation
-<ul>
-<li>No sampling noise compared to Monte Carlo integration</li>
-</ul>
-</li>
-</ul>
-</div>
- </div>
-        
-            <div class="column"> <div 
-    class="grid-column" style="
-        display: grid; 
-        width: 100%; height: 100%;
-        overflow: hidden;
-        place-content: space-evenly; 
-        grid-template-columns: repeat(
-            auto-fit, 
-            minmax(
-                min(
-                    300px,
-                    40vmin),
-                1fr
-            )
-        );;"
->
-    <figure><img src="../images/per_scene_decomposition/nerd/polar1d_gaussian.jpg"/><figcaption>
-            <h4>Polar plot of 1D Gaussian</h4>
-        </figcaption>
-</figure>
-<div style="display: flex;
-  justify-content: flex-end;
-  flex-direction: column;" class="fragment" data-fragment-index="1">
-<figure><img src="../images/per_scene_decomposition/nerd/specular_lobe.jpg"/><figcaption>
-            <h4>Specular lobe of BRDF</h4>
-        </figcaption>
-</figure>
-</div>
 </div>
  </div>
         
@@ -1357,6 +1401,47 @@ Mark Boss, Varun Jampani, Raphael Braun, Ce Liu, Jonathan T. Barron, Hendrik P. 
 <div class="grid-wrapper">
     <div class="header">
         <div class="logo"></div>
+        <div class="section"> Smooth Manifold</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Learn a smooth low-dimensional manifold to represent BRDF and lighting</li>
+<li>Constraints BRDF and light to plausible values</li>
+<li>Auto-encoder learning with interpolated latent space</li>
+<li>Smooth manifold losses include:
+<ul>
+<li>Adversarial</li>
+<li>Gradient regularization during manifold interpolation</li>
+</ul>
+</li>
+</ul>
+ </div>
+        
+            <div class="column"> <figure><img src="../images/per_scene_decomposition/neural_pil/smae_loss.jpg"/><figcaption>
+            <h4>Smooth manifold training</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> BRDF SMAE Smoothness</div>
+    </div>
+    <div class="content">
+        <iframe type="text/html" width="100%" height="100%" data-src="../viz/brdf_smae/index.html"  data-preload frameborder="0">
+</iframe>
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
         <div class="section"> Issues with Spherical Gaussians</div>
     </div>
     <div class="content">
@@ -1447,6 +1532,8 @@ object-fit: contain;" class="fragment fade-in">
 <li>Neural-PIL that converts light pre-integration into a simple network query</li>
 <li>Architecture based on pi-GAN [1]</li>
 </ul>
+<h4>Light Pre-integration Equation:</h4>
+<p>$$\tilde{L}_i(\omega_r, c_r) = \int_\Omega D(c_r, \omega_i, \omega_r)L_i(x, \omega_i)d\omega_i$$</p>
 <table class="fragment" data-fragment-index="4">
     <caption style="caption-side:bottom"><h4>Evaluation time</h4></caption>
     <thead><tr>
@@ -1516,47 +1603,6 @@ object-fit: contain;" class="fragment fade-in">
 </div>
  </div>
         
-    </div>
-</div>
-</section><section>
-<div class="grid-wrapper">
-    <div class="header">
-        <div class="logo"></div>
-        <div class="section"> Smooth Manifold</div>
-    </div>
-    <div class="content">
-        
-            <div class="column"> <ul>
-<li>Learn a smooth low-dimensional manifold to represent BRDF and lighting</li>
-<li>Constraints BRDF and light to plausible values</li>
-<li>Auto-encoder learning with interpolated latent space</li>
-<li>Smooth manifold losses include:
-<ul>
-<li>Adversarial</li>
-<li>Gradient regularization during manifold interpolation</li>
-</ul>
-</li>
-</ul>
- </div>
-        
-            <div class="column"> <figure><img src="../images/per_scene_decomposition/neural_pil/smae_loss.jpg"/><figcaption>
-            <h4>Smooth manifold training</h4>
-        </figcaption>
-</figure>
- </div>
-        
-    </div>
-</div>
-</section><section>
-<div class="grid-wrapper">
-    <div class="header">
-        <div class="logo"></div>
-        <div class="section"> BRDF SMAE Smoothness</div>
-    </div>
-    <div class="content">
-        <iframe type="text/html" width="100%" height="100%" data-src="../viz/brdf_smae/index.html"  data-preload frameborder="0">
-</iframe>
-
     </div>
 </div>
 </section>
@@ -1769,7 +1815,7 @@ object-fit: contain;"></video></p>
 <li>Two approaches developed to enable the decomposition
 <ul>
 <li>Generalized methods which leverage statistical knowledge from datasets</li>
-<li>Unsupervised optimization based methods which fit decomposition to a scene</li>
+<li>Unsupervised optimization based methods which fit decomposition to an object</li>
 </ul>
 </li>
 </ul>
@@ -1806,7 +1852,7 @@ Discussion future research
     </div>
 </div>
 </section><section>
-<!-- <div class="grid-wrapper">
+<div class="grid-wrapper">
     <div class="header">
         <div class="logo"></div>
         <div class="section"> Outlook - Overall Goal</div>
@@ -1814,8 +1860,14 @@ Discussion future research
     <div class="content">
         
             <div class="column"> <ul>
-<li></li>
+<li>Create 3D assets from unconstrained input data</li>
 </ul>
+<div class="fragment">
+<figure><img src="../images/outlook/image-search-example.jpg"/><figcaption>
+            <h4>Turn online searches into relightable 3D objects</h4>
+        </figcaption>
+</figure>
+</div>
  </div>
         
             <div class="column"> <div style="display: flex; flex-direction: column; justify-content: flex-start;
@@ -1824,17 +1876,77 @@ Discussion future research
 <video data-autoplay loop src="../images/outlook/google_ar_search.mp4" style="width: 100%;
   object-fit: contain;"></video>
 </div>
-<h4>AR Image Search</h4>
+<h4>AR image search</h4>
 </div>
  </div>
         
     </div>
-</div> -->
+</div>
 </section><section>
 <div class="grid-wrapper">
     <div class="header">
         <div class="logo"></div>
-        <div class="section"> Outlook - Training Times</div>
+        <div class="section"> Challenges</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>
+<p>Objects in different locations</p>
+</li>
+<li>
+<p>Objects with slightly different decals/textures</p>
+</li>
+<li>
+<p>Objects under different illuminations</p>
+<ul>
+<li>COLMAP has problems in these cases to estimate accurate poses</li>
+</ul>
+</li>
+<li>
+<p>NeRF requires precise poses</p>
+</li>
+</ul>
+ </div>
+        
+            <div class="column"> <figure><img src="../images/outlook/image-search-example.jpg"/><figcaption>
+            <h4>Turn online searches into relightable 3D objects</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> SAMURAI</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Ongoing work from Google Student Researcher Position</li>
+<li>Method which handles joint illumination, BRDF, shape and camera prediction</li>
+<li>Highly challenging and ill-posed setup</li>
+<li>Current state: Accurate shapes but slightly blurred textures</li>
+</ul>
+</div>
+        
+            <div class="column"> <figure><img src="../images/samurai-idea.jpg"/><figcaption>
+            <h4>Rough outline of SAMURAI</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<!-- 
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Future Improve - Training Times</div>
     </div>
     <div class="content">
         
@@ -1867,7 +1979,9 @@ Discussion future research
         
     </div>
 </div>
-</section><section>
+
+---
+
 <div class="grid-wrapper">
     <div class="header">
         <div class="logo"></div>
@@ -1902,11 +2016,14 @@ Discussion future research
         
     </div>
 </div>
-</section><section>
+
+---
+
+-->
 <div class="grid-wrapper">
     <div class="header">
         <div class="logo"></div>
-        <div class="section"> Limitations - Shadows, Inter-reflections &amp; Transparency</div>
+        <div class="section"> Outlook - Shadows, Inter-reflections &amp; Transparency</div>
     </div>
     <div class="content">
         
@@ -1914,7 +2031,8 @@ Discussion future research
 <li>Currently only a direct light is taken into account
 <ul>
 <li>NeRV [1] stores indirect light in a neural field</li>
-<li>Combine global infinite far illumination with local indirect illumination</li>
+<li>Expensive to compute</li>
+<li>Requires supervision (known environment map)</li>
 </ul>
 </li>
 <li>No shadows
@@ -1922,7 +2040,11 @@ Discussion future research
 <li>Representable as transient effects [2]</li>
 </ul>
 </li>
-<li>Transparency, <em>e.g.</em> glass or water, is also not taken into account</li>
+<li>Transparency, <em>e.g.</em> glass or water, is also not taken into account
+<ul>
+<li>Requires modeling reflectance and refractance</li>
+</ul>
+</li>
 </ul>
  </div>
         
@@ -1961,6 +2083,7 @@ Discussion future research
 <li>Currently only static scenes</li>
 <li>Even scenes without humans move due to wind (Trees)</li>
 <li>NeRFies [1] or HyperNeRF [2] bend the ray based on the time step</li>
+<li>Both NeRFies and HyperNeRF only output the radiance</li>
 </ul>
 <figure><img src="../images/outlook/nerfies.jpg"/><figcaption>
             <h4>Nerfies bend the ray for the volume sampling [1]</h4>
@@ -1996,10 +2119,12 @@ for Topologically Varying Neural Radiance Fields - 2021</p>
             <div class="column"> <ul>
 <li>Decompose rooms or large buildings (churches)</li>
 <li>Illumination is not global and inter-reflections play a large role</li>
+<li>Modeling dynamic movement of foliage is important</li>
+<li>BlockNeRF only models radiance</li>
 </ul>
 <div style="display: flex; flex-direction: column; justify-content: flex-start;
   align-items: center; width: 100%; height: 100%;">
-<div style="height: 80%; width: 70%;">
+<div style="height: 70%; width: 60%;">
 <figure><img src="../images/outlook/BlockNerf.jpg"/><figcaption>
             <h4>Block NeRF composes several NeRFs [1]</h4>
         </figcaption>
@@ -2033,7 +2158,9 @@ for Topologically Varying Neural Radiance Fields - 2021</p>
         
             <div class="column"> <ul>
 <li>Reduce number of images per decomposition</li>
-<li>Skip training entirely (even with reduced quality)
+<li>Skip training entirely (even with reduced quality)</li>
+<li>Both methods only model radiance</li>
+<li>General network which learns to map view and radiance to BRDF
 <br/><br/></li>
 </ul>
 <div class="fragment">
