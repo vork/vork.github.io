@@ -368,7 +368,10 @@ window.addEventListener('DOMContentLoaded', function () {
         const alpha = gui.add(matParam, "alpha", 0.0, 1.0).name("Interp.")
 
         const functions = [embd1_1, embd1_2, embd1_3, embd1_4, embd2_1, embd2_2, embd2_3, embd2_4, alpha]
-        functions.forEach(x => x.onChange(() => run_predict_from_params()))
+        functions.forEach(x => x.onChange(() => {
+            set_endpoints()
+            run_predict_from_params()
+        }))
 
         return scene;
     }
