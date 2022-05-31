@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Abhishek Kar | Mark Boss</title><link>https://markboss.me/author/abhishek-kar/</link><atom:link href="https://markboss.me/author/abhishek-kar/index.xml" rel="self" type="application/rss+xml"/><description>Abhishek Kar</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 31 May 2022 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_3.png</url><title>Abhishek Kar</title><link>https://markboss.me/author/abhishek-kar/</link></image><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/publication/2022-samurai/</link><pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2022-samurai/</guid><description>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe src="https://www.youtube.com/embed/LlYuGDjXp-8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
+&lt;/div>
+&lt;h3 id="introduction">Introduction&lt;/h3>
+&lt;p>Our previous methods such as &lt;a href="https://markboss.me/publication/2021-nerd/">NeRD&lt;/a> and &lt;a href="https://markboss.me/publication/2021-neural-pil/">Neural-PIL&lt;/a> achieve the decomposition of images under varying illumination into shape, BRDF, and illumination. However, both methods require near-perfect known poses. In challenging scenes recovering poses is challenging and traditional methods fail with objects captured under varying illuminations and locations.&lt;/p>
+&lt;h2 id="method">Method&lt;/h2>
+&lt;figure id="figure-the-samurai-architecture">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="The SAMURAI architecture." srcset="
+/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_f0fbbf61d7097a49e26b7975fffcfb94.webp 400w,
+/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_9e4d72244c945061262711b0f3a8d3cd.webp 760w,
+/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_f0fbbf61d7097a49e26b7975fffcfb94.webp"
+width="760"
+height="248"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+The SAMURAI architecture.
+&lt;/figcaption>&lt;/figure>
+&lt;p>In &lt;a href="#figure-the-samurai-architecture">&lt;strong>FIGURE 1&lt;/strong>&lt;/a> we visualize the SAMURAI architecture, which jointly optimizes the camera extrinsic and intrinsic parameters per image, the global shape and BRDF, as well as the per-image illumination latent variables. Here, we leverage &lt;a href="https://markboss.me/publication/2021-neural-pil/">Neural-PIL&lt;/a> for the rendering and prior on natural illuminations.&lt;/p>
+&lt;h2 id="results">Results&lt;/h2>
+&lt;div class="alert alert-note">
+&lt;div>
+Click the images for an interactive 3D visualization.
+&lt;/div>
+&lt;/div>
+&lt;h4 id="samurai-dataset">SAMURAI-Dataset&lt;/h4>
+&lt;div class="gallery">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=duck" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/duck.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=fireengine" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/fireengine.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/garbagetruck.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=keywest" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/keywest.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=pumpkin" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/pumpkin.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=rccar" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/rccar.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/robot.jpg" alt="">
+&lt;/a>
+&lt;/div>
+&lt;!-- ### Copyright
+This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item></channel></rss>
