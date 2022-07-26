@@ -52,25 +52,25 @@
         </div>
         <div id="container"></div>
 
-        <script src="xstate.js"></script>
+        <script src="../modules/xstate/xstate.js"></script>
 
-        <script async src="es-module-shims.js"></script>
+        <script async src="../modules/es-module-shims.js"></script>
 
         <script type="importmap">
         {
             "imports": {
-                "three": "three.module.js",
-                "meshline": "meshline.es.js",
-                "gltf_loader": "GLTFLoader.js",
-                "orbit_control": "OrbitControls.js",
-                "stats_module": "stats.module.js",
-                "dat_gui": "dat.gui.js",
-                "tweenjs": "tween.esm.js"
+                "three": "../modules/three/three.module.js",
+                "meshline": "../modules/three/meshline.es.js",
+                "gltf_loader": "../modules/three/GLTFLoader.js",
+                "orbit_control": "../modules/three/OrbitControls.js",
+                "stats_module": "../modules/three/stats.module.js",
+                "dat_gui": "../modules/dat.gui.js",
+                "tweenjs": "../modules/tween/tween.esm.js"
             }
         }
         </script>
 
-        <script src="index.js"></script>
+        <!-- <script src="https://unpkg.com/xstate@4.30.6/lib/index.js"></script> -->
 
         <script type="module" src="main.js">
         </script>
