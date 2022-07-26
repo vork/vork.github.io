@@ -45,9 +45,9 @@
         const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
         var scene = new BABYLON.Scene(engine);
 
-        var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI * 0.5, Math.PI / 2.5, 3.5, BABYLON.Vector3.Zero(), scene);
+        var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI * 0.5, Math.PI / 2.5, 2.0, BABYLON.Vector3.Zero(), scene);
         camera.panningSensibility = 0;
-        camera.lowerRadiusLimitSearch = 0.05;
+        camera.lowerRadiusLimitSearch = 0.015;
         camera.attachControl(canvas, true);
 
         var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
@@ -57,8 +57,6 @@
         skyboxMaterial.microSurface = 0.85; 
         skybox.material = skyboxMaterial;
         skybox.infiniteDistance = true;
-
-        console.log(scene);
 
         var uiTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI(
             "myUI"
@@ -123,20 +121,21 @@
 
         var currentPosition = { x: 0, y: 0 };
         var currentRotation = { x: 0, y: 0 };
+        var transformNode = new BABYLON.TransformNode("", scene);
 
         var getCurPos = function (evt) {
             currentPosition.x = evt.clientX;
             currentPosition.y = evt.clientY;
-            currentRotation.x = mesh.rotation.x;
-            currentRotation.y = mesh.rotation.y;
+            currentRotation.x = transformNode.rotation.x;
+            currentRotation.y = transformNode.rotation.y;
             clicked = true;
         }
         var rotate = function (evt) {
             if (!clicked) {
                 return;
             }
-            mesh.rotation.y = currentRotation.y - (evt.clientX - currentPosition.x) / 100.0;
-            mesh.rotation.x = currentRotation.x + (evt.clientY - currentPosition.y) / 100.0;
+            transformNode.rotation.y = currentRotation.y - (evt.clientX - currentPosition.x) / 100.0;
+            transformNode.rotation.x = currentRotation.x + (evt.clientY - currentPosition.y) / 100.0;
         }
         var stop = function (evt) {
             clicked = false;
@@ -167,7 +166,7 @@
 
         BABYLON.SceneLoader.OnPluginActivatedObservable.addOnce(function (loader) {
             if (loader.name === "gltf") {
-                loader.loggingEnabled = true;
+                loader.loggingEnabled = false;
             }
         });
 
@@ -177,10 +176,14 @@
 
         // Register a render loop to repeatedly render the scene
         engine.runRenderLoop(function () {
+            if (!mesh) {
+                var mesh = scene.getMeshByID("ObjectToExport");
+                if (mesh) {
+                    mesh.parent = transformNode;
+                }
+            }
             scene.render();
         });
-
-		
 
         // Watch for browser/canvas resize events
         window.addEventListener("resize", function () {
