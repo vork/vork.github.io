@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <title>Reflectance Radiance comparison</title>
+    <style>
+        body { margin: 0; }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script async src="../modules/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../modules/three/three.module.js",
+                "meshline": "../modules/three/meshline.es.js",
+                "stats_module": "../modules/three/stats.module.js"
+            }
+        }
+    </script>
+
+    <!-- <script src="https://unpkg.com/xstate@4.30.6/lib/index.js"></script> -->
+
+    <script type="module" src="main.js">
+    </script>
+</body>
+</html>

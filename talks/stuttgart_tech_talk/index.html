@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Stuttgart Tech Talk</title>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../reveal-js/css/reset.css">
+<link rel="stylesheet" href="../reveal-js/css/reveal.css">
+<link rel="stylesheet" href="../personal.css" id="theme"><link rel="stylesheet" href="../highlight-js/atom-one-dark.min.css">
+    
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    
+<section data-noprocess data-shortcode-slide
+      class="title">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo logo--full"></div>
+    </div>
+    <div class="content">
+        
+        <h1>
+            Neural Reflectance Decomposition
+        </h1>
+        
+        <p class="description">
+            
+    Extracting BRDF, shape, and illumination from images
+
+        </p>
+    </div>
+    <div class="credit">
+        <hr/>
+        <div class="label">Presented By</div>
+        <div class="name">Mark Boss</div>
+        <div class="role">Senior Research Scientist @ Unity</div>
+    </div>
+</div>
+</section>
+
+  
+
+    
+<section data-noprocess data-shortcode-slide
+      class="biography">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Biography</div>
+    </div>
+    <div class="content">
+        <div class="profile">
+    <div class="image">
+        <img src="../images/avatar.jpg">
+    </div>
+    <div class="details">
+        <h2>Profile</h2>
+        <p>Mark Boss is a researcher at Unity Technologies. Before that, he was a Ph.D. student at the University of Tübingen in the computer graphics group of Prof. Hendrik Lensch. His research interests lie at the intersection of machine learning and computer graphics, with the main focus on inferring physical properties (shape, material, illumination, etc.) from images.</p>
+    </div>
+    <div class="experience">
+        <div class="experience-wrapper">
+        <h2>Experience</h2>
+            <div class="experience-items">
+                <p class="position">Senior Research Scientist</p>
+                <p class="company">Unity</p>
+                <p class="time">September 2022 - present</p>
+            </div>
+            <div class="experience-items">
+                <p class="position">Student Researcher</p>
+                <p class="company">Google</p>
+                <p class="time">June 2021 - April 2022</p>
+            </div>
+            <div class="experience-items">
+                <p class="position">Research Intern</p>
+                <p class="company">Nvidia</p>
+                <p class="time">April 2019 - Juli 2019</p>
+            </div>
+            <div class="experience-items">
+                <p class="position">Ph.D. Student</p>
+                <p class="company">University of Tübingen</p>
+                <p class="time">June 2018 - Juli 2022</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+</section>
+    <section><div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Goal</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: center;">
+<figure><img src="../images/GnomeInput.jpg"/><figcaption>
+            <h4>Multiple input images (potential multiple illuminations)</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;">
+<div style="height: 75%; width: 100%;">
+<iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/nerd-results/render.html?scene=gnome"  data-preload frameborder="0">
+</iframe>
+</div>
+<h4 style="margin-top: -0.75em;">Relightable 3D asset [1]</h4>
+</div>
+<div class="cite-area">
+    <p>[1] <strong>Result from:</strong> Boss <em>et al.</em> - NeRD: Neural Reflectance Decomposition from Image Collections - 2021</p>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Applications</div>
+    </div>
+    <div class="content">
+        <div  class="grid-flex-column" style="
+        display: grid; 
+        place-content: space-evenly;
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    300px,
+                    40vmin),
+                1fr
+            )
+        );">
+            
+                <div class="column"> <figure><img src="../images/applications/UnityGnome_square.jpg"/><figcaption>
+            <h4>Games</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/applications/BlenderGnome_square_small.jpg"/><figcaption>
+            <h4>Movies</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/applications/ARGnome_small.jpg"/><figcaption>
+            <h4>AR/VR</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/applications/ShopGnome.jpg"/><figcaption>
+            <h4>Virtual shopping</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+        </div>
+    </div>
+</div>
+</section>
+    <section><div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Rendering</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div class="cite-area">
+    <p>[1] James T. Kajiya - The Rendering Equation - 1986</p>
+</div>
+<h4 id="rendering-equation-1">Rendering equation [1]</h4>
+<!-- $$L_{o}({\mathbf x},\omega_{o})=
+    L_{e}({\mathbf x},\omega_{o}) +
+    \color{red}\int_{\Omega } \color{black}
+    f_{r}({\mathbf x},\omega_{i},\omega_{o}) \\
+    L_{i}({\mathbf x},\omega_{i})
+    (\omega_{i}\cdot{\mathbf n})
+    \color{red}\operatorname d\omega_{i}$$ -->
+<p class="fragment" data-fragment-index="1">$$
+\definecolor{out}{RGB}{219,135,217}
+\definecolor{emit}{RGB}{125,194,103}
+\definecolor{int}{RGB}{127,151,236}
+\definecolor{in}{RGB}{225,145,83}
+\definecolor{brdf}{RGB}{0,202,207}
+\definecolor{ndl}{RGB}{235,120,152}
+\definecolor{point}{RGB}{232,0,19}
+\color{out}L_{o}(\color{point}{\mathbf x}\color{out},\,\omega_{o})\color{black}\,=
+\fragment{1}{\,\color{emit}L_{e}({\mathbf x},\,\omega_{o})}
+\fragment{2}{\color{black} + \\ \color{int}\int_{\Omega }}
+\fragment{4}{\color{brdf}f_{r}({\mathbf x},\,\omega_{i},\,\omega_{o})} 
+\fragment{3}{\color{in}L_{i}({\mathbf x},\,\omega_{i})}\,
+\fragment{5}{\color{ndl}(\omega_{i}\,\cdot\,{\mathbf n})}\,
+\fragment{2}{\color{int}\operatorname d\omega_{i}}$$
+</p>
+<h4 class="fragment" data-fragment-index="8">Radiance, reflectance and irradiance</h4>
+<!-- class="fragment" data-fragment-index="5" -->
+<p class="fragment" data-fragment-index="8">$$\underbrace{L_{o}({\mathbf x},\,\omega_{o})}_{\text{Radiance (Outgoing)}}\,=\,\overbrace{L_{e}({\mathbf x},\,\omega_{o})}^{\text{Radiance (Self-Emitting)}}\,\int_{\Omega}\underbrace{f_{r}({\mathbf x},\,\omega_{i},\,\omega_{o})}_{\text{Reflectance}} \\
+\underbrace{\overbrace{L_{i}({\mathbf x},\,\omega_{i})}^{\text{Radiance (Incoming)}}\,
+(\omega_{i}\,\cdot\,{\mathbf n})\,
+\operatorname d\omega_{i}}_{\text{Irradiance}}$$</p>
+ </div>
+        
+            <div class="column"> <p><svg width="100%" height="100%" viewBox="0 0 135 100" version="1.1"
+xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+xml:space="preserve" xmlns:serif="http://www.serif.com/"
+style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:15;">
+<g id="RenderingEquation">
+<g class="fragment" data-fragment-index="3" id="Integral">
+<path
+d="M116.184,69.201c0,0 -2.259,12.188 -49.043,12.188c-46.785,0 -49.044,-12.048 -49.044,-12.048c0,-27.068 21.975,-49.044 49.044,-49.044c27.068,0 49.043,21.836 49.043,48.904Z"
+style="fill:none;stroke:#5eb2ff;stroke-width:2.4px;" />
+<ellipse cx="67.141" cy="69.201" rx="49.044" ry="12.188"
+style="fill:none;stroke:#5eb2ff;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;stroke-dasharray:2.2,6.6,0,0;" />
+</g>
+<g class="fragment" data-fragment-index="4" id="Li">
+<path
+d="M57.117,64.276l5.494,4.925l-7.237,1.44c2.027,-1.155 2.899,-4.338 1.743,-6.365Z"
+style="fill:#ff9d46;" />
+<path d="M25.115,58.936c0,0 22.153,6.065 32.404,8.871"
+style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+<path
+d="M63.245,58.303l1.163,7.286l-6.527,-3.44c2.302,0.379 4.984,-1.544 5.364,-3.846Z"
+style="fill:#ff9d46;" />
+<path d="M41.795,34.05c0,0 13.352,18.623 19.537,27.248"
+style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+<path
+d="M78.683,71.496l-7.013,-2.295l6.043,-4.234c-1.389,1.875 -0.904,5.139 0.97,6.529Z"
+style="fill:#ff9d46;" />
+<path d="M110.386,63.451c0,0 -22.925,3.405 -33.493,4.974"
+style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+</g>
+<path class="fragment" data-fragment-index="5" id="Brdf"
+d="M82.214,34.634c11.767,-16.324 24.197,-27.503 27.739,-24.95c3.543,2.554 -3.135,17.88 -14.902,34.204c-11.768,16.324 -24.198,27.503 -27.74,24.95c-3.543,-2.554 3.135,-17.88 14.903,-34.204Z"
+style="fill:none;stroke:#00ffe6;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+<path class="fragment" data-fragment-index="6" id="dot"
+d="M63.981,32.396l3.33,-6.585l3.27,6.615c-1.643,-1.657 -4.942,-1.672 -6.6,-0.03Z"
+style="fill:#ff79ba;" />
+<path class="fragment" data-fragment-index="6"
+d="M67.141,63.551c0,0 0.099,-22.076 0.146,-32.46"
+style="fill:none;stroke:#ff79ba;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+<g class="fragment" data-fragment-index="2" id="Le">
+<path
+d="M33.977,53.139l-3.928,-6.247l7.354,0.606c-2.267,0.554 -3.98,3.374 -3.426,5.641Z"
+style="fill:#89d73d;" />
+<path d="M62.25,66.451c0,0 -18.825,-11.434 -27.688,-16.818"
+style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+<path
+d="M84.862,36.75l6.475,-3.537l-1.055,7.303c-0.414,-2.297 -3.124,-4.179 -5.42,-3.766Z"
+style="fill:#89d73d;" />
+<path d="M69.774,64.254c0,0 12.62,-18.167 18.551,-26.705"
+style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+<path
+d="M98.01,49.166l7.376,-0.224l-4.246,6.035c0.67,-2.235 -0.895,-5.14 -3.13,-5.811Z"
+style="fill:#89d73d;" />
+<path d="M72.24,66.793c0,0 19.373,-10.433 28.497,-15.347"
+style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+</g>
+<path class="fragment" data-fragment-index="1" id="Out"
+d="M103.753,12.604l6.633,-3.234l-1.392,7.247c-0.307,-2.313 -2.927,-4.32 -5.241,-4.013Z"
+style="fill:#fc90ff;" />
+<path class="fragment" data-fragment-index="1"
+d="M95.903,28.285c0,0 7.006,-9.151 11.273,-14.722"
+style="fill:none;stroke:#fc90ff;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+<circle class="fragment" data-fragment-index="1" cx="67.141" cy="69.201" r="2.356"
+style="fill:#e80013;" />
+</g>
+</svg></p>
+ </div>
+        
+    </div>
+</div>
+</section>
+    <section><div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Inverse Rendering - Workshop Metaphor [1]</div>
+    </div>
+    <div class="content">
+        <div  class="grid-flex-column" style="
+        display: grid; 
+        place-content: space-evenly;
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    150px,
+                    30%),
+                1fr
+            )
+        );">
+            
+                <div class="column"> <figure><img src="../images/workshop_metaphor/Image.jpg"/><figcaption>
+            <h4>Image</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/workshop_metaphor/Sculptor.jpg"/><figcaption>
+            <h4>Sculptor</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/workshop_metaphor/Painter.jpg"/><figcaption>
+            <h4>Painter</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/workshop_metaphor/Gaffer.jpg"/><figcaption>
+            <h4>Gaffer</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/workshop_metaphor/Explanation.jpg"/><figcaption>
+            <h4>Possible explanation</h4>
+        </figcaption>
+</figure>
+<div class="cite-area">
+    <p>[1] E.H. Adelson, A.P. Pentland - The Perception of Shading and Reflectance - 1996</p>
+</div>
+ </div>
+            
+        </div>
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="video-stepper">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> NeRF: Neural Radiance Fields</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>NeRF [1] is a method for photorealistic results in novel view synthesis</li>
+<li>Similar task compared to computed tomography scan (CT) in 3D</li>
+</ul>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<div class="r-stack">
+<p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0000.mp4" style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+</video></p>
+<p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0001.mp4" style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+</video></p>
+<p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0002.mp4" style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+</video></p>
+<p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0003.mp4" style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+</video></p>
+<p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0004.mp4" style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+</video></p>
+<p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0005.mp4" style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+</video></p>
+</div>
+</div>
+<div class="cite-area">
+    <p>[1] Mildenhall <em>et al.</em> - NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis - 2020</p>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> NeRF - Visualization</div>
+    </div>
+    <div class="content">
+        <iframe type="text/html" width="100%" height="100%" data-src="../viz/nerf_explainer/index.html"  data-preload frameborder="0">
+</iframe>
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> NeRF - View-dependent color</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>The architecture of NeRF introduces a view-dependent encoding</li>
+<li>Only introduced in the last layer</li>
+</ul>
+<figure><img src="../images/per_scene_decomposition/nerd/NeRF@3x.png"/><figcaption>
+            <h4>NeRF architecture</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+            <div class="column"> <p><video data-autoplay loop data-src="../images/per_scene_decomposition/viewdirs_website_bww.mp4" style="width: 100%;
+object-fit: contain;"></video></p>
+  <h4>View dependence with NeRF</h4>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> NeRF - Varying illumination Extension</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Assume dataset of 4 images</li>
+<li>Images are varying illumination</li>
+</ul>
+<p><br/><br/></p>
+<h4 class="fragment" data-fragment-index="2">Potential solution</h4>
+<ul>
+<li class='fragment' data-fragment-index="3">Train GLO (<em>Generative Latent Optimization</em>) to express radiance per illumination</li>
+<li class='fragment' data-fragment-index="4">Interpolate between illuminations</li>
+</ul>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<div class="r-stack">
+<figure class="fragment fade-in-then-out"><img src="../images/per_scene_decomposition/nerd/NeRF@3x.png"/><figcaption>
+            <h4>NeRF architecture</h4>
+        </figcaption>
+</figure>
+<figure class="fragment fade-in"><img src="../images/per_scene_decomposition/nerd/NeRFA@3x.png"/><figcaption>
+            <h4>NeRF-A architecture</h4>
+        </figcaption>
+</figure>
+</div>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Illumination Interpolation</div>
+    </div>
+    <div class="content">
+        <iframe type="text/html" width="100%" height="100%" data-src="../viz/blend/index.html"  data-preload frameborder="0">
+</iframe>
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Issues with Illumination Interpolation</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Only interpolate between seen illuminations</li>
+<li>No issue if dataset is vast and contains most illuminations</li>
+<li>However, it is hard to get all possible illumination edge cases
+<br />
+<br /></li>
+</ul>
+<div style="width: 30vmin; height: 30vmin;">
+<figure><img src="../viz/blend/moonlessgolf.png"/><figcaption>
+            <h4>Illumination at night</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div 
+    class="grid-column" style="
+        display: grid; 
+        width: 100%; height: 100%;
+        overflow: hidden;
+        place-content: space-evenly; 
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    40vmin,
+                    45%),
+                1fr
+            )
+        );;"
+>
+    <figure><img src="../viz/blend/alley.png"/>
+</figure>
+<figure><img src="../viz/blend/christmasphotostudio.png"/>
+</figure>
+<figure><img src="../viz/blend/fireonsky.png"/>
+</figure>
+<figure><img src="../viz/blend/studiosmall.png"/>
+</figure>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Full Decomposition - NeRD[1]</div>
+    </div>
+    <div class="content">
+        <div class="cite-area">
+    <p>[1] Boss <em>et al.</em> - NeRD: Neural Reflectance Decomposition from Image Collections - 2021</p>
+</div>
+<iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/nerd-results/render.html?scene=gnome"  data-preload frameborder="0">
+</iframe>
+
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="subsection">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+    </div>
+    <h1> NeRD: Neural Reflectance Decomposition from Image Collections</h1>
+    <div class="description">
+        
+
+Mark Boss, Raphael Braun, Varun Jampani, Jonathan T. Barron, Ce Liu, Hendrik P. A. Lensch
+<br/>
+<em>IEEE International Conference on Computer Vision</em> 2021
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Amplifying NeRF for Relighting</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<div class="r-stack">
+<figure class="fragment fade-in-then-out"><img src="../images/per_scene_decomposition/nerd/NeRF@3x.png"/><figcaption>
+            <h4>NeRF architecture</h4>
+        </figcaption>
+</figure>
+<figure class="fragment fade-in"><img src="../images/per_scene_decomposition/nerd/NeRFA@3x.png"/><figcaption>
+            <h4>NeRF-A architecture</h4>
+        </figcaption>
+</figure>
+</div>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure class="fragment"><img src="../images/per_scene_decomposition/nerd/NeRD@3x.png"/><figcaption>
+            <h4>NeRD architecture</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Optimization Targets</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <figure><img src="../images/per_scene_decomposition/nerd/NeRDTargets.png"/>
+</figure>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Mesh Extraction</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Extracting textured meshes allows multiple use cases</li>
+</ul>
+<figure><img src="../images/per_scene_decomposition/nerd/mesh_extraction.png"/>
+</figure>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/nerd-results/render.html?scene=chair"  data-preload frameborder="0">
+</iframe>
+ </div>
+        
+    </div>
+</div>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      class="video-stepper">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Comparisons - Single Illumination</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure><img src="../images/per_scene_decomposition/nerd/cape_input.jpg"/><figcaption>
+            <h4>Input</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<div class="r-stack">
+<video loop data-src="../images/per_scene_decomposition/nerd/NeRDNeRFCape_Trim.mp4" style="width: 100%;
+  object-fit: contain;" class="fragment fade-in-then-out"></video>
+<video loop controls data-src="../images/per_scene_decomposition/nerd/NeRDNeRFCape.mp4" style="width: 100%;
+  object-fit: contain;" class="fragment fade-in"></video>
+</div>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      class="video-stepper">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Comparisons - Multiple Illumination</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure><img src="../images/per_scene_decomposition/nerd/gnome_input.png"/><figcaption>
+            <h4>Input</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<div class="r-stack">
+<video loop data-src="../images/per_scene_decomposition/nerd/NeRDNeRFGnome_Trim.mp4" style="width: 100%;
+  object-fit: contain;" class="fragment fade-in-then-out"></video>
+<video loop controls data-src="../images/per_scene_decomposition/nerd/NeRDNeRFGnome.mp4" style="width: 100%;
+  object-fit: contain;" class="fragment fade-in"></video>
+</div>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="subsection">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+    </div>
+    <h1> SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</h1>
+    <div class="description">
+        
+
+Mark Boss, Andreas Engelhardt, Abhishek Kar, Yuanzhen Li, Deqing Sun, Jonathan T. Barron, Hendrik P. A. Lensch, Varun Jampani
+<br/>
+<em>Advances in Neural Information Processing Systems</em> 2022
+
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Relightable asset from unposed image collections</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div class="r-stack">
+<div style="max-width: 30vmin" class="fragment fade-out" data-fragment-index="1">
+<figure><img src="../images/per_scene_decomposition/samurai/samples/firetruck/0.jpg"/>
+</figure>
+<figure><img src="../images/per_scene_decomposition/samurai/samples/firetruck/3.jpg"/>
+</figure>
+<figure><img src="../images/per_scene_decomposition/samurai/samples/firetruck/18.jpg"/>
+</figure>
+</div>
+<div style="max-width: 30vmin" class="fragment fade-in" data-fragment-index="2">
+<figure><img src="../images/per_scene_decomposition/samurai/samples/garbagetruck/1.jpg"/>
+</figure>
+<figure><img src="../images/per_scene_decomposition/samurai/samples/garbagetruck/23.jpg"/>
+</figure>
+<figure><img src="../images/per_scene_decomposition/samurai/samples/garbagetruck/51.jpg"/>
+</figure>
+</div>
+</div>
+ </div>
+        
+            <div class="column"> <div class="r-stack">
+<video loop data-autoplay data-src="../images/per_scene_decomposition/samurai/samples/firetruck/rgb.mp4" style="width: 100%;
+  object-fit: contain;"  class="fragment fade-out" data-fragment-index="1"></video>
+<video loop data-autoplay data-src="../images/per_scene_decomposition/samurai/samples/garbagetruck/rgb.mp4" style="width: 100%;
+  object-fit: contain;"  class="fragment fade-in" data-fragment-index="2"></video>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> COLMAP fails on objects in varying locations</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <video data-autoplay controls data-src="../images/per_scene_decomposition/samurai/samurai_dataset_flyout_v002.mp4" style="width: 100%;
+object-fit: contain;"></video> </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Approach</div>
+    </div>
+    <div class="content">
+        <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure><img src="../images/per_scene_decomposition/samurai/Architecture.jpg"/><figcaption>
+            <h4>Optimize camera parameters, neural reflectance field, and illumination</h4>
+        </figcaption>
+</figure>
+</div>
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Coarse-to-Fine &amp; Camera Multiplex</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>BARF-style Fourier Encoding Annealing</li>
+<li>Gradual increase in resolution</li>
+<li>Multiple camera estimates</li>
+</ul>
+ </div>
+        
+            <div class="column"> <video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/anneal.mp4" style="width: 100%;
+object-fit: contain;"></video> </div>
+        
+    </div>
+</div>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      class="video-stepper">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Camera Multiplex</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <!-- <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;"> -->
+<div class="r-stack" style="height:100%; width: 100%;">
+<img src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt1.jpg" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</img>
+<video data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt2.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt3.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt4.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in">
+</video>
+</div>
+<!-- </div> -->
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Image Posterior Scaling</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Posterior scaling also applied on image level</li>
+<li>Influence of badly aligned images or segmentation masks reduced</li>
+</ul>
+ </div>
+        
+            <div class="column"> <!-- <figure><img src="../images/per_scene_decomposition/samurai/ImagePosteriorScaling.png"/><figcaption>
+            <h4>Influence of poorly aligned images is reduced</h4>
+        </figcaption>
+</figure>
+ -->
+<img src="../images/per_scene_decomposition/samurai/ImagePosteriorScaling.png" style="min-width: 80%;  min-height: 80%; width: auto; height: auto; object-fit: contain;">
+</img>
+<h4 id="influence-of-poorly-aligned-images-is-reduced">Influence of poorly aligned images is reduced</h4>
+ </div>
+        
+    </div>
+</div>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      class="video-stepper">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Varying Camera Distance</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div class="r-stack" style="height:100%; width: 100%;">
+<video data-src="../images/per_scene_decomposition/samurai/RayParametrization/LookAtParametrization_0000.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/RayParametrization/LookAtParametrization_0001.mp4"style="min-width: 100%;  min-height: 100%; width: auto; height: auto;  object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/RayParametrization/LookAtParametrization_0002.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/RayParametrization/LookAtParametrization_0003.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in">
+</video>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/samurai-results/render.html?scene=fireengine"  data-preload frameborder="0">
+</iframe>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck"  data-preload frameborder="0">
+</iframe>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot"  data-preload frameborder="0">
+</iframe>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Comparison with BARF</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure><img src="../images/per_scene_decomposition/samurai/barf_comparison/cape_4x4.jpg"/><figcaption>
+            <h4>Exemplary Inputs</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure>
+<video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/barf_comparison/barf_cape.mp4" style="min-width: 100%;  object-fit: contain;">
+</video>
+<figcaption>
+<h4 id="barf">BARF</h4>
+</figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure>
+<video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/barf_comparison/samurai_cape.mp4" style="min-width: 100%; object-fit: contain;">
+</video>
+<figcaption>
+<h4 id="samurai">SAMURAI</h4>
+</figcaption>
+</figure>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="subsection">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+    </div>
+    <h1> Conclusion</h1>
+    <div class="description">
+        
+
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Conclusion</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Solving the inverse rendering problem is highly ill-posed</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>We presented two novel methods of solving this task from image collections</li>
+<li>NeRD requires posed image collections</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>SAMURAI does not require poses and can work on datasets which COLMAP cannot handle</li>
+</ul>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="end">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Invisible</div>
+    </div>
+    <div class="content">
+        <h1 id="thank-you-for-listening">Thank you for listening</h1>
+
+    </div>
+</div>
+
+
+
+<aside class="notes"><ul>
+<li>You found the <strong>speaker notes</strong>!</li>
+</ul>
+</aside>
+</section>
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=../reveal-hugo/object-assign.js></script>
+
+<a href="../reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">null</script>
+<script type="application/json" id="reveal-hugo-page-params">{"center":false,"custom_theme":"personal-theme.scss","custom_theme_compile":true,"disable_layout":true,"height":"100%","highlight_theme":"atom-one-dark","margin":0,"max_scale":1,"min_scale":1,"plugins":["plugins/math.js"],"slide_number":true,"width":"100%"}</script>
+
+<script src="../reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { math: {
+				mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+				config: 'TeX-AMS_HTML-full',
+				TeX: {
+					extensions: ["color.js"]
+				},
+        
+        "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+			},center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+
+  
+
+function playCurrentFragment() {
+  [].slice.call( document.querySelectorAll('.fragment') ).forEach(function(fragment) {
+
+    if(fragment.tagName == "VIDEO"){
+      var video = fragment;
+      if(video.classList.contains('current-fragment')) {
+        video.play();
+      }
+      else {
+        
+      }
+    }
+
+  });
+}
+
+Reveal.addEventListener( 'fragmentshown', playCurrentFragment );
+Reveal.addEventListener( 'fragmenthidden', playCurrentFragment );
+
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="../reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="../reveal-js/plugin/notes/notes.js"></script>
+
+
+
+<script type="text/javascript" src="../plugins/math.js"></script>
+
+    
+    
+  </body>
+</html>
