@@ -1,1 +1,173 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts | Mark Boss</title><link>https://markboss.me/post/</link><atom:link href="https://markboss.me/post/index.xml" rel="self" type="application/rss+xml"/><description>Posts</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_3.png</url><title>Posts</title><link>https://markboss.me/post/</link></image></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts | Mark Boss</title><link>https://markboss.me/post/</link><atom:link href="https://markboss.me/post/index.xml" rel="self" type="application/rss+xml"/><description>Posts</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 18 Sep 2022 22:31:51 +0200</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_3.png</url><title>Posts</title><link>https://markboss.me/post/</link></image><item><title>NeRF at NeurIPS 2022</title><link>https://markboss.me/post/nerf_at_neurips22/</link><pubDate>Sun, 18 Sep 2022 22:31:51 +0200</pubDate><guid>https://markboss.me/post/nerf_at_neurips22/</guid><description>&lt;p>Inspired by &lt;a href="https://dellaert.github.io" target="_blank" rel="noopener">Frank Dellaert&lt;/a> and his excellent series on the original &lt;a href="https://dellaert.github.io/NeRF/" target="_blank" rel="noopener">NeRF Explosion&lt;/a> and the following &lt;a href="https://dellaert.github.io/NeRF21/" target="_blank" rel="noopener">ICCV&lt;/a>/&lt;a href="https://dellaert.github.io/NeRF22/" target="_blank" rel="noopener">CVPR&lt;/a> conference gatherings, I decided to look into creating a NeurIPS 22 rundown myself.&lt;/p>
+&lt;p>The papers below are all the papers I could gather by browsing through the extensive list of &lt;a href="https://nips.cc/Conferences/2022/Schedule?type=Poster" target="_blank" rel="noopener">accepted NeurIPS papers&lt;/a>. I mainly collected all papers where the titles fit and did a brief scan through the paper or only the abstract if the paper wasn&amp;rsquo;t published at the time of writing. If I have mischaracterized or missed any paper, please send me a DM on Twitter &lt;a href="https://twitter.com/markb_boss" target="_blank" rel="noopener">@markb_boss&lt;/a> or via mail.&lt;/p>
+&lt;p>&lt;strong>Note&lt;/strong>: &lt;em>images below belong to the cited papers, and the copyright belongs to the authors or the organization that published these papers. Below I use key figures or videos from some papers under the fair use clause of copyright law.&lt;/em>&lt;/p>
+&lt;h2 id="nerf">NeRF&lt;/h2>
+&lt;p>Mildenhall &lt;em>et al.&lt;/em> introduced NeRF at ECCV 2020 in the now seminal &lt;a href="https://www.matthewtancik.com/nerf" target="_blank" rel="noopener">Neural Radiance Field paper&lt;/a>. As mentioned in the introduction, there has been fantastic progress in research in this field. NeurIPS this year is no exception to this trend.&lt;/p>
+&lt;p>What NeRF does, in short, is similar to the task of computed tomography scans (CT). In CT scans, a rotating head measures densities from x-rays. However, knowing where that measurement should be placed in 3D is challenging. NeRF also tries to estimate where a surface and view-dependent radiance is located in space. This is done by storing the density and radiance in a neural volumetric scene representation using MLPs and then rendering the volume to create new images. With many posed images, photorealistic novel view synthesis is possible.&lt;/p>
+&lt;div class="alert alert-note">
+&lt;div>
+Rotate by clicking and dragging, zoom via mouse wheel, and use the buttons (Teal indicates active) to visualize the NeRF process.
+&lt;/div>
+&lt;/div>
+&lt;iframe
+src="https://markboss.me/talks/viz/nerf_explainer/"
+width="100%"
+height="500px"
+style="border:none;">
+&lt;/iframe>
+&lt;h3 id="fundamentals">Fundamentals&lt;/h3>
+&lt;p>
+&lt;figure id="figure-surface-reconstruction-improvements-with-improved-surface-reconstruction-using-high-frequency-detailshttpsarxivorgabs220607850">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Surface reconstructions improvements with a high-frequency deformation field" srcset="
+/post/nerf_at_neurips22/HFDeformationNeRF_hu8f8e6698c4ab9f81bdf481f18d2088f0_67111_2d95c11ceca55453108f8ae0f2f49134.webp 400w,
+/post/nerf_at_neurips22/HFDeformationNeRF_hu8f8e6698c4ab9f81bdf481f18d2088f0_67111_8f44542db3618cb5e9f001558da0d7f1.webp 760w,
+/post/nerf_at_neurips22/HFDeformationNeRF_hu8f8e6698c4ab9f81bdf481f18d2088f0_67111_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/post/nerf_at_neurips22/HFDeformationNeRF_hu8f8e6698c4ab9f81bdf481f18d2088f0_67111_2d95c11ceca55453108f8ae0f2f49134.webp"
+width="760"
+height="148"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Surface reconstruction improvements with: &lt;a href="https://arxiv.org/abs/2206.07850" target="_blank" rel="noopener">Improved surface reconstruction using high-frequency details&lt;/a>.
+&lt;/figcaption>&lt;/figure>
+&lt;/p>
+&lt;p>These address more fundamental areas of view-synthesis with NeRF methods.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=55157" target="_blank" rel="noopener">NTRF&lt;/a> extends NeRF to improve transmission and reflections, using neural transmittance fields and edge constraints.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=55396" target="_blank" rel="noopener">PNF&lt;/a> introduces a new class of neural fields using basis-encoded polynomials. These can represent the signal as a composition of manipulable and interpretable components.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=52805" target="_blank" rel="noopener">LoENerf&lt;/a> introduces a Levels-of-Experts (LoE) framework to create a novel coordinate-based representation with an MLP. The weights of the MLP are hierarchical, periodic, and position-dependent. Each layer of the MLP has multiple candidate values of the weight matrix, which are individually tiled across the input space.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2206.07850" target="_blank" rel="noopener">Improved surface reconstruction using high-frequency details&lt;/a> can be achieved by splitting the base low-frequency shape into signed distance fields and the high-frequent details in a deformation field on the base shape.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2205.15674" target="_blank" rel="noopener">Generalised Implicit Neural Representations&lt;/a> venture far beyond the realm of euclidean coordinate systems and propose to observe the continuous high dimensional signal as a discrete graph and perform a spectral embedding on each node to establish the input for the neural field.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2205.15848" target="_blank" rel="noopener">Geo-Neus&lt;/a> introduces explicit multi-view geometry constraints to generate geometry consistent surface reconstructions. These losses include ones for signed distance function (SDF) from sparse structure-from-motion (SFM) point clouds and ones for photometric consistency.&lt;/p>
+&lt;p>While SDFs are often used to express geometry in NeRFs, they can only represent closed shapes. Using unsigned distance functions (UDF) can express open and watertight surfaces, but they can pose challenges in meshing. &lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=55176" target="_blank" rel="noopener">HSDF&lt;/a> presents a learnable representation that combines the benefits of each.&lt;/p>
+&lt;h3 id="audio">Audio&lt;/h3>
+&lt;p>
+&lt;figure id="figure-results-from-nafhttpsarxivorgabs220400628-showing-the-sound-propagation-in-the-rooms-shown-above-from-the-emitter-indicated-in-red">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Sound propagation modeling results from NAF" srcset="
+/post/nerf_at_neurips22/NAF_hu79f2d4a877c040ad9e80052a9e1d8413_78797_66bf9ccee1aa19dbeb9938565b0413c5.webp 400w,
+/post/nerf_at_neurips22/NAF_hu79f2d4a877c040ad9e80052a9e1d8413_78797_35598e6df4c252308dda01e296ff9fa3.webp 760w,
+/post/nerf_at_neurips22/NAF_hu79f2d4a877c040ad9e80052a9e1d8413_78797_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/post/nerf_at_neurips22/NAF_hu79f2d4a877c040ad9e80052a9e1d8413_78797_66bf9ccee1aa19dbeb9938565b0413c5.webp"
+width="760"
+height="214"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Results from &lt;a href="https://arxiv.org/abs/2204.00628" target="_blank" rel="noopener">NAF&lt;/a> showing the sound propagation in the rooms shown above from the emitter, indicated in red.
+&lt;/figcaption>&lt;/figure>
+&lt;/p>
+&lt;p>As sound propagates similar to rays in a volume, NeRF also found usage in this area.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=55190" target="_blank" rel="noopener">INRAS&lt;/a> stores high-fidelity time domain impulse responses at arbitrary positions using neural fields. This allows modeling spatial acoustic for a scene efficiently.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2204.00628" target="_blank" rel="noopener">NAF&lt;/a> follow a similar approach to INRAS, learning impulse response functions in spatially varying scene.&lt;/p>
+&lt;h3 id="priors-and-generative">Priors and Generative&lt;/h3>
+&lt;p>
+&lt;figure id="figure-overview-of-neuformhttpsarxivorgabs220708890-which-combines-generalizable-priors-with-the-overfitting-of-typical-nerf-model-adaptively">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Visualization of prior-based generalization and NeRF-style overfitting combination in NeuForm." srcset="
+/post/nerf_at_neurips22/NeuForm_hu3d845c687188c1622a9be0607869eb80_45551_19972b94f1141cac9c8daa0b8d07fe46.webp 400w,
+/post/nerf_at_neurips22/NeuForm_hu3d845c687188c1622a9be0607869eb80_45551_b393e8ad9ea1ed746d58736be1c44bc0.webp 760w,
+/post/nerf_at_neurips22/NeuForm_hu3d845c687188c1622a9be0607869eb80_45551_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/post/nerf_at_neurips22/NeuForm_hu3d845c687188c1622a9be0607869eb80_45551_19972b94f1141cac9c8daa0b8d07fe46.webp"
+width="681"
+height="281"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Overview of &lt;a href="https://arxiv.org/abs/2207.08890" target="_blank" rel="noopener">NeuForm&lt;/a> which combines generalizable priors with the overfitting of typical NeRF model adaptively.
+&lt;/figcaption>&lt;/figure>
+&lt;/p>
+&lt;p>Priors can either aid in the reconstruction or can be used in a generative manner. For example, in the reconstruction, priors either increase the quality of neural view synthesis or enable reconstructions from sparse image collections.&lt;/p>
+&lt;p>In &lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=55117" target="_blank" rel="noopener">CoCo-INR&lt;/a>, two attention modules are used. One to extract useful information from the prior codebook and the other to encode these entries into the scene. With this prior, the method is capable of working on sparse images.&lt;/p>
+&lt;p>In sparse image collections, several areas are often rarely observed. To circumvent this issue, &lt;a href="https://arxiv.org/abs/2207.08890" target="_blank" rel="noopener">NeuForm&lt;/a> relies on generalizable category-specific representation in less observed areas. In well-observed areas, the method uses the accurate overfitting of NeRF.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2206.00665" target="_blank" rel="noopener">MonoSDF&lt;/a> integrates recent monocular depth and normal prediction networks as priors. Given these additional priors, the authors show performance improvement under either MLP neural fields or voxel-based grid methods.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2206.07695" target="_blank" rel="noopener">VoxGRAF&lt;/a> combines recent methods for speeding up NeRFs using voxel-based structures and 3D convolutions to generate novel objects in a single forward pass. These scenes can then be rendered from any viewpoint.&lt;/p>
+&lt;h3 id="articulated">Articulated&lt;/h3>
+&lt;p>
+&lt;figure id="figure-overview-of-nemfhttpsarxivorgabs220603287-which-generates-novel-motions-from-a-learned-prior-with-a-continuous-temporal-field">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="NeMF motion prior visualized" srcset="
+/post/nerf_at_neurips22/NemfMotion_hu2b436a87e280ee61167dd08773aa77e4_57083_83625c3cdb2e154623f52edaab166192.webp 400w,
+/post/nerf_at_neurips22/NemfMotion_hu2b436a87e280ee61167dd08773aa77e4_57083_ac37d238defd72e34ef6c07538026258.webp 760w,
+/post/nerf_at_neurips22/NemfMotion_hu2b436a87e280ee61167dd08773aa77e4_57083_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/post/nerf_at_neurips22/NemfMotion_hu2b436a87e280ee61167dd08773aa77e4_57083_83625c3cdb2e154623f52edaab166192.webp"
+width="760"
+height="223"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Overview of &lt;a href="https://arxiv.org/abs/2206.03287" target="_blank" rel="noopener">NeMF&lt;/a> which generates novel motions from a learned prior with a continuous temporal field.
+&lt;/figcaption>&lt;/figure>
+&lt;/p>
+&lt;p>Capturing dynamic objects is a trend that started in previous conference years. However, this year I noticed a trend in adding priors.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=54986" target="_blank" rel="noopener">Neural Shape Deformation Priors&lt;/a> uses a transformer trained on large datasets to learn a prior of non-rigid transformations. A source mesh can be morphed with a continuous neural deformation field to a target mesh with a partially described surface deformation.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2206.03287" target="_blank" rel="noopener">NeMF&lt;/a> learns a prior of human and quadruped motion and uses it generatively in a neural motion field. The authors show use cases for motion interpolation or in-betweening.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2205.15723" target="_blank" rel="noopener">DeVRF&lt;/a> proposes to use 3D spatial voxel grids alongside a 4D deformation field to model dynamic scenes in a highly efficient manner.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=54805" target="_blank" rel="noopener">FNeVR&lt;/a> enables animating faces with NeRFs by combining 2D motion warping with neural rendering.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2206.15258" target="_blank" rel="noopener">NDR&lt;/a> jointly optimizes the surface and deformation from a dynamic scene using monocular RGB-D cameras. They propose an invertible deformation network to provide cycle consistency between frames. As the topology might change in dynamic scenes, they also employ a strategy to generate topology variants.&lt;/p>
+&lt;h3 id="editable-and-composable">Editable and Composable&lt;/h3>
+&lt;p>
+&lt;figure id="figure-ccnerfhttpsarxivorgabs220514870-enables-compression-and-composition-of--nerfs">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Examples of compression and composition with CCNeRF" srcset="
+/post/nerf_at_neurips22/ccnerf_hu00867aa3791de4463d3b32c0dcdfcd52_87982_16364f0c3087528b920dca3fe481a91f.webp 400w,
+/post/nerf_at_neurips22/ccnerf_hu00867aa3791de4463d3b32c0dcdfcd52_87982_dc0ab6ad297ad599d0e1beb132739229.webp 760w,
+/post/nerf_at_neurips22/ccnerf_hu00867aa3791de4463d3b32c0dcdfcd52_87982_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/post/nerf_at_neurips22/ccnerf_hu00867aa3791de4463d3b32c0dcdfcd52_87982_16364f0c3087528b920dca3fe481a91f.webp"
+width="760"
+height="258"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+&lt;a href="https://arxiv.org/abs/2205.14870" target="_blank" rel="noopener">CCNeRF&lt;/a> enables compression and composition of NeRFs.
+&lt;/figcaption>&lt;/figure>
+&lt;/p>
+&lt;p>This section covers NeRFs that provide methods for composing, controlling, or editing.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2205.15838v2" target="_blank" rel="noopener">D&lt;sup>2&lt;/sup>NeRF&lt;/a> learns a decoupling of static and dynamic objects from monocular video. Here, two networks are trained separately, which handle the respective areas.&lt;/p>
+&lt;p>&lt;a href="https://ylqiao.net/publication/2022nerf/" target="_blank" rel="noopener">NeuPhysics&lt;/a> allows editing a dynamic scene by editing physics parameters. This editing is performed on a hexahedra mesh tied to an underlying neural field in a two-way conversion. The physics simulation is done differently on the mesh and can propagate back to the neural field.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=54786" target="_blank" rel="noopener">CageNeRF&lt;/a> uses low-poly cages around the object to create a simple deformation target. Deforming the cage is then simple in manual editing. The deformation can then be used to warp the previously trained NeRF.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=55279" target="_blank" rel="noopener">INSP-Net&lt;/a> introduces signal processing into neural fields by introducing a differential operator framework, which can directly work on the fields without discretization. The authors even propose a CovnNet running on the neural representation.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2205.15585" target="_blank" rel="noopener">Decomposing NeRF for Editing via Feature Field Distillation&lt;/a> uses existing 2D feature extractors such as CLIP-LSeg to provide additional supervision to detect semantics in the 3D volume. Users can query based on text, image patches, or direct pixel selection to allow semantic editing.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2205.14870" target="_blank" rel="noopener">CCNeRF&lt;/a> uses a tensor rank decomposition to express the neural fields in a highly efficient and compressible manner. As the representation is explicit, the learned models are also composable.&lt;/p>
+&lt;h3 id="decomposition">Decomposition&lt;/h3>
+&lt;p>
+&lt;figure id="figure-overview-of-samuraihttpsarxivorgabs220515768-shows-the-applications-of-shape-brdf-and-illumination-decomposition-with-a-simultaneous-pose-recovery">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Shape, BRDF, and illumination decomposition with a simultaneous pose recovery with SAMURAI." srcset="
+/post/nerf_at_neurips22/samurai_hueebc0576a6a37e9404d18d9e27e81796_130114_aa542951c0ad27f1a98034a6abc4c123.webp 400w,
+/post/nerf_at_neurips22/samurai_hueebc0576a6a37e9404d18d9e27e81796_130114_276ba311288569682a06b1e6c576e6ab.webp 760w,
+/post/nerf_at_neurips22/samurai_hueebc0576a6a37e9404d18d9e27e81796_130114_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/post/nerf_at_neurips22/samurai_hueebc0576a6a37e9404d18d9e27e81796_130114_aa542951c0ad27f1a98034a6abc4c123.webp"
+width="760"
+height="280"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Overview of &lt;a href="https://arxiv.org/abs/2205.15768" target="_blank" rel="noopener">Samurai&lt;/a> shows the applications of shape, BRDF, and illumination decomposition with a simultaneous pose recovery.
+&lt;/figcaption>&lt;/figure>
+&lt;/p>
+&lt;p>In this section, the radiance of NeRF is split into geometry, BRDF, and illumination. This enables consistent relighting under any illumination.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2206.03858" target="_blank" rel="noopener">RENI&lt;/a> uses &lt;a href="https://www.vincentsitzmann.com/siren/" target="_blank" rel="noopener">SIREN&lt;/a> and vector neurons to learn a neural prior on natural HDR illuminations. They extend the vector neurons to handle rotation equivariance for spherical images.&lt;/p>
+&lt;p>&lt;a href="https://github.com/neuralps3d/neuralps3d" target="_blank" rel="noopener">Neural Reflectance Field from Shading and Shadow under a Fixed Viewpoint&lt;/a> leverages a fixed viewpoint with a moving light source. This way, the geometry, and BRDF have to be recovered based on shading cues. Due to the neural fields, the 3D scene is recovered even from the fixed viewpoint.&lt;/p>
+&lt;p>In &lt;a href="https://arxiv.org/abs/2206.03380" target="_blank" rel="noopener">Shape, Light &amp;amp; Material Decomposition from Images using Monte Carlo Rendering and Denoising&lt;/a> no previously used low-frequency basis or pre-integration is used to express the environment illumination. Instead, regular Monte Carlo integration is used, which is passed through a denoising network to ease the learning process from noisy gradients.&lt;/p>
+&lt;p>In &lt;a href="https://arxiv.org/abs/2205.15768" target="_blank" rel="noopener">SAMURAI&lt;/a> the model can decompose coarsely posed image collections into shape, BRDF, and illumination. The cameras are also optimized during training with a camera multiplex. Especially, datasets of challenging scenes where traditional SFM methods fail can be decomposed with this method. &lt;em>For transparency, I&amp;rsquo;m the author of the paper&lt;/em>&lt;/p>
+&lt;h3 id="other">Other&lt;/h3>
+&lt;p>
+&lt;figure id="figure-overview-of-the-perfceptionhttpsarxivorgabs220811537-dataset-with-its-applications">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Overview of the new PeRFception dataset." srcset="
+/post/nerf_at_neurips22/perfception_hu4594d4d7a9fcb13cd867c7bbe2f8a082_134477_e5c475dca3ff95f87b124468ea564adf.webp 400w,
+/post/nerf_at_neurips22/perfception_hu4594d4d7a9fcb13cd867c7bbe2f8a082_134477_0a9781da2c6107fcd23e432c3a6608ff.webp 760w,
+/post/nerf_at_neurips22/perfception_hu4594d4d7a9fcb13cd867c7bbe2f8a082_134477_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/post/nerf_at_neurips22/perfception_hu4594d4d7a9fcb13cd867c7bbe2f8a082_134477_e5c475dca3ff95f87b124468ea564adf.webp"
+width="760"
+height="333"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption>
+Overview of the &lt;a href="https://arxiv.org/abs/2208.11537" target="_blank" rel="noopener">PeRFception&lt;/a> dataset with its applications.
+&lt;/figcaption>&lt;/figure>
+&lt;/p>
+&lt;p>Several works with excellent results in various fields.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=55004" target="_blank" rel="noopener">NeMF&lt;/a> proposes to leverage neural fields for semantic correspondence matching. A coarse cost volume is used to guide a high-precision neural matching field.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2206.01724" target="_blank" rel="noopener">SNAKE&lt;/a> proposes introducing shape reconstruction with neural fields to aid in 3D keypoint detection for point clouds. No supervision for the detection is required.&lt;/p>
+&lt;p>Segmentation and concept learning in NeRFs can benefit from &lt;a href="https://arxiv.org/abs/2207.06403" target="_blank" rel="noopener">3D Concept Grounding on Neural Fields&lt;/a>, where a high-dimensional feature descriptor at each spatial location is taken from language embeddings.&lt;/p>
+&lt;p>&lt;a href="https://nips.cc/Conferences/2022/Schedule?showEvent=53336" target="_blank" rel="noopener">ULNef&lt;/a> specifically targets virtual try-on settings where multiple garments are layered. These layers are modeled as neural fields, and the collision handling is directly performed on the fields.&lt;/p>
+&lt;p>In &lt;a href="https://arxiv.org/abs/2206.01634" target="_blank" rel="noopener">NeRF-RL&lt;/a>, a neural field is used to learn a latent space as the state representation for the reinforcement learning algorithm.&lt;/p>
+&lt;p>&lt;a href="https://arxiv.org/abs/2208.11537" target="_blank" rel="noopener">PeRFception&lt;/a> establishes new large-scale datasets for perception-related tasks such as segmentation, classification, etc. They also evaluate a plenoxels variant on these datasets.&lt;/p>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>This was quite the amount of work, and I have enormous respect for Frank Dellaert for having it done thrice before. The field of NeRF moves incredibly fast, and even for a single conference, there exists a massive amount of reading material.&lt;/p>
+&lt;p>It is also interesting to see NeRF find new applications in other fields such as &lt;a href="#audio">audio&lt;/a> and that sorting papers into a single category becomes challenging. This might be related to fast progress in the field and the high risk of getting scooped.&lt;/p></description></item></channel></rss>
