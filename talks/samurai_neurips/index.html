@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>SAMURAI - NeurIPS 2022</title>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../reveal-js/css/reset.css">
+<link rel="stylesheet" href="../reveal-js/css/reveal.css">
+  <link rel="stylesheet" href="../uni_google.css" id="theme"><link rel="stylesheet" href="../highlight-js/atom-one-dark.min.css">
+    
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    
+<section data-noprocess data-shortcode-slide
+      class="title">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo logo--full"></div>
+    </div>
+    <div class="content">
+        
+        <h1>
+            SAMURAI
+        </h1>
+        
+        <p class="description">
+            
+
+Shape And Material from Unconstrained Real-world Arbitrary Image collections
+
+<br/><br/>
+
+<span style="font-size:70%;line-height: 80%;"><i>Mark Boss, Andreas Engelhardt, Abhishek Kar, Yuanzhen Li, Deqing Sun, Jonathan T. Barron, Hendrik P. A. Lensch, Varun Jampani</i></span>
+
+
+
+        </p>
+    </div>
+    <div class="credit">
+        <hr/>
+        <div class="label">Presented By</div>
+        <div class="name">Mark Boss</div>
+        
+    </div>
+</div>
+</section>
+
+  
+
+    <section><div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Relightable asset from unposed image collections</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="max-width: 30vmin">
+<figure><img src="../images/per_scene_decomposition/samurai/samples/firetruck/0.jpg"/>
+</figure>
+<figure><img src="../images/per_scene_decomposition/samurai/samples/firetruck/3.jpg"/>
+</figure>
+<figure><img src="../images/per_scene_decomposition/samurai/samples/firetruck/18.jpg"/>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <video loop data-autoplay data-src="../images/per_scene_decomposition/samurai/samples/firetruck/rgb.mp4" style="width: 100%;
+object-fit: contain;"></video> </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> COLMAP fails on objects in varying locations</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <video data-autoplay controls data-src="../images/per_scene_decomposition/samurai/samurai_dataset_flyout_v002.mp4" style="width: 100%;
+object-fit: contain;"></video> </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Approach</div>
+    </div>
+    <div class="content">
+        <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure><img src="../images/per_scene_decomposition/samurai/Architecture.jpg"/><figcaption>
+            <h4>Optimize camera parameters, neural reflectance field, and illumination</h4>
+        </figcaption>
+</figure>
+</div>
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Coarse-to-Fine &amp; Camera Multiplex</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>BARF-style Fourier Encoding Annealing</li>
+<li>Gradual increase in resolution</li>
+<li>Multiple camera estimates</li>
+</ul>
+ </div>
+        
+            <div class="column"> <video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/anneal.mp4" style="width: 100%;
+object-fit: contain;"></video> </div>
+        
+    </div>
+</div>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      class="video-stepper">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Camera Multiplex</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <!-- <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;"> -->
+<div class="r-stack" style="height:100%; width: 100%;">
+<img src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt1.jpg" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</img>
+<video data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt2.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt3.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt4.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in">
+</video>
+</div>
+<!-- </div> -->
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Image Posterior Scaling</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Posterior scaling also applied on image level</li>
+<li>Influence of badly aligned images or segmentation masks reduced</li>
+</ul>
+ </div>
+        
+            <div class="column"> <!-- <figure><img src="../images/per_scene_decomposition/samurai/ImagePosteriorScaling.png"/><figcaption>
+            <h4>Influence of poorly aligned images is reduced</h4>
+        </figcaption>
+</figure>
+ -->
+<img src="../images/per_scene_decomposition/samurai/ImagePosteriorScaling.png" style="min-width: 80%;  min-height: 80%; width: auto; height: auto; object-fit: contain;">
+</img>
+<h4 id="influence-of-poorly-aligned-images-is-reduced">Influence of poorly aligned images is reduced</h4>
+ </div>
+        
+    </div>
+</div>
+</section>
+
+<section data-noprocess data-shortcode-slide
+      class="video-stepper">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Varying Camera Distance</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div class="r-stack" style="height:100%; width: 100%;">
+<video data-src="../images/per_scene_decomposition/samurai/RayParametrization/LookAtParametrization_0000.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/RayParametrization/LookAtParametrization_0001.mp4"style="min-width: 100%;  min-height: 100%; width: auto; height: auto;  object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/RayParametrization/LookAtParametrization_0002.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in-then-out">
+</video>
+<video data-src="../images/per_scene_decomposition/samurai/RayParametrization/LookAtParametrization_0003.mp4" style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;" class="fragment fade-in">
+</video>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck"  data-preload frameborder="0">
+</iframe>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot"  data-preload frameborder="0">
+</iframe>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Comparison with BARF</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure><img src="../images/per_scene_decomposition/samurai/barf_comparison/cape_4x4.jpg"/><figcaption>
+            <h4>Exemplary Inputs</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure>
+<video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/barf_comparison/barf_cape.mp4" style="min-width: 100%;  object-fit: contain;">
+</video>
+<figcaption>
+<h4 id="barf">BARF</h4>
+</figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure>
+<video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/barf_comparison/samurai_cape.mp4" style="min-width: 100%; object-fit: contain;">
+</video>
+<figcaption>
+<h4 id="samurai">SAMURAI</h4>
+</figcaption>
+</figure>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results - Novel View Synthesis</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<table>
+    <caption style="caption-side:bottom"><h4>Single Illumination</h4></caption>
+    <thead><tr>
+        <th>Method</th>
+        <th>Pose Init</th>
+        <th>PSNR ↑</th>
+        <th>Translation Error ↓</th>
+        <th>Rotation° Error ↓</th>
+    </tr></thead>
+    <tbody>
+    <tr>
+        <td>BARF [1]</td>
+        <td>Directions</td>
+        <td>14.96</td>
+        <td>34.64</td>
+        <td>0.86</td>
+    </tr>
+    <tr>
+        <td>GNeRF [2]</td>
+        <td>Random</td>
+        <td><span style="color:Orange;">20.3</span></td>
+        <td>81.22</td>
+        <td>2.39</td>
+    </tr>
+    <tr>
+        <td>NeRS [3]</td>
+        <td>Directions</td>
+        <td>12.84</td>
+        <td><span style="color:Tomato;">32.77</span></td>
+        <td><span style="color:Orange;">0.77</span></td>
+    </tr>
+    <tr>
+        <td>SAMURAI</td>
+        <td>Directions</td>
+        <td><span style="color:Tomato;">21.08</span></td>
+        <td><span style="color:Orange;">33.95</span></td>
+        <td><span style="color:Tomato;">0.71</span></td>
+    </tr>
+    <tr  style="color:DarkGray;">
+        <td>NeRD</td>
+        <td>GT</td>
+        <td>23.86</td>
+        <td>—</td>
+        <td>—</td>
+    </tr>
+    <tr  style="color:DarkGray;">
+        <td>Neural-PIL</td>
+        <td>GT</td>
+        <td>23.95</td>
+        <td>—</td>
+        <td>—</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<div class="cite-area">
+    <p>[1] Lin <em>et al.</em> - BARF: Bundle-adjusting neural radiance fields</p>
+<p>[2] Meng <em>et al.</em> - GNeRF:
+GAN-based Neural Radiance Field without Posed Camera</p>
+<p>[3] Zhang <em>et al.</em> - NeRS: Neural reflectance surfaces for sparse-view 3d reconstruction in the wild</p>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results - Novel View Synthesis &amp; Relighting</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<table>
+    <caption style="caption-side:bottom"><h4>Dataset with poses available (NeRD datasets)</h4></caption>
+    <thead><tr>
+        <th>Method</th>
+        <th>Pose Init</th>
+        <th>PSNR ↑</th>
+        <th>Translation Error ↓</th>
+        <th>Rotation° Error ↓</th>
+    </tr></thead>
+    <tbody>
+    <tr>
+        <td>BARF-A</td>
+        <td>Directions</td>
+        <td>19.7</td>
+        <td>23.38</td>
+        <td>2.99</td>
+    </tr>
+    <tr>
+        <td>SAMURAI</td>
+        <td>Directions</td>
+        <td><span style="color:Tomato;">22.84</span></td>
+        <td><span style="color:Tomato;">8.61</span></td>
+        <td><span style="color:Tomato;">0.89</span></td>
+    </tr>
+    <tr  style="color:DarkGray;">
+        <td>NeRD</td>
+        <td>GT</td>
+        <td>26.88</td>
+        <td>—</td>
+        <td>—</td>
+    </tr>
+    <tr  style="color:DarkGray;">
+        <td>Neural-PIL</td>
+        <td>GT</td>
+        <td>27.73</td>
+        <td>—</td>
+        <td>—</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;" class="fragment">
+<table>
+    <caption style="caption-side:bottom"><h4>New SAMURAI datasets (No poses recoverable)</h4></caption>
+    <thead><tr>
+        <th>Method</th>
+        <th>Pose Init</th>
+        <th>PSNR ↑</th>
+    </tr></thead>
+    <tbody>
+    <tr>
+        <td>BARF-A</td>
+        <td>Directions</td>
+        <td>16.9</td>
+    </tr>
+    <tr>
+        <td>SAMURAI</td>
+        <td>Directions</td>
+        <td><span style="color:Tomato;">23.46</span></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="end">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Invisible</div>
+    </div>
+    <div class="content">
+        <h1 id="thank-you-for-listening">Thank you for listening</h1>
+<p><b>Project page available at:</b></br></br>
+<a href="https://markboss.me/publication/2022-samurai/" style="color: white;">markboss.me/publication/2022-samurai/</a>
+    </div>
+</div>
+
+
+
+<aside class="notes"><ul>
+<li>You found the <strong>speaker notes</strong>!</li>
+</ul>
+</aside>
+</section>
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=../reveal-hugo/object-assign.js></script>
+
+<a href="../reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">null</script>
+<script type="application/json" id="reveal-hugo-page-params">{"center":false,"custom_theme":"google-uni-theme.scss","custom_theme_compile":true,"disable_layout":true,"height":"100%","highlight_theme":"atom-one-dark","margin":0,"max_scale":1,"min_scale":1,"plugins":["plugins/math.js"],"slide_number":true,"width":"100%"}</script>
+
+<script src="../reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { math: {
+				mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+				config: 'TeX-AMS_HTML-full',
+				TeX: {
+					extensions: ["color.js"]
+				},
+        
+        "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+			},center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+
+  
+
+function playCurrentFragment() {
+  [].slice.call( document.querySelectorAll('.fragment') ).forEach(function(fragment) {
+
+    if(fragment.tagName == "VIDEO"){
+      var video = fragment;
+      if(video.classList.contains('current-fragment')) {
+        video.play();
+      }
+      else {
+        
+      }
+    }
+
+  });
+}
+
+Reveal.addEventListener( 'fragmentshown', playCurrentFragment );
+Reveal.addEventListener( 'fragmenthidden', playCurrentFragment );
+
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="../reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="../reveal-js/plugin/notes/notes.js"></script>
+
+
+
+<script type="text/javascript" src="../plugins/math.js"></script>
+
+    
+    
+  </body>
+</html>
