@@ -145,7 +145,59 @@ loading="lazy" data-zoomable />&lt;/div>
 &lt;p>&lt;strong>&lt;a href="https://arxiv.org/abs/2204.01943" target="_blank" rel="noopener">Unified Implicit Neural Stylization&lt;/a>&lt;/strong> enables stylized neural fields by learning the style of a painting and the content of the scene separately and combining them in an Amalgamation module.&lt;/p>
 &lt;h2 id="conclusion">Conclusion&lt;/h2>
 &lt;p>This is my second time doing a conference roundup, and the number of papers is quite stunning. This time I gathered 50 papers from just a single conference. &lt;a href="https://markboss.me/post/nerf_at_neurips22/">NeurIPS&lt;/a> had 36. If we also take &lt;a href="https://dellaert.github.io/NeRF22/" target="_blank" rel="noopener">CVPR&lt;/a> into account (57 papers), the 3 conferences alone this year produced over 140 NeRF-related papers.&lt;/p>
-&lt;p>There are several trends in this year&amp;rsquo;s ECCV. One major one is combining transformers with NeRFs and, in general, adding neural priors. This trend was also visible in my &lt;a href="https://markboss.me/post/nerf_at_neurips22/">NeurIPS roundup&lt;/a>. Another large one is examining NeRF and finding ways to express high-frequency data more easily or capture vast scenes. In my opinion, it is also amazing to see several works which decompose into BRDF, shape, and illumination or to see techniques such as shadow mapping being used in NeRFs.&lt;/p></description></item><item><title>NeRF at NeurIPS 2022</title><link>https://markboss.me/post/nerf_at_neurips22/</link><pubDate>Sun, 18 Sep 2022 22:31:51 +0200</pubDate><guid>https://markboss.me/post/nerf_at_neurips22/</guid><description>&lt;p>Inspired by &lt;a href="https://dellaert.github.io" target="_blank" rel="noopener">Frank Dellaert&lt;/a> and his excellent series on the original &lt;a href="https://dellaert.github.io/NeRF/" target="_blank" rel="noopener">NeRF Explosion&lt;/a> and the following &lt;a href="https://dellaert.github.io/NeRF21/" target="_blank" rel="noopener">ICCV&lt;/a>/&lt;a href="https://dellaert.github.io/NeRF22/" target="_blank" rel="noopener">CVPR&lt;/a> conference gatherings, I decided to look into creating a NeurIPS 22 rundown myself.&lt;/p>
+&lt;p>There are several trends in this year&amp;rsquo;s ECCV. One major one is combining transformers with NeRFs and, in general, adding neural priors. This trend was also visible in my &lt;a href="https://markboss.me/post/nerf_at_neurips22/">NeurIPS roundup&lt;/a>. Another large one is examining NeRF and finding ways to express high-frequency data more easily or capture vast scenes. In my opinion, it is also amazing to see several works which decompose into BRDF, shape, and illumination or to see techniques such as shadow mapping being used in NeRFs.&lt;/p></description></item><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/publication/2022-samurai/</link><pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2022-samurai/</guid><description>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+&lt;iframe src="https://www.youtube.com/embed/LlYuGDjXp-8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
+&lt;/div>
+&lt;h3 id="introduction">Introduction&lt;/h3>
+&lt;p>Our previous methods such as &lt;a href="https://markboss.me/publication/2021-nerd/">NeRD&lt;/a> and &lt;a href="https://markboss.me/publication/2021-neural-pil/">Neural-PIL&lt;/a> achieve the decomposition of images under varying illumination into shape, BRDF, and illumination. However, both methods require near-perfect known poses. In challenging scenes recovering poses is challenging and traditional methods fail with objects captured under varying illuminations and locations.&lt;/p>
+&lt;h2 id="method">Method&lt;/h2>
+&lt;figure id="figure-the-samurai-architecture">
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="The SAMURAI architecture." srcset="
+/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_f0fbbf61d7097a49e26b7975fffcfb94.webp 400w,
+/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_9e4d72244c945061262711b0f3a8d3cd.webp 760w,
+/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_1200x1200_fit_q75_h2_lanczos.webp 1200w"
+src="https://markboss.me/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_f0fbbf61d7097a49e26b7975fffcfb94.webp"
+width="760"
+height="248"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
+The SAMURAI architecture.
+&lt;/figcaption>&lt;/figure>
+&lt;p>In &lt;a href="#figure-the-samurai-architecture">&lt;strong>FIGURE 1&lt;/strong>&lt;/a> we visualize the SAMURAI architecture, which jointly optimizes the camera extrinsic and intrinsic parameters per image, the global shape and BRDF, as well as the per-image illumination latent variables. Here, we leverage &lt;a href="https://markboss.me/publication/2021-neural-pil/">Neural-PIL&lt;/a> for the rendering and prior on natural illuminations.&lt;/p>
+&lt;h2 id="results">Results&lt;/h2>
+&lt;div class="alert alert-note">
+&lt;div>
+Click the images for an interactive 3D visualization.
+&lt;/div>
+&lt;/div>
+&lt;h4 id="samurai-dataset">SAMURAI-Dataset&lt;/h4>
+&lt;div class="gallery">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=duck" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/duck.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=fireengine" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/fireengine.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/garbagetruck.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=keywest" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/keywest.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=pumpkin" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/pumpkin.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=rccar" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/rccar.jpg" alt="">
+&lt;/a>
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot" href="javascript:;">
+&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/robot.jpg" alt="">
+&lt;/a>
+&lt;/div>
+&lt;!-- ### Copyright
+This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item><item><title>NeRF at NeurIPS 2022</title><link>https://markboss.me/post/nerf_at_neurips22/</link><pubDate>Sun, 18 Sep 2022 22:31:51 +0200</pubDate><guid>https://markboss.me/post/nerf_at_neurips22/</guid><description>&lt;p>Inspired by &lt;a href="https://dellaert.github.io" target="_blank" rel="noopener">Frank Dellaert&lt;/a> and his excellent series on the original &lt;a href="https://dellaert.github.io/NeRF/" target="_blank" rel="noopener">NeRF Explosion&lt;/a> and the following &lt;a href="https://dellaert.github.io/NeRF21/" target="_blank" rel="noopener">ICCV&lt;/a>/&lt;a href="https://dellaert.github.io/NeRF22/" target="_blank" rel="noopener">CVPR&lt;/a> conference gatherings, I decided to look into creating a NeurIPS 22 rundown myself.&lt;/p>
 &lt;p>The papers below are all the papers I could gather by browsing through the extensive list of &lt;a href="https://nips.cc/Conferences/2022/Schedule?type=Poster" target="_blank" rel="noopener">accepted NeurIPS papers&lt;/a>. I mainly collected all papers where the titles fit and did a brief scan through the paper or only the abstract if the paper wasn&amp;rsquo;t published at the time of writing. If I have mischaracterized or missed any paper, please send me a DM on Twitter &lt;a href="https://twitter.com/markb_boss" target="_blank" rel="noopener">@markb_boss&lt;/a> or via mail.&lt;/p>
 &lt;p>&lt;strong>Note&lt;/strong>: &lt;em>images below belong to the cited papers, and the copyright belongs to the authors or the organization that published these papers. Below I use key figures or videos from some papers under the fair use clause of copyright law.&lt;/em>&lt;/p>
 &lt;h2 id="nerf">NeRF&lt;/h2>
@@ -318,59 +370,7 @@ Overview of the &lt;a href="https://arxiv.org/abs/2208.11537" target="_blank" re
 &lt;h2 id="conclusion">Conclusion&lt;/h2>
 &lt;p>This was quite the amount of work, and I have enormous respect for Frank Dellaert for having it done thrice before. The field of NeRF moves incredibly fast, and even for a single conference, there exists a massive amount of reading material.&lt;/p>
 &lt;p>It is also interesting to see NeRF find new applications in other fields such as &lt;a href="#audio">audio&lt;/a> and that sorting papers into a single category becomes challenging. This might be related to fast progress in the field and the high risk of getting scooped.&lt;/p></description></item><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/news/neurips22-samurai/</link><pubDate>Thu, 15 Sep 2022 09:57:23 +0100</pubDate><guid>https://markboss.me/news/neurips22-samurai/</guid><description/></item><item><title>An open-source smartphone app for the quantitative evaluation of thin-layer chromatographic analyses in medicine quality screening</title><link>https://markboss.me/news/scirep22-tlc/</link><pubDate>Thu, 04 Aug 2022 09:57:23 +0100</pubDate><guid>https://markboss.me/news/scirep22-tlc/</guid><description/></item><item><title>An open-source smartphone app for the quantitative evaluation of thin-layer chromatographic analyses in medicine quality screening</title><link>https://markboss.me/publication/2022-tlcyzer/</link><pubDate>Thu, 04 Aug 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2022-tlcyzer/</guid><description>&lt;!-- ### Copyright
-This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item><item><title>TLCyzer</title><link>https://markboss.me/project/tlcyzer/</link><pubDate>Thu, 04 Aug 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/project/tlcyzer/</guid><description/></item><item><title>Neural Reflectance Decomposition</title><link>https://markboss.me/talk/neural-reflectance-decomposition/</link><pubDate>Tue, 26 Jul 2022 10:00:00 +0800</pubDate><guid>https://markboss.me/talk/neural-reflectance-decomposition/</guid><description/></item><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/news/arxiv22-samurai/</link><pubDate>Tue, 31 May 2022 09:57:23 +0100</pubDate><guid>https://markboss.me/news/arxiv22-samurai/</guid><description/></item><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/publication/2022-samurai/</link><pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2022-samurai/</guid><description>
-&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-&lt;iframe src="https://www.youtube.com/embed/LlYuGDjXp-8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
-&lt;/div>
-&lt;h3 id="introduction">Introduction&lt;/h3>
-&lt;p>Our previous methods such as &lt;a href="https://markboss.me/publication/2021-nerd/">NeRD&lt;/a> and &lt;a href="https://markboss.me/publication/2021-neural-pil/">Neural-PIL&lt;/a> achieve the decomposition of images under varying illumination into shape, BRDF, and illumination. However, both methods require near-perfect known poses. In challenging scenes recovering poses is challenging and traditional methods fail with objects captured under varying illuminations and locations.&lt;/p>
-&lt;h2 id="method">Method&lt;/h2>
-&lt;figure id="figure-the-samurai-architecture">
-&lt;div class="d-flex justify-content-center">
-&lt;div class="w-100" >&lt;img alt="The SAMURAI architecture." srcset="
-/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_f0fbbf61d7097a49e26b7975fffcfb94.webp 400w,
-/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_9e4d72244c945061262711b0f3a8d3cd.webp 760w,
-/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_1200x1200_fit_q75_h2_lanczos.webp 1200w"
-src="https://markboss.me/publication/2022-samurai/SAMURAI_hu39fb25fb710281ded4fb528a11595723_111404_f0fbbf61d7097a49e26b7975fffcfb94.webp"
-width="760"
-height="248"
-loading="lazy" data-zoomable />&lt;/div>
-&lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
-The SAMURAI architecture.
-&lt;/figcaption>&lt;/figure>
-&lt;p>In &lt;a href="#figure-the-samurai-architecture">&lt;strong>FIGURE 1&lt;/strong>&lt;/a> we visualize the SAMURAI architecture, which jointly optimizes the camera extrinsic and intrinsic parameters per image, the global shape and BRDF, as well as the per-image illumination latent variables. Here, we leverage &lt;a href="https://markboss.me/publication/2021-neural-pil/">Neural-PIL&lt;/a> for the rendering and prior on natural illuminations.&lt;/p>
-&lt;h2 id="results">Results&lt;/h2>
-&lt;div class="alert alert-note">
-&lt;div>
-Click the images for an interactive 3D visualization.
-&lt;/div>
-&lt;/div>
-&lt;h4 id="samurai-dataset">SAMURAI-Dataset&lt;/h4>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=duck" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/duck.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=fireengine" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/fireengine.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/garbagetruck.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=keywest" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/keywest.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=pumpkin" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/pumpkin.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=rccar" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/rccar.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/robot.jpg" alt="">
-&lt;/a>
-&lt;/div>
-&lt;!-- ### Copyright
-This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item><item><title>Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition</title><link>https://markboss.me/news/neurips21-neuralpil/</link><pubDate>Tue, 19 Oct 2021 11:57:23 +0100</pubDate><guid>https://markboss.me/news/neurips21-neuralpil/</guid><description/></item><item><title>Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition</title><link>https://markboss.me/publication/2021-neural-pil/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-neural-pil/</guid><description>
+This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item><item><title>TLCyzer</title><link>https://markboss.me/project/tlcyzer/</link><pubDate>Thu, 04 Aug 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/project/tlcyzer/</guid><description/></item><item><title>Neural Reflectance Decomposition</title><link>https://markboss.me/talk/neural-reflectance-decomposition/</link><pubDate>Tue, 26 Jul 2022 10:00:00 +0800</pubDate><guid>https://markboss.me/talk/neural-reflectance-decomposition/</guid><description/></item><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/news/arxiv22-samurai/</link><pubDate>Tue, 31 May 2022 09:57:23 +0100</pubDate><guid>https://markboss.me/news/arxiv22-samurai/</guid><description/></item><item><title>Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition</title><link>https://markboss.me/news/neurips21-neuralpil/</link><pubDate>Tue, 19 Oct 2021 11:57:23 +0100</pubDate><guid>https://markboss.me/news/neurips21-neuralpil/</guid><description/></item><item><title>Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition</title><link>https://markboss.me/publication/2021-neural-pil/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-neural-pil/</guid><description>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/p5cKaNwVp4M" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
 &lt;/div>
