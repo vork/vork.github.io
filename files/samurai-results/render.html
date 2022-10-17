@@ -34,10 +34,16 @@
 
     <script>
         var urlParams = new URLSearchParams(window.location.search);
-        var sceneName = urlParams.get('scene')
+        var sceneName = urlParams.get('scene');
         if (sceneName === null) {
             sceneName = "garbagetruck";
         }
+        var auto_rotate = urlParams.get("rotate");
+        if (auto_rotate === null) {
+            auto_rotate = "0";
+        }
+        var should_rotate = parseInt(auto_rotate);
+
         const baseModelFolder = "assets/models/";
         const baseHdriFolder = "/files/nerd-results/assets/hdris/"
 
@@ -48,7 +54,12 @@
         var camera = new BABYLON.ArcRotateCamera("camera1", Math.PI * 0.5, Math.PI / 2.5, 2.0, BABYLON.Vector3.Zero(), scene);
         camera.panningSensibility = 0;
         camera.lowerRadiusLimitSearch = 0.015;
-        camera.attachControl(canvas, true);
+        if (!should_rotate) {
+            camera.attachControl(canvas, true);
+        } else {
+            camera.useAutoRotationBehavior = true;
+            camera.autoRotationBehavior.idleRotationSpeed = -.5;
+        }
 
         var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
         var skyboxMaterial = new BABYLON.PBRMaterial("skyBox", scene);
@@ -102,67 +113,69 @@
         createButton(grid, "photo_studio", 2);
         createButton(grid, "urban_alley", 3);
 
-        var panel = new BABYLON.GUI.StackPanel();
-        panel.width = "200px";
-        panel.height = "80px";
-        panel.isVertical = false;
-        panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        uiTexture.addControl(panel);
+        if (!should_rotate) {
+            var panel = new BABYLON.GUI.StackPanel();
+            panel.width = "200px";
+            panel.height = "80px";
+            panel.isVertical = false;
+            panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+            panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+            uiTexture.addControl(panel);
 
-        var rotatingCamera = true;
+            var rotatingCamera = true;
 
-        var checkbox = new BABYLON.GUI.Checkbox();
-        checkbox.width = "20px";
-        checkbox.height = "20px";
-        checkbox.isChecked = rotatingCamera;
-        checkbox.color = "gray";
-        var clicked = false;
+            var checkbox = new BABYLON.GUI.Checkbox();
+            checkbox.width = "20px";
+            checkbox.height = "20px";
+            checkbox.isChecked = rotatingCamera;
+            checkbox.color = "gray";
+            var clicked = false;
 
-        var currentPosition = { x: 0, y: 0 };
-        var currentRotation = { x: 0, y: 0 };
-        var transformNode = new BABYLON.TransformNode("", scene);
+            var currentPosition = { x: 0, y: 0 };
+            var currentRotation = { x: 0, y: 0 };
+            var transformNode = new BABYLON.TransformNode("", scene);
 
-        var getCurPos = function (evt) {
-            currentPosition.x = evt.clientX;
-            currentPosition.y = evt.clientY;
-            currentRotation.x = transformNode.rotation.x;
-            currentRotation.y = transformNode.rotation.y;
-            clicked = true;
-        }
-        var rotate = function (evt) {
-            if (!clicked) {
-                return;
+            var getCurPos = function (evt) {
+                currentPosition.x = evt.clientX;
+                currentPosition.y = evt.clientY;
+                currentRotation.x = transformNode.rotation.x;
+                currentRotation.y = transformNode.rotation.y;
+                clicked = true;
             }
-            transformNode.rotation.y = currentRotation.y - (evt.clientX - currentPosition.x) / 100.0;
-            transformNode.rotation.x = currentRotation.x + (evt.clientY - currentPosition.y) / 100.0;
-        }
-        var stop = function (evt) {
-            clicked = false;
-        }
-
-        checkbox.onIsCheckedChangedObservable.add(function (value) {
-            rotatingCamera = !rotatingCamera;
-            if (rotatingCamera) {
-                canvas.removeEventListener("pointerdown", getCurPos);
-                canvas.removeEventListener("pointermove", rotate);
-                canvas.removeEventListener("pointerup", stop);
-                camera.attachControl(canvas, true);
-            } else {
-                camera.detachControl();
-                canvas.addEventListener("pointerdown", getCurPos);
-                canvas.addEventListener("pointermove", rotate);
-                canvas.addEventListener("pointerup", stop);
+            var rotate = function (evt) {
+                if (!clicked) {
+                    return;
+                }
+                transformNode.rotation.y = currentRotation.y - (evt.clientX - currentPosition.x) / 100.0;
+                transformNode.rotation.x = currentRotation.x + (evt.clientY - currentPosition.y) / 100.0;
             }
-        });
-        panel.addControl(checkbox);
-        var header = new BABYLON.GUI.TextBlock();
-        header.text = "Rotate Camera";
-        header.width = "180px";
-        header.marginLeft = "10px";
-        header.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        header.color = "white";
-        panel.addControl(header);
+            var stop = function (evt) {
+                clicked = false;
+            }
+
+            checkbox.onIsCheckedChangedObservable.add(function (value) {
+                rotatingCamera = !rotatingCamera;
+                if (rotatingCamera) {
+                    canvas.removeEventListener("pointerdown", getCurPos);
+                    canvas.removeEventListener("pointermove", rotate);
+                    canvas.removeEventListener("pointerup", stop);
+                    camera.attachControl(canvas, true);
+                } else {
+                    camera.detachControl();
+                    canvas.addEventListener("pointerdown", getCurPos);
+                    canvas.addEventListener("pointermove", rotate);
+                    canvas.addEventListener("pointerup", stop);
+                }
+            });
+            panel.addControl(checkbox);
+            var header = new BABYLON.GUI.TextBlock();
+            header.text = "Rotate Camera";
+            header.width = "180px";
+            header.marginLeft = "10px";
+            header.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+            header.color = "white";
+            panel.addControl(header);
+        }
 
         BABYLON.SceneLoader.OnPluginActivatedObservable.addOnce(function (loader) {
             if (loader.name === "gltf") {
