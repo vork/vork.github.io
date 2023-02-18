@@ -376,7 +376,7 @@ object-fit: contain;"></video></p>
 <h2 id="plenoptic-function">Plenoptic function</h2>
 <ul>
 <li>Main use-case: novel view synthesis</li>
-<li>Learns the radiance</li>
+<li>Estimate the outgoing radiance</li>
 <li>No relighting possible</li>
 </ul>
  </div>
@@ -403,7 +403,6 @@ object-fit: contain;"></video></p>
 <li>Decomposes the rendering equation</li>
 <li>Reflectance modelled as BRDF</li>
 <li>Illumination as incoming radiance</li>
-<li>Often differentiable rendering is used for optimization</li>
 <li>Fully relightable</li>
 </ul>
  </div>
@@ -486,20 +485,25 @@ object-fit: contain;" class="fragment fade-in">
     <div class="content">
         
             <div class="column"> <ul>
-<li>Main branch of NeRF learns density and latent code</li>
-<li>Last layer of NeRF estimates view-dependent color
+<li>Main section of NeRF learns density and latent code</li>
+<li>Last layers of NeRF estimates view-dependent color
 <ul>
-<li>Shape should not be influence by the viewing direction</li>
+<li>Shape should not be influenced by the viewing direction</li>
 </ul>
 </li>
 </ul>
+<div class="fragment"  data-fragment-index="2">
+<ul>
+<li>NeRF is not relightable</li>
+</ul>
+</div>
 <figure><img src="../images/per_scene_decomposition/nerd/NeRF@3x.png"/><figcaption>
             <h4>NeRF architecture</h4>
         </figcaption>
 </figure>
 </div>
         
-            <div class="column"> <div class="fragment">
+            <div class="column"> <div class="fragment"  data-fragment-index="1">
 <video data-autoplay loop data-src="../images/per_scene_decomposition/viewdirs_website_bww.mp4" style="width: 100%;
   object-fit: contain;"></video>
   <h4>View dependence with NeRF</h4>
@@ -523,8 +527,8 @@ object-fit: contain;" class="fragment fade-in">
 <p><br/><br/></p>
 <h4 class="fragment" data-fragment-index="2">Potential solution</h4>
 <ul>
-<li class='fragment' data-fragment-index="3">Train GLO (<em>Generative Latent Optimization</em>) to express radiance per illumination</li>
-<li class='fragment' data-fragment-index="4">Interpolate between illuminations</li>
+<li class='fragment' data-fragment-index="3">Use additional latent code to express radiance per illumination</li>
+<li class='fragment' data-fragment-index="4">Interpolate between illuminations with GLO (<em>Generative Latent Optimization</em>)</li>
 </ul>
 </div>
         
@@ -568,7 +572,7 @@ object-fit: contain;" class="fragment fade-in">
         
             <div class="column"> <ul>
 <li>Only interpolate between seen illuminations</li>
-<li>No issue if dataset is vast and contains most illuminations</li>
+<li>No issue if dataset is vast and contains all possible illuminations</li>
 <li>However, it is hard to get all possible illumination edge cases
 <br />
 <br /></li>
@@ -1045,12 +1049,17 @@ object-fit: contain;" class="fragment fade-in">
     <div class="content">
         
             <div class="column"> <ul>
-<li>Light pre-integration is still expensive</li>
+<li>Light pre-integration is computed with brute-force (expensive)</li>
 <li>We need to do the pre-integration on the fly</li>
+</ul>
+<div class="fragment" data-fragment-index="0">
+<ul>
 <li>Neural-PIL that converts light pre-integration into a simple network query</li>
 <li>Architecture based on pi-GAN [1]</li>
 </ul>
-<table class="fragment" data-fragment-index="4">
+</div>
+<div class="fragment" data-fragment-index="5">
+<table>
     <caption style="caption-side:bottom"><h4>Evaluation time</h4></caption>
     <thead><tr>
     <th>Rendering</th>
@@ -1063,6 +1072,7 @@ object-fit: contain;" class="fragment fade-in">
       <td style="color:Tomato;">0.00186s</td>
     </tr></tbody>
 </table>
+ </div>
  </div>
         
             <div class="column"> <div class="r-stack">
@@ -1130,17 +1140,28 @@ object-fit: contain;" class="fragment fade-in">
     </div>
     <div class="content">
         
-            <div class="column"> <ul>
-<li>Learn a smooth low-dimensional manifold to represent BRDF and lighting</li>
+            <div class="column"> <div class="fragment">
+<ul>
 <li>Constraints BRDF and light to plausible values</li>
+<li>Use frozen decoders during decomposition - only optimize latent code</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Smooth latent manifold crucial for following optimization</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Explicit latent space interpolation during training</li>
-<li>Smooth manifold losses include:
+<li>Losses to encourage smooth manifold formation:
 <ul>
 <li>Adversarial</li>
 <li>Gradient regularization during manifold interpolation</li>
 </ul>
 </li>
 </ul>
+</div>
  </div>
         
             <div class="column"> <figure><img src="../images/per_scene_decomposition/neural_pil/smae_loss.jpg"/><figcaption>
@@ -1411,13 +1432,28 @@ object-fit: contain;"></video> </div>
         <div class="section"> Approach</div>
     </div>
     <div class="content">
-        <div style="display: flex;
+        
+            <div class="column"> <ul>
+<li>Jointly learn
+<ul>
+<li>Camera extrinsics and intrinsics</li>
+<li>Density field (shape)</li>
+<li>Reflectance field</li>
+<li>Illumination code</li>
+</ul>
+</li>
+</ul>
+<!-- 
+ </div>
+        
+            <div class="column"> <div style="display: flex;
   justify-content: center;
-  align-items: center; height: 100%;">
-<figure><img src="../images/per_scene_decomposition/samurai/Architecture.jpg"/><figcaption>
+  align-items: center; height: 100%;"> -->
+<figure><img src="../images/per_scene_decomposition/samurai/Architecture.jpg" width="1050rem"/><figcaption>
             <h4>Optimize camera parameters, neural reflectance field, and illumination</h4>
         </figcaption>
 </figure>
+<!-- </div> -->
 </div>
 
     </div>
@@ -1431,14 +1467,23 @@ object-fit: contain;"></video> </div>
     <div class="content">
         
             <div class="column"> <ul>
-<li>BARF-style Fourier Encoding Annealing</li>
+<li>Fourier Encoding Annealing from BARF [1]
+<ul>
+<li>Increases encoding frequencies during training</li>
+<li>Smooth shapes easier to align</li>
+</ul>
+</li>
 <li>Gradual increase in resolution</li>
 <li>Multiple camera estimates</li>
 </ul>
  </div>
         
-            <div class="column"> <video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/anneal.mp4" style="width: 100%;
-object-fit: contain;"></video> </div>
+            <div class="column"> <p><video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/anneal.mp4" style="width: 100%;
+object-fit: contain;"></video></p>
+<div class="cite-area">
+    <p>[1] Lin <em>et al.</em> - BARF: Bundle-adjusting neural radiance fields</p>
+</div>
+ </div>
         
     </div>
 </div>
@@ -1877,12 +1922,12 @@ GAN-based Neural Radiance Field without Posed Camera</p>
 <div class="fragment">
 <ul>
 <li>We presented three novel methods of solving this task from image collections</li>
-<li>NeRD and Neural-PIL requires posed image collections</li>
+<li>The presented method are capable of handling varying and fixed illuminations</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>The presented method are capable of handling varying and fixed illuminations</li>
+<li>NeRD and Neural-PIL require posed image collections</li>
 </ul>
  </div>
 <div class="fragment">
@@ -1890,7 +1935,6 @@ GAN-based Neural Radiance Field without Posed Camera</p>
 <li>Neural-PIL introduces general priors guiding the estimation
 <ul>
 <li>Prior knowledge from datasets for BRDF and illumination</li>
-<li>Optimized to specific scene</li>
 <li>Outperforms prior art</li>
 </ul>
 </li>
@@ -1923,7 +1967,7 @@ GAN-based Neural Radiance Field without Posed Camera</p>
     <div class="content">
         
             <div class="column"> <ul>
-<li>My wife Nadine and Samuel</li>
+<li>Nadine and Samuel</li>
 <li>My parents</li>
 </ul>
 <p></p>
