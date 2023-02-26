@@ -67,6 +67,20 @@ function render(renderer, scene, camera, fps=30) {
 const light_position_1 = new THREE.Vector3(-0.3, 0, 0);
 const light_position_2 = new THREE.Vector3(0, 0, -0.3);
 
+const line_material = new THREE.LineBasicMaterial( { color: 0x009688 } );
+
+const pointsUpper = [];
+pointsUpper.push( new THREE.Vector3(0, 0, 0) );
+pointsUpper.push( new THREE.Vector3( 0.2, 0, -0.095 ) );
+
+const geometryUpper = new THREE.BufferGeometry().setFromPoints( pointsUpper );
+
+const pointsLower = [];
+pointsLower.push( new THREE.Vector3(0, 0, 0) );
+pointsLower.push( new THREE.Vector3( 0.2, 0, 0.095 ) );
+
+const geometryLower = new THREE.BufferGeometry().setFromPoints( pointsLower );
+
 loader.load("LightBulb.glb", function (bulb) {
   var light_bulb_model = bulb.scene;
   if (light_bulb_model instanceof THREE.Group) {
@@ -87,6 +101,13 @@ loader.load("LightBulb.glb", function (bulb) {
   const light2 = light_bulb_model.clone()
   light2.position.copy(light_position_2);
   light2.rotation.set(0, -Math.PI / 2, -Math.PI / 2);
+
+  const lineUpper = new THREE.Line( geometryUpper, line_material );
+  const lineLower = new THREE.Line( geometryLower, line_material );
+  scene.add(lineUpper, lineLower);
+
+  lineUpper.position.copy(light_position_1);
+  lineLower.position.copy(light_position_1);
 
   scene.add(light1, light2);
 
@@ -132,6 +153,8 @@ loader.load("LightBulb.glb", function (bulb) {
       tween = tween
       .onUpdate(function () {
         gnome_model.scale.setScalar(scale_val.z)
+        lineUpper.scale.set(1+(1-scale_val.z)*0.5, 1, scale_val.z)
+        lineLower.scale.set(1+(1-scale_val.z)*0.5, 1, scale_val.z)
       })
       .easing(TWEEN.Easing.Exponential.Out)
 
