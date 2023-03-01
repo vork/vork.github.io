@@ -44,6 +44,9 @@ const std = [
   0.8938306, 0.90405214, 1.0537871, 1.6390864, 1.1740764, 0.8411807, 1.1331412,
 ];
 
+const height=64;
+const width=128;
+
 // const env_maps = [
 //   [-0.65142584, -0.93752617, -0.50904006, 0.21704662, 0.6813029, -0.5282879, -0.08291856, -0.28318098, 0.58060586, -0.13292582, -0.034498714, -0.068174124, 0.6505595, 0.06016847, -0.1578655, 0.069256015, 0.7455233, 0.51535064, -0.087894976, 0.7464299, -0.4631139, 0.8890742, -0.013322905, -0.8526284, -0.05521484, 0.5542035, 0.7444761, -0.0947619, 0.030872464, -0.30824962, -0.40886393, -0.12989298, -0.19228157, 0.2878599, 0.25814798, 0.5113153, -0.3365585, -0.0047711506, -0.58060354, 0.21317397, 0.1486267, 0.121971525, 0.04746168, 1.2495428, 0.15356372, 0.106805325, 0.4149328, -0.21232, -0.25507084, 0.38727137, 0.19450212, -0.5482668, 0.7142878, 0.5057471, 0.6082878, 0.9333483, -0.5858037, 0.30074906, 0.33776885, -0.1381091, -0.010817172, -0.6688276, -0.8364074, -0.71313, 0.24076727, 0.49644625, -0.5850959, -0.20543718, 0.894538, -0.29792643, -0.44816428, 0.6914637, -0.2991036, -0.7061343, 0.23954168, -0.31259784, -0.36281663, -0.20854318, -1.5680517, -0.8236337, -1.5000051, 1.6308091, -0.057486944, -0.11987639, -0.7913507, 0.23832375, 0.90824795, -0.58743125, -0.30571842, -0.7555557, -0.46885696, 0.1653145, -0.1473748, 0.20552686, -0.8780758, 0.45715928, 0.006635, -0.56297004, 0.3192643, 0.15914442, 0.571573, -0.21797529, -0.1990359, 0.19192718, 0.30987722, -0.13408132, 1.1090677, -0.5790482, 1.152064, -0.5076972, 0.27995753, 0.6057349, 0.29835367, 0.09057598, -0.867833, -0.12738246, -0.32401633, -0.46142432, -0.39794898, 0.021200042, -0.3974503, 0.6659856, -0.080440894, 0.77927214, 0.108623296, 0.00056187063, -0.055230513, -0.35659617],
 //   [0.8764052, -0.208117, -0.46030378, 0.20513612, 0.34624207, 0.19259517, 0.6958444, 0.48016614, -1.1414218, 0.35787368, 0.19711173, -0.30426118, 0.8509569, 2.2667356, 0.98520696, -0.30274844, -5.1341386, -0.18783747, 0.27870533, -0.7198178, 3.0848947, 1.3237877, 4.1165032, -0.31278497, 0.5754845, -0.76747394, -1.5366155, 1.2274153, 0.88788116, 0.9788045, 0.4121265, -0.497979, -0.34969243, 0.53455925, 0.7851178, -1.7807547, -1.0065347, 0.53702015, -0.60083634, 0.11146109, -0.43119323, -0.754922, -0.15743817, 0.048221197, -0.34201705, 9.6671095, 0.58685195, 1.1127996, -1.3727261, -8.744777, 0.80933034, -0.6051745, 0.13288404, -6.93271, -0.2110523, -0.43991044, -0.62572587, 0.3197472, -0.5273839, -1.2653557, 0.6446262, -0.47129387, -0.05875589, 2.3642092, 0.60251015, 0.5646354, -0.08292312, 0.047685128, -0.26550686, 0.71106917, -0.26694012, -1.115171, 0.5856441, 0.9180982, -0.034807973, 0.293173, 0.7837594, 0.10153514, 0.32361937, -1.8673092, -0.27315342, 0.08425559, 0.04516097, 0.2290432, -1.1535169, -0.2581011, 0.285733, 1.8053769, 0.24147587, 0.3622518, -0.32660404, -0.5069769, 1.3664, -0.052649826, 1.7847764, -0.29854333, -0.53596175, -0.65700907, 0.38116008, 0.36573282, -0.77398515, -3.192238, 1.5382642, -0.348477, -0.7154487, 1.2753906, -0.010321231, 0.19518635, 0.39418858, 0.19358303, 0.29509413, 2.3124645, 0.35678607, 0.24491656, 0.42199725, -0.9821932, 0.014122963, -1.5408103, -1.1330122, -0.46610907, -0.039154217, 0.68800294, -0.5379341, 0.40276864, -1.2235991, -0.40788734, -1.1144041, 0.43468088],
@@ -75,7 +78,7 @@ async function setup_model(url) {
 }
 
 function convert_array_to_input(arr) {
-  const normal_applied = arr.map((x, i) => x * std[i] * 2.2 + mean[i]);
+  const normal_applied = arr.map((x, i) => x * std[i] * 3 + mean[i]);
   return tf.tensor2d(normal_applied, [1, mean.length]);
 }
 
@@ -145,7 +148,7 @@ function tonemap(val) {
   });
 }
 
-function generate_shapes(height, width) {
+function generate_shapes() {
   const ret = [];
   for (var y = 0; y < height; y++) {
     const y_norm = y / height + 0.5 / height;
@@ -211,7 +214,7 @@ function fragmentShader() {
     return specular + (max(vec3(1.0 - roughness), specular) - specular) * neg_dot_5;
   }
 
-  highp vec3 reflect(in vec3 d, in vec3 n) {
+  highp vec3 reflection(in vec3 d, in vec3 n) {
     return d - 2.0 * dot(d, n) * n;
   }
 
@@ -236,7 +239,7 @@ function fragmentShader() {
   void main() {
     vec3 normal = normalize(vNormal);
     vec3 viewDir = normalize(cameraPos - vWorldPosition);
-    vec3 reflectDir = normalize(reflect(-viewDir, normal));
+    vec3 reflectDir = normalize(reflection(-viewDir, normal));
 
     float ndotv = dot(normal, viewDir);
 
@@ -251,7 +254,7 @@ function fragmentShader() {
 
     vec3 spec_eval = specular_irradiance * (F * brdf_lut.x + brdf_lut.y);
 
-    gl_FragColor = vec4(pow(aces_approx(spec_eval), vec3(1.0/2.2)), 1.0);
+    gl_FragColor = vec4(pow(aces_approx(spec_eval  * vec3(3.0, 3.0, 3.0)), vec3(1.0/2.2)), 1.0);
   }`;
 }
 
@@ -280,10 +283,10 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 window.addEventListener("resize", function () {
-  var width = window.innerWidth;
-  var height = window.innerHeight;
-  renderer.setSize(width, height);
-  camera.aspect = width / height;
+  var wwidth = window.innerWidth;
+  var wheight = window.innerHeight;
+  renderer.setSize(wwidth, wheight);
+  camera.aspect = wwidth / wheight;
   camera.updateProjectionMatrix();
 });
 
@@ -314,7 +317,7 @@ function render(renderer, scene, camera, fps = 30) {
 }
 
 new EXRLoader().load("brdflut.exr", function (brdflut, brdflut_data) {
-  function to_texture(data, width, height) {
+  function to_texture(data) {
     const dat = new Float32Array(
       data.map((x) => [...x.map((y) => (y / (1.0 + y)) * 255.0), 255.0]).flat()
     );
@@ -342,7 +345,7 @@ new EXRLoader().load("brdflut.exr", function (brdflut, brdflut_data) {
     brdfLut: { type: "t", value: brdflut },
     envMap: {
       type: "t",
-      value: to_texture(new Array(256 * 128).fill([1.0, 1.0, 1.0]), 256, 128),
+      value: to_texture(new Array(width * height).fill([1.0, 1.0, 1.0])),
     },
   };
   //material.uniforms.roughness.value
@@ -367,8 +370,6 @@ new EXRLoader().load("brdflut.exr", function (brdflut, brdflut_data) {
     conditional_model,
     output_model,
     latent_normed,
-    height = 128,
-    width = 256
   ) {
     const normalized = convert_array_to_input(latent_normed);
     let main_maps = mapping_model.predict(normalized);
@@ -394,8 +395,8 @@ new EXRLoader().load("brdflut.exr", function (brdflut, brdflut_data) {
 
   const canvas_ctx = document.createElement("canvas").getContext("2d");
   document.body.appendChild(canvas_ctx.canvas);
-  canvas_ctx.canvas.width = 256;
-  canvas_ctx.canvas.height = 128;
+  canvas_ctx.canvas.width = width;
+  canvas_ctx.canvas.height = height;
   canvas_ctx.canvas.style.border = "2px solid black";
   canvas_ctx.canvas.style.position = "absolute";
   canvas_ctx.canvas.style.top = "0";
@@ -429,7 +430,7 @@ new EXRLoader().load("brdflut.exr", function (brdflut, brdflut_data) {
           sphere.material.needsUpdate = true;
           console.log(sphere.material.uniforms);
 
-          const imageData = canvas_ctx.createImageData(256, 128);
+          const imageData = canvas_ctx.createImageData(width, height);
           for (let i = 0; i < imageData.data.length; i += 4) {
             const val_mapped = linear_to_srgb(
               evaled[Math.floor(i / 4)].map((e) => aces_approx(e))
