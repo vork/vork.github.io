@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shape | Mark Boss</title><link>https://markboss.me/tag/shape/</link><atom:link href="https://markboss.me/tag/shape/index.xml" rel="self" type="application/rss+xml"/><description>Shape</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 28 Sep 2022 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_3.png</url><title>Shape</title><link>https://markboss.me/tag/shape/</link></image><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/publication/2022-samurai/</link><pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2022-samurai/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Shape | Mark Boss</title><link>https://markboss.me/tag/shape/</link><atom:link href="https://markboss.me/tag/shape/index.xml" rel="self" type="application/rss+xml"/><description>Shape</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 17 Mar 2023 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_3.png</url><title>Shape</title><link>https://markboss.me/tag/shape/</link></image><item><title>Neural Reflectance Decomposition</title><link>https://markboss.me/publication/phdthesis/</link><pubDate>Fri, 17 Mar 2023 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/phdthesis/</guid><description/></item><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/publication/2022-samurai/</link><pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2022-samurai/</guid><description>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/LlYuGDjXp-8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
 &lt;/div>
@@ -26,28 +26,42 @@ Click the images for an interactive 3D visualization.
 &lt;/div>
 &lt;/div>
 &lt;h4 id="samurai-dataset">SAMURAI-Dataset&lt;/h4>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=duck" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/duck.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=duck">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/duck.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=fireengine" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/fireengine.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=fireengine">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/fireengine.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/garbagetruck.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/garbagetruck.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=keywest" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/keywest.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=keywest">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/keywest.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=pumpkin" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/pumpkin.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=pumpkin">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/pumpkin.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=rccar" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/rccar.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=rccar">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/rccar.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/robot.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/robot.jpg" loading="lazy">
 &lt;/a>
+&lt;/div>
 &lt;/div>
 &lt;!-- ### Copyright
 This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item><item><title>Neural Reflectance Decomposition</title><link>https://markboss.me/talk/neural-reflectance-decomposition/</link><pubDate>Tue, 26 Jul 2022 10:00:00 +0800</pubDate><guid>https://markboss.me/talk/neural-reflectance-decomposition/</guid><description/></item><item><title>Neural-PIL: Neural Pre-Integrated Lighting for Reflectance Decomposition</title><link>https://markboss.me/publication/2021-neural-pil/</link><pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2021-neural-pil/</guid><description>
@@ -158,7 +172,8 @@ height="347"
 loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
 Overview of the decomposition network.
-&lt;/figcaption>&lt;/figure> -->
+&lt;/figcaption>&lt;/figure>
+-->
 &lt;!--
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/CyC6PutoJO8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
@@ -171,32 +186,44 @@ Click the images for an interactive 3D visualization.
 &lt;/div>
 &lt;/div>
 &lt;h4 id="real-world">Real-world&lt;/h4>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=gnome" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/gnome/input.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=gnome">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/gnome/input.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=goldcape" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/goldcape/input.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=goldcape">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/goldcape/input.jpg" loading="lazy">
 &lt;/a>
+&lt;/div>
 &lt;/div>
 &lt;h4 id="real-world-preliminary-in-the-wild">Real-world (Preliminary in the wild)&lt;/h4>
 &lt;p>The images from the Statue of Liberty are collected from Flickr, Unsplash, Youtube and Vimeo videos. In total about 120 images are used for training from various phones, cameras and drones. Overall even the COLMAP registration is not perfect due to the simplistic shared camera model.&lt;/p>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=statue" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/statue/input.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=statue">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/statue/input.jpg" loading="lazy">
 &lt;/a>
 &lt;/div>
+&lt;/div>
 &lt;h5 id="synthetic-examples">Synthetic Examples&lt;/h5>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=car" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/car/input.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=car">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/car/input.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=chair" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/chair/input.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=chair">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/chair/input.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=globe" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/globe/input.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=globe">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/globe/input.jpg" loading="lazy">
 &lt;/a>
+&lt;/div>
 &lt;/div>
 &lt;h3 id="copyright">Copyright&lt;/h3>
 &lt;p>This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to &lt;a href="mailto:pubs-permissions@ieee.org">pubs-permissions@ieee.org&lt;/a>.&lt;/p></description></item><item><title>Two-shot Spatially-varying BRDF and Shape Estimation</title><link>https://markboss.me/publication/cvpr20-two-shot-brdf/</link><pubDate>Tue, 16 Jun 2020 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/cvpr20-two-shot-brdf/</guid><description>
@@ -210,85 +237,133 @@ Click the images for an interactive 3D visualization.
 &lt;/div>
 &lt;/div>
 &lt;h4 id="aksoy-et-al---a-dataset-of-flash-and-ambient-illumination-pairs-from-the-crowd">Aksoy et al. - A Dataset of Flash and Ambient Illumination Pairs from the Crowd&lt;/h4>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf0" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf0/input_flash.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf0">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf0/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf1" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf1/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf1">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf1/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf2" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf2/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf2">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf2/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf3" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf3/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf3">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf3/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf4" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf4/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf4">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf4/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf5" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf5/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf5">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf5/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf6" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf6/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf6">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf6/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf7" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf7/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf7">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf7/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf8" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf8/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf8">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf8/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf9" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf9/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf9">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf9/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf10" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf10/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf10">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf10/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf11" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf11/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf11">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf11/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf12" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf12/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf12">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf12/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf13" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf13/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf13">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf13/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf14" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf14/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf14">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf14/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf15" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/fnf15/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=fnf15">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/fnf15/input_flash.jpg" loading="lazy">
 &lt;/a>
+&lt;/div>
 &lt;/div>
 &lt;h5 id="real-world-examples">Real-world Examples&lt;/h5>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw0" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw0/input_flash.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw1" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw1/input_flash.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw2" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw2/input_flash.jpg" alt="">
-&lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw3" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/rw3/input_flash.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw0">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/rw0/input_flash.jpg" loading="lazy">
 &lt;/a>
 &lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw1">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/rw1/input_flash.jpg" loading="lazy">
+&lt;/a>
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw2">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/rw2/input_flash.jpg" loading="lazy">
+&lt;/a>
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=rw3">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/rw3/input_flash.jpg" loading="lazy">
+&lt;/a>
+&lt;/div>
+&lt;/div>
 &lt;h5 id="synthetic-examples">Synthetic Examples&lt;/h5>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn0" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn0/input_flash.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn0">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/syn0/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn1" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn1/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn1">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/syn1/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn2" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn2/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn2">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/syn2/input_flash.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn3" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/cvpr20-results/predictions/syn3/input_flash.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/cvpr20-results/renderer.html?mat=syn3">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/cvpr20-results/predictions/syn3/input_flash.jpg" loading="lazy">
 &lt;/a>
+&lt;/div>
 &lt;/div>
 &lt;h3 id="copyright">Copyright&lt;/h3>
 &lt;p>This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to &lt;a href="mailto:pubs-permissions@ieee.org">pubs-permissions@ieee.org&lt;/a>.&lt;/p></description></item></channel></rss>

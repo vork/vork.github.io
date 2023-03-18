@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Camera Pose Estimation | Mark Boss</title><link>https://markboss.me/tag/camera-pose-estimation/</link><atom:link href="https://markboss.me/tag/camera-pose-estimation/index.xml" rel="self" type="application/rss+xml"/><description>Camera Pose Estimation</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 28 Sep 2022 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_3.png</url><title>Camera Pose Estimation</title><link>https://markboss.me/tag/camera-pose-estimation/</link></image><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/publication/2022-samurai/</link><pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2022-samurai/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Camera Pose Estimation | Mark Boss</title><link>https://markboss.me/tag/camera-pose-estimation/</link><atom:link href="https://markboss.me/tag/camera-pose-estimation/index.xml" rel="self" type="application/rss+xml"/><description>Camera Pose Estimation</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 17 Mar 2023 00:00:00 +0000</lastBuildDate><image><url>https://markboss.me/media/icon_hube1743d0a4940c76c300ec8349475861_6659_512x512_fill_lanczos_center_3.png</url><title>Camera Pose Estimation</title><link>https://markboss.me/tag/camera-pose-estimation/</link></image><item><title>Neural Reflectance Decomposition</title><link>https://markboss.me/publication/phdthesis/</link><pubDate>Fri, 17 Mar 2023 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/phdthesis/</guid><description/></item><item><title>SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</title><link>https://markboss.me/publication/2022-samurai/</link><pubDate>Wed, 28 Sep 2022 00:00:00 +0000</pubDate><guid>https://markboss.me/publication/2022-samurai/</guid><description>
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/LlYuGDjXp-8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
 &lt;/div>
@@ -26,28 +26,42 @@ Click the images for an interactive 3D visualization.
 &lt;/div>
 &lt;/div>
 &lt;h4 id="samurai-dataset">SAMURAI-Dataset&lt;/h4>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=duck" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/duck.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=duck">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/duck.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=fireengine" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/fireengine.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=fireengine">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/fireengine.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/garbagetruck.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=garbagetruck">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/garbagetruck.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=keywest" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/keywest.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=keywest">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/keywest.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=pumpkin" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/pumpkin.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=pumpkin">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/pumpkin.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=rccar" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/rccar.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=rccar">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/rccar.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/samurai-results/assets/models/robot.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/samurai-results/render.html?scene=robot">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/samurai-results/assets/models/robot.jpg" loading="lazy">
 &lt;/a>
+&lt;/div>
 &lt;/div>
 &lt;!-- ### Copyright
 This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to [pubs-permissions@ieee.org](mailto:pubs-permissions@ieee.org). --></description></item><item><title>Neural Reflectance Decomposition</title><link>https://markboss.me/talk/neural-reflectance-decomposition/</link><pubDate>Tue, 26 Jul 2022 10:00:00 +0800</pubDate><guid>https://markboss.me/talk/neural-reflectance-decomposition/</guid><description/></item></channel></rss>

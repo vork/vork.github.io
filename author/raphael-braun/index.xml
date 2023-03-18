@@ -106,7 +106,8 @@ height="347"
 loading="lazy" data-zoomable />&lt;/div>
 &lt;/div>&lt;figcaption data-pre="Figure&amp;nbsp;" data-post=":&amp;nbsp;" class="numbered">
 Overview of the decomposition network.
-&lt;/figcaption>&lt;/figure> -->
+&lt;/figcaption>&lt;/figure>
+-->
 &lt;!--
 &lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
 &lt;iframe src="https://www.youtube.com/embed/CyC6PutoJO8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video">&lt;/iframe>
@@ -119,32 +120,44 @@ Click the images for an interactive 3D visualization.
 &lt;/div>
 &lt;/div>
 &lt;h4 id="real-world">Real-world&lt;/h4>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=gnome" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/gnome/input.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=gnome">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/gnome/input.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=goldcape" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/goldcape/input.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=goldcape">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/goldcape/input.jpg" loading="lazy">
 &lt;/a>
+&lt;/div>
 &lt;/div>
 &lt;h4 id="real-world-preliminary-in-the-wild">Real-world (Preliminary in the wild)&lt;/h4>
 &lt;p>The images from the Statue of Liberty are collected from Flickr, Unsplash, Youtube and Vimeo videos. In total about 120 images are used for training from various phones, cameras and drones. Overall even the COLMAP registration is not perfect due to the simplistic shared camera model.&lt;/p>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=statue" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/statue/input.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=statue">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/statue/input.jpg" loading="lazy">
 &lt;/a>
 &lt;/div>
+&lt;/div>
 &lt;h5 id="synthetic-examples">Synthetic Examples&lt;/h5>
-&lt;div class="gallery">
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=car" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/car/input.jpg" alt="">
+&lt;div class="gallery-grid">
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=car">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/car/input.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=chair" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/chair/input.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=chair">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/chair/input.jpg" loading="lazy">
 &lt;/a>
-&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=globe" href="javascript:;">
-&lt;img class="fixed-width-img" src="https://markboss.me/files/nerd-results/assets/models/globe/input.jpg" alt="">
+&lt;/div>
+&lt;div class="gallery-item gallery-item--medium">
+&lt;a data-fancybox data-type="iframe" data-src="https://markboss.me/files/nerd-results/render.html?scene=globe">
+&lt;img style="overflow: hidden;" src="https://markboss.me/files/nerd-results/assets/models/globe/input.jpg" loading="lazy">
 &lt;/a>
+&lt;/div>
 &lt;/div>
 &lt;h3 id="copyright">Copyright&lt;/h3>
 &lt;p>This material is posted here with permission of the IEEE. Internal or personal use of this material is permitted. However, permission to reprint/republish this material for advertising or promotional purposes or for creating new collective works for resale or redistribution must be obtained from the IEEE by writing to &lt;a href="mailto:pubs-permissions@ieee.org">pubs-permissions@ieee.org&lt;/a>.&lt;/p></description></item></channel></rss>
