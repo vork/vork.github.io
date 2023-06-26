@@ -8285,6 +8285,70 @@
           </div>
         </section>
 
+        <section>
+          <div class="container">
+            <div class="col" style="flex: 0.33">
+              <h4 style="font-size: 1.5rem; display: block; text-align: left">
+                <a href="http://arxiv.org/abs/2211.12853v1">
+                  <!-- TITLE  -->
+                  Level-S2fM: Structure from Motion on Neural Level Set of Implicit Surfaces
+                </a>
+              </h4>
+              <i style="font-size: 1rem; opacity: 0.87; color: white; text-align: left">
+                <!-- AUTHORS -->
+                Yuxi Xiao, Nan Xue, Tianfu Wu, Gui-Song Xia
+              </i>
+            </div>
+
+            <div class="col" style="
+        background-color: white;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: auto;
+        border: var(--r-link-color);
+        border-style: solid;
+        border-width: 0.25rem;
+        justify-content: center;
+        max-height: 30vh;
+      ">
+              <img src="image/1b75bb0f6f4b735469b813b5aa317e2c2593f171dd8aca77be457dc8b16555d4.jpg"
+                style="max-height: 60%; width: auto;" />
+              <span style="
+          color: black;
+          opacity: 0.87;
+          font-size: 0.75rem;
+          text-align: left;
+          display: block;
+        ">
+                <!-- IMAGE DESCRIPTION -->
+                Figure 1. SfM calculations on neural level sets. We learn to do geometric calculations including
+                Triangulation, PnP, and Bundle Adjustment above neural level sets, which easily help to reject
+                the outliers in the matches especially in the texture repeated scenes. Also, due to the continuous
+                surface priors of neural level sets, we achieve better pose estimation accuracy and our
+                reconstructed points are sticking on the surface which are painted with color in the figure. While,
+                there are a lot of outlier 3d points reconstructed by COLMAP which are painted by black.
+              </span>
+            </div>
+          </div>
+          <div style="padding: 5%">
+            <span style="
+        opacity: 0.87;
+        color: white;
+        font-size: 1.25rem;
+        text-align: center;
+        display: block;
+      ">
+              <!-- SUMMARY -->
+              This paper introduces Level-S2fM, a neural incremental Structure-from-Motion (SfM) approach that
+              uses coordinate MLPs to estimate camera poses and scene geometry from uncalibrated images. It
+              addresses challenges in optimizing volumetric neural rendering with unknown camera poses and
+              demonstrates promising results in camera pose estimation, scene geometry reconstruction, and neural
+              implicit rendering.
+            </span>
+          </div>
+        </section>
+
         <!-- End of blog posts of category -->
       </section>
 
