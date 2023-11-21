@@ -1,0 +1,2810 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Inverse Rendering - Games Day 2023 - Stuttgard, HdM</title>
+
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../reveal-js/css/reset.css">
+    <link rel="stylesheet" href="../reveal-js/css/reveal.css">
+    <link rel="stylesheet" href="../personal.css" id="theme">
+    <link rel="stylesheet" href="../highlight-js/atom-one-dark.min.css">
+
+</head>
+
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+
+
+            <section data-noprocess data-shortcode-slide class="title">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo logo--full"></div>
+                    </div>
+                    <div class="content">
+
+                        <h1>
+                            Inverse Rendering for Games
+                        </h1>
+
+                        <p class="description">
+
+                            <!-- Extracting BRDF, shape, and illumination from images -->
+
+                        </p>
+                    </div>
+                    <div class="credit">
+                        <hr />
+                        <div class="label">Presented By</div>
+                        <div class="name">Mark Boss</div>
+                        <div class="role">Senior Research Scientist</div>
+                    </div>
+                </div>
+
+
+
+                <aside class="notes">
+                    <ul>
+                        <li>This talk gives a short overview of use cases for inverse rendering in games</li>
+                    </ul>
+                </aside>
+            </section>
+
+
+
+
+            <section data-noprocess data-shortcode-slide class="biography">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Biography</div>
+                    </div>
+                    <div class="content">
+                        <div class="profile">
+                            <div class="image">
+                                <img src="../images/avatar.jpg">
+                            </div>
+                            <div class="details">
+                                <h2>Profile</h2>
+                                <p>Mark Boss is a researcher at Unity Technologies. Before that, he completed his PhD at
+                                    the University of Tübingen in the computer graphics group of Prof. Hendrik Lensch.
+                                    His research interests lie at the intersection of machine learning and computer
+                                    graphics, with the main focus on inferring physical properties (shape, material,
+                                    illumination) from images.</p>
+                            </div>
+                            <div class="experience">
+                                <div class="experience-wrapper">
+                                    <h2>Experience</h2>
+                                    <div class="experience-items">
+                                        <p class="position">Senior Research Scientist</p>
+                                        <p class="company">Unity</p>
+                                        <p class="time">Sep 2022 - present</p>
+                                    </div>
+                                    <div class="experience-items">
+                                        <p class="position">Student Researcher</p>
+                                        <p class="company">Google</p>
+                                        <p class="time">June 2021 - April 2022</p>
+                                    </div>
+                                    <div class="experience-items">
+                                        <p class="position">Research Intern</p>
+                                        <p class="company">Nvidia</p>
+                                        <p class="time">April 2019 - Juli 2019</p>
+                                    </div>
+                                    <div class="experience-items">
+                                        <p class="position">Ph.D. Student</p>
+                                        <p class="company">University of Tübingen</p>
+                                        <p class="time">June 2018 - Juli 2022</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> What is Inverse Rendering?</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: center;">
+                                <figure><img src="../images/GnomeInput.jpg" />
+                                    <figcaption>
+                                        <h4>Multiple input images (potential multiple illuminations)</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;">
+                                <div style="height: 75%; width: 100%;">
+                                    <iframe type="text/html" width="100%" height="100%"
+                                        data-src="/files/nerd-results/render.html?scene=gnome" data-preload
+                                        frameborder="0">
+                                    </iframe>
+                                </div>
+                                <h4 style="margin-top: -0.75em;">Relightable 3D asset [1]</h4>
+                            </div>
+                            <div class="cite-area">
+                                <p>[1] <strong>Result from:</strong> Boss <em>et al.</em> - NeRD: Neural Reflectance
+                                    Decomposition from Image Collections - 2021</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Why Inverse Rendering?</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div class="r-stack" style="height:80%;width:100%;">
+                                <div class="fragment fade-out" data-fragment-index="0" style="height:100%;width:100%;">
+                                    <img style="width:100%;height:90%;object-fit:cover;"
+                                        src="../images/games_day2023/intro/3d/FarCryForest.jpg">
+                                    <p>Far Cry 4 (2014)</p>
+                                </div>
+                                <div class="fragment current-visible" data-fragment-index="0"
+                                    style="height:100%;width:100%;">
+                                    <img style="width:100%;height:90%;object-fit:cover;"
+                                        src="../images/games_day2023/intro/3d/LastOfUs.jpg">
+                                    <p>The Last Of Us - Left Behind (2014)</p>
+                                </div>
+                                <div class="fragment" style="height:100%;width:100%;">
+                                    <img style="width:100%;height:90%;object-fit:cover;"
+                                        src="../images/games_day2023/intro/3d/ShadowOfMorder.png">
+                                    <p>Shadow of Mordor (2014)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="r-stack" style="height:80%;width:100%;">
+                                <div style="height:100%;width:100%;">
+                                    <img style="width:100%;height:90%;object-fit:cover;"
+                                        src="../images/games_day2023/intro/3d/Ethan.jpg">
+                                    <p class="fragment">Vanishing of Ethan Carter (2014)</p>
+                                </div>
+                            </div>
+                            <p class="fragment"><b>Indie Team < 10 people</b>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Photogrammetry in Vanishing of Ethan Carter</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column"> <img style="width:100%;height:90%;object-fit:cover;"
+                                src="../images/games_day2023/intro/astronauts/scanning.jpg">
+                            <p>Scanning in the field
+                        </div>
+
+                        <div class="column"> <video data-autoplay data-loop
+                                style="width:100%;height:90%;object-fit:cover;">
+                                <source data-src="../images/games_day2023/intro/astronauts/software.mp4"
+                                    type="video/mp4" />
+                            </video>
+                            <p>Reconstruction in Software</p>
+                            <div class="cite-area">
+                                <p>[1] <strong>Images from:</strong> The Astronauts - <a
+                                        href="https://www.theastronauts.com/category/ethan-carter/">Blog</a></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Speedup In Asset Creation</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <table style="
+    table-layout: fixed ;
+    width: 100%;
+">
+                                <caption>Estimated Time for a single asset [1]</caption>
+                                <tr>
+                                    <th style="width:16%;">Days</th>
+                                    <th style="width:6%;" align="center">1</th>
+                                    <th style="width:6%;" align="center">2</th>
+                                    <th style="width:6%;" align="center">3</th>
+                                    <th style="width:6%;" align="center">4</th>
+                                    <th style="width:6%;" align="center">5</th>
+                                    <th style="width:6%;" align="center">6</th>
+                                    <th style="width:6%;" align="center">7</th>
+                                    <th style="width:6%;" align="center">8</th>
+                                    <th style="width:6%;" align="center">9</th>
+                                    <th style="width:6%;" align="center">10</th>
+                                    <th style="width:6%;" align="center">11</th>
+                                    <th style="width:6%;" align="center">12</th>
+                                    <th style="width:6%;" align="center">13</th>
+                                    <th style="width:6%;" align="center">14</th>
+                                </tr>
+                                <tr>
+                                    <td>Classic</td>
+                                    <td colspan="5" bgcolor="#97E886"
+                                        style="text-align: center;vertical-align: middle;">High Mesh</td>
+                                    <td colspan="3" bgcolor="#FEAF78"
+                                        style="text-align: center;vertical-align: middle;">Texturing</td>
+                                    <td colspan="2" bgcolor="#F37188"
+                                        style="text-align: center;vertical-align: middle;">Retopology</td>
+                                    <td colspan="1" bgcolor="#D29FFF"
+                                        style="text-align: center;vertical-align: middle;">UV + bake</td>
+                                    <td colspan="1" bgcolor="#FAE36E"
+                                        style="text-align: center;vertical-align: middle;">Material</td>
+                                    <td colspan="1" bgcolor="#AACAFF"
+                                        style="text-align: center;vertical-align: middle;">Import IG</td>
+                                    <td colspan="1" bgcolor="#93FFEA"
+                                        style="text-align: center;vertical-align: middle;">LOD</td>
+                                </tr>
+                                <tr>
+                                    <td>Photogrammetry</td>
+                                    <td colspan="1" bgcolor="#EDDAB2"
+                                        style="text-align: center;vertical-align: middle;">Photos</td>
+                                    <td colspan="1" bgcolor="#FEAF78"
+                                        style="text-align: center;vertical-align: middle;">HM + T</td>
+                                    <td colspan="2" bgcolor="#F37188"
+                                        style="text-align: center;vertical-align: middle;">Retopology</td>
+                                    <td colspan="1" bgcolor="#D29FFF"
+                                        style="text-align: center;vertical-align: middle;">UV + bake</td>
+                                    <td colspan="1" bgcolor="#FAE36E"
+                                        style="text-align: center;vertical-align: middle;">Material & Delight</td>
+                                    <td colspan="1" bgcolor="#AACAFF"
+                                        style="text-align: center;vertical-align: middle;">Import IG</td>
+                                    <td colspan="1" bgcolor="#93FFEA"
+                                        style="text-align: center;vertical-align: middle;">LOD</td>
+                                    <td colspan="6" bgcolor="#89989E"
+                                        style="text-align: center;vertical-align: middle;">Time saved</td>
+                                </tr>
+                                <!-- <tr class="fragment">
+        <td>Neural Decomposition</td>
+        <td colspan="1" bgcolor="#EDDAB2" style="text-align: center;vertical-align: middle;">Photos</td>
+        <td colspan="1" bgcolor="#FEAF78" style="text-align: center;vertical-align: middle;">HM + T + M</td>
+        <td colspan="2" bgcolor="#F37188" style="text-align: center;vertical-align: middle;">Retopology</td>
+        <td colspan="1" bgcolor="#D29FFF" style="text-align: center;vertical-align: middle;">UV + bake</td>
+        <td colspan="1" bgcolor="#AACAFF" style="text-align: center;vertical-align: middle;">Import IG</td>
+        <td colspan="8" bgcolor="#89989E" style="text-align: center;vertical-align: middle;">Time saved</td>
+    </tr> -->
+                            </table>
+                            <div class="cite-area">
+                                <p>[1] <strong>Create Photorealistic Game Assets - E-Book</strong> - Unity Technologies
+                                    - 2017</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Issues with Photogrammetry</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <ul>
+                                <li>Requires De-lighting</li>
+                                <li>Requires manual material creation</li>
+                                <li>Manual material creation is time consuming</li>
+                                <li>Manual material creation also does not necessarily capture the reality</li>
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <div style="display:flex;flex-direction:column;align-items:center;height:100%;">
+                                <img style="width:60%;height:30%;object-fit:cover;"
+                                    src="../images/games_day2023/intro/photogrammetry_issues/Delight.png">
+                                <p>Delighting [1]</p>
+                                <img style="width:100%;height:50%;object-fit:cover;"
+                                    src="../images/games_day2023/intro/photogrammetry_issues/SubstanceGraph.png">
+                                <p>Material Creation in Substance Designer [2]</p>
+                                <div>
+                                    <div class="cite-area">
+                                        <p>[1] <strong>Create Photorealistic Game Assets - E-Book</strong> - Unity
+                                            Technologies - 2017</p>
+                                        <p>[2] <strong><a
+                                                    href="https://www.youtube.com/watch?v=DfCH1cjzvmI">Photogrammetry
+                                                    workflow for surface scanning with the monopod</a></strong> -
+                                            Grzegorz Baran - 2020</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Speedup In Asset Creation</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <table style="
+    table-layout: fixed ;
+    width: 100%;
+">
+                                <caption>Estimated Time for a single asset [1]</caption>
+                                <tr>
+                                    <th style="width:16%;">Days</th>
+                                    <th style="width:6%;" align="center">1</th>
+                                    <th style="width:6%;" align="center">2</th>
+                                    <th style="width:6%;" align="center">3</th>
+                                    <th style="width:6%;" align="center">4</th>
+                                    <th style="width:6%;" align="center">5</th>
+                                    <th style="width:6%;" align="center">6</th>
+                                    <th style="width:6%;" align="center">7</th>
+                                    <th style="width:6%;" align="center">8</th>
+                                    <th style="width:6%;" align="center">9</th>
+                                    <th style="width:6%;" align="center">10</th>
+                                    <th style="width:6%;" align="center">11</th>
+                                    <th style="width:6%;" align="center">12</th>
+                                    <th style="width:6%;" align="center">13</th>
+                                    <th style="width:6%;" align="center">14</th>
+                                </tr>
+                                <tr>
+                                    <td>Classic</td>
+                                    <td colspan="5" bgcolor="#97E886"
+                                        style="text-align: center;vertical-align: middle;">High Mesh</td>
+                                    <td colspan="3" bgcolor="#FEAF78"
+                                        style="text-align: center;vertical-align: middle;">Texturing</td>
+                                    <td colspan="2" bgcolor="#F37188"
+                                        style="text-align: center;vertical-align: middle;">Retopology</td>
+                                    <td colspan="1" bgcolor="#D29FFF"
+                                        style="text-align: center;vertical-align: middle;">UV + bake</td>
+                                    <td colspan="1" bgcolor="#FAE36E"
+                                        style="text-align: center;vertical-align: middle;">Material</td>
+                                    <td colspan="1" bgcolor="#AACAFF"
+                                        style="text-align: center;vertical-align: middle;">Import IG</td>
+                                    <td colspan="1" bgcolor="#93FFEA"
+                                        style="text-align: center;vertical-align: middle;">LOD</td>
+                                </tr>
+                                <tr>
+                                    <td>Photogrammetry</td>
+                                    <td colspan="1" bgcolor="#EDDAB2"
+                                        style="text-align: center;vertical-align: middle;">Photos</td>
+                                    <td colspan="1" bgcolor="#FEAF78"
+                                        style="text-align: center;vertical-align: middle;">HM + T</td>
+                                    <td colspan="2" bgcolor="#F37188"
+                                        style="text-align: center;vertical-align: middle;">Retopology</td>
+                                    <td colspan="1" bgcolor="#D29FFF"
+                                        style="text-align: center;vertical-align: middle;">UV + bake</td>
+                                    <td colspan="1" bgcolor="#FAE36E"
+                                        style="text-align: center;vertical-align: middle;">Material & Delight</td>
+                                    <td colspan="1" bgcolor="#AACAFF"
+                                        style="text-align: center;vertical-align: middle;">Import IG</td>
+                                    <td colspan="1" bgcolor="#93FFEA"
+                                        style="text-align: center;vertical-align: middle;">LOD</td>
+                                    <td colspan="6" bgcolor="#89989E"
+                                        style="text-align: center;vertical-align: middle;">Time saved</td>
+                                </tr>
+                                <tr class="fragment">
+                                    <td>Neural Decomposition</td>
+                                    <td colspan="1" bgcolor="#EDDAB2"
+                                        style="text-align: center;vertical-align: middle;">Photos</td>
+                                    <td colspan="1" bgcolor="#FEAF78"
+                                        style="text-align: center;vertical-align: middle;">HM + T + M</td>
+                                    <td colspan="2" bgcolor="#F37188"
+                                        style="text-align: center;vertical-align: middle;">Retopology</td>
+                                    <td colspan="1" bgcolor="#D29FFF"
+                                        style="text-align: center;vertical-align: middle;">UV + bake</td>
+                                    <td colspan="1" bgcolor="#AACAFF"
+                                        style="text-align: center;vertical-align: middle;">Import IG</td>
+                                    <td colspan="1" bgcolor="#93FFEA"
+                                        style="text-align: center;vertical-align: middle;">LOD</td>
+                                    <td colspan="7" bgcolor="#89989E"
+                                        style="text-align: center;vertical-align: middle;">Time saved</td>
+                                </tr>
+                            </table>
+                            <div class="cite-area">
+                                <p>[1] <strong>Create Photorealistic Game Assets - E-Book</strong> - Unity Technologies
+                                    - 2017</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="subsection">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                    </div>
+                    <h1> Background</h1>
+                    <div class="description">
+
+
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Rendering</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div class="cite-area">
+                                <p>[1] James T. Kajiya - The Rendering Equation - 1986</p>
+                            </div>
+                            <h4 id="rendering-equation-1">Rendering equation [1]</h4>
+                            <!-- $$L_{o}({\mathbf x},\omega_{o})=
+    L_{e}({\mathbf x},\omega_{o}) +
+    \color{red}\int_{\Omega } \color{black}
+    f_{r}({\mathbf x},\omega_{i},\omega_{o}) \\
+    L_{i}({\mathbf x},\omega_{i})
+    (\omega_{i}\cdot{\mathbf n})
+    \color{red}\operatorname d\omega_{i}$$ -->
+                            <p class="fragment" data-fragment-index="1">$$
+                                \definecolor{out}{RGB}{219,135,217}
+                                \definecolor{emit}{RGB}{125,194,103}
+                                \definecolor{int}{RGB}{127,151,236}
+                                \definecolor{in}{RGB}{225,145,83}
+                                \definecolor{brdf}{RGB}{0,202,207}
+                                \definecolor{ndl}{RGB}{235,120,152}
+                                \definecolor{point}{RGB}{232,0,19}
+                                \color{out}L_{o}(\color{point}{\mathbf x}\color{out},\,\omega_{o})\color{black}\,=
+                                \fragment{1}{\,\color{emit}L_{e}({\mathbf x},\,\omega_{o})}
+                                \fragment{2}{\color{black} + \\ \color{int}\int_{\Omega }}
+                                \fragment{4}{\color{brdf}f_{r}({\mathbf x},\,\omega_{i},\,\omega_{o})}
+                                \fragment{3}{\color{in}L_{i}({\mathbf x},\,\omega_{i})}\,
+                                \fragment{5}{\color{ndl}(\omega_{i}\,\cdot\,{\mathbf n})}\,
+                                \fragment{2}{\color{int}\operatorname d\omega_{i}}$$
+                            </p>
+                            <h4 class="fragment" data-fragment-index="7">Simplification: No self-emittance</h4>
+                            <p class="fragment" data-fragment-index="7">$$
+                                \definecolor{out}{RGB}{219,135,217}
+                                \definecolor{emit}{RGB}{125,194,103}
+                                \definecolor{int}{RGB}{127,151,236}
+                                \definecolor{in}{RGB}{225,145,83}
+                                \definecolor{brdf}{RGB}{0,202,207}
+                                \definecolor{ndl}{RGB}{235,120,152}
+                                \definecolor{point}{RGB}{232,0,19}
+                                \color{out}L_{o}(\color{point}{\mathbf
+                                x}\color{out},\,\omega_{o})\color{black}\,=\,\color{int}\int_{\Omega}
+                                \color{brdf}f_{r}({\mathbf x},\,\omega_{i},\,\omega_{o})
+                                \color{in}L_{i}({\mathbf x},\,\omega_{i})\,
+                                \color{ndl}(\omega_{i}\,\cdot\,{\mathbf n})\,
+                                \color{int}\operatorname d\omega_{i}$$
+                            </p>
+                            <h4 class="fragment" data-fragment-index="8">Radiance, reflectance and irradiance</h4>
+                            <!-- class="fragment" data-fragment-index="5" -->
+                            <p class="fragment" data-fragment-index="8">$$\underbrace{L_{o}({\mathbf
+                                x},\,\omega_{o})}_{\text{Radiance
+                                (Outgoing)}}\,=\,\int_{\Omega}\underbrace{f_{r}({\mathbf
+                                x},\,\omega_{i},\,\omega_{o})}_{\text{Reflectance}} \\
+                                \underbrace{L_{i}({\mathbf x},\,\omega_{i})\,
+                                (\omega_{i}\,\cdot\,{\mathbf n})\,
+                                \operatorname d\omega_{i}}_{\text{Irradiance}}$$</p>
+                        </div>
+
+                        <div class="column">
+                            <p><svg width="100%" height="100%" viewBox="0 0 135 100" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:15;">
+                                    <g id="RenderingEquation">
+                                        <g class="fragment" data-fragment-index="3" id="Integral">
+                                            <path
+                                                d="M116.184,69.201c0,0 -2.259,12.188 -49.043,12.188c-46.785,0 -49.044,-12.048 -49.044,-12.048c0,-27.068 21.975,-49.044 49.044,-49.044c27.068,0 49.043,21.836 49.043,48.904Z"
+                                                style="fill:none;stroke:#5eb2ff;stroke-width:2.4px;" />
+                                            <ellipse cx="67.141" cy="69.201" rx="49.044" ry="12.188"
+                                                style="fill:none;stroke:#5eb2ff;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;stroke-dasharray:2.2,6.6,0,0;" />
+                                        </g>
+                                        <g class="fragment" data-fragment-index="4" id="Li">
+                                            <path
+                                                d="M57.117,64.276l5.494,4.925l-7.237,1.44c2.027,-1.155 2.899,-4.338 1.743,-6.365Z"
+                                                style="fill:#ff9d46;" />
+                                            <path d="M25.115,58.936c0,0 22.153,6.065 32.404,8.871"
+                                                style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                            <path
+                                                d="M63.245,58.303l1.163,7.286l-6.527,-3.44c2.302,0.379 4.984,-1.544 5.364,-3.846Z"
+                                                style="fill:#ff9d46;" />
+                                            <path d="M41.795,34.05c0,0 13.352,18.623 19.537,27.248"
+                                                style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                            <path
+                                                d="M78.683,71.496l-7.013,-2.295l6.043,-4.234c-1.389,1.875 -0.904,5.139 0.97,6.529Z"
+                                                style="fill:#ff9d46;" />
+                                            <path d="M110.386,63.451c0,0 -22.925,3.405 -33.493,4.974"
+                                                style="fill:none;stroke:#ff9d46;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                        </g>
+                                        <path class="fragment" data-fragment-index="5" id="Brdf"
+                                            d="M82.214,34.634c11.767,-16.324 24.197,-27.503 27.739,-24.95c3.543,2.554 -3.135,17.88 -14.902,34.204c-11.768,16.324 -24.198,27.503 -27.74,24.95c-3.543,-2.554 3.135,-17.88 14.903,-34.204Z"
+                                            style="fill:none;stroke:#00ffe6;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                        <path class="fragment" data-fragment-index="6" id="dot"
+                                            d="M63.981,32.396l3.33,-6.585l3.27,6.615c-1.643,-1.657 -4.942,-1.672 -6.6,-0.03Z"
+                                            style="fill:#ff79ba;" />
+                                        <path class="fragment" data-fragment-index="6"
+                                            d="M67.141,63.551c0,0 0.099,-22.076 0.146,-32.46"
+                                            style="fill:none;stroke:#ff79ba;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                        <g class="fragment" data-fragment-index="2" id="Le">
+                                            <path
+                                                d="M33.977,53.139l-3.928,-6.247l7.354,0.606c-2.267,0.554 -3.98,3.374 -3.426,5.641Z"
+                                                style="fill:#89d73d;" />
+                                            <path d="M62.25,66.451c0,0 -18.825,-11.434 -27.688,-16.818"
+                                                style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                            <path
+                                                d="M84.862,36.75l6.475,-3.537l-1.055,7.303c-0.414,-2.297 -3.124,-4.179 -5.42,-3.766Z"
+                                                style="fill:#89d73d;" />
+                                            <path d="M69.774,64.254c0,0 12.62,-18.167 18.551,-26.705"
+                                                style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                            <path
+                                                d="M98.01,49.166l7.376,-0.224l-4.246,6.035c0.67,-2.235 -0.895,-5.14 -3.13,-5.811Z"
+                                                style="fill:#89d73d;" />
+                                            <path d="M72.24,66.793c0,0 19.373,-10.433 28.497,-15.347"
+                                                style="fill:none;stroke:#89d73d;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                        </g>
+                                        <path class="fragment" data-fragment-index="1" id="Out"
+                                            d="M103.753,12.604l6.633,-3.234l-1.392,7.247c-0.307,-2.313 -2.927,-4.32 -5.241,-4.013Z"
+                                            style="fill:#fc90ff;" />
+                                        <path class="fragment" data-fragment-index="1"
+                                            d="M95.903,28.285c0,0 7.006,-9.151 11.273,-14.722"
+                                            style="fill:none;stroke:#fc90ff;stroke-width:2.2px;stroke-linejoin:round;stroke-miterlimit:1.5;" />
+                                        <circle class="fragment" data-fragment-index="1" cx="67.141" cy="69.201"
+                                            r="2.356" style="fill:#e80013;" />
+                                    </g>
+                                </svg></p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Infinitely Far Illumination</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div>
+                                <p>$$
+                                    \definecolor{point}{RGB}{232,0,19}
+                                    L_{o}({\mathbf x},\,\omega_{o})\,=\,\int_{\Omega}f_{r}({\mathbf
+                                    x},\,\omega_{i},\,\omega_{o})
+                                    L_{i}(\color{point}{\mathbf x}\color{black},\,\omega_{i})\,
+                                    (\omega_{i}\,\cdot\,{\mathbf n})\,
+                                    \operatorname d\omega_{i}$$</p>
+                                <div class="fragment">
+                                    <h4>Simplification: Illumination only dependent on direction</h4>
+                                    <p>$$L_{o}({\mathbf x},\,\omega_{o})\,=\,\int_{\Omega}f_{r}({\mathbf
+                                        x},\,\omega_{i},\,\omega_{o})
+                                        L_{i}(\omega_{i})\,
+                                        (\omega_{i}\,\cdot\,{\mathbf n})\,
+                                        \operatorname d\omega_{i}$$</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column"> <iframe type="text/html" width="100%" height="100%"
+                                data-src="../viz/infinite_distant_explainer/index.html" data-preload frameborder="0">
+                            </iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Bidirectional Reflectance Distribution Function</div>
+                    </div>
+                    <div class="content">
+                        <iframe type="text/html" width="100%" height="100%" data-src="../viz/brdf_viz/index.html"
+                            data-preload frameborder="0">
+                        </iframe>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Inverse Rendering - Workshop Metaphor [1]</div>
+                    </div>
+                    <div class="content">
+                        <div class="grid-flex-column" style="
+        display: grid; 
+        place-content: space-evenly;
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    150px,
+                    30%),
+                1fr
+            )
+        );">
+
+                            <div class="column">
+                                <figure><img src="../images/workshop_metaphor/Image.jpg" />
+                                    <figcaption>
+                                        <h4>Image</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="column">
+                                <figure class="fragment"><img src="../images/workshop_metaphor/Sculptor.jpg" />
+                                    <figcaption>
+                                        <h4>Sculptor</h4>
+                                    </figcaption>
+                                </figure>
+                                <div class="fragment">
+                                    <figure>
+                                        <svg width="140" height="140" viewBox="0 0 50 50" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="50" height="50" fill="white" />
+                                            <path
+                                                d="M38 28.6249V36.4374C38 37.3002 37.3003 37.9999 36.4375 37.9999H28.625C27.7622 37.9999 27.0625 37.3002 27.0625 36.4374V28.6249C27.0625 27.7621 27.7622 27.0624 28.625 27.0624H36.4375C37.3003 27.0624 38 27.7621 38 28.6249ZM19.25 25.4999C15.7983 25.4999 13 28.2982 13 31.7499C13 35.2015 15.7983 37.9999 19.25 37.9999C22.7017 37.9999 25.5 35.2015 25.5 31.7499C25.5 28.2982 22.7017 25.4999 19.25 25.4999ZM36.3901 23.9374C37.6274 23.9374 38.4009 22.6351 37.7822 21.5936L33.1421 13.7811C32.5234 12.7396 30.9766 12.7396 30.3579 13.7811L25.7178 21.5936C25.0991 22.6351 25.8726 23.9374 27.1099 23.9374H36.3901Z"
+                                                fill="#3D6B6B" />
+                                        </svg>
+                                    </figure>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <figure class="fragment"><img src="../images/workshop_metaphor/Painter.jpg" />
+                                    <figcaption>
+                                        <h4>Painter</h4>
+                                    </figcaption>
+                                </figure>
+                                <div class="fragment">
+                                    <figure>
+                                        <svg width="140" height="140" viewBox="0 0 50 50" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="50" height="50" fill="white" />
+                                            <path
+                                                d="M22.975 13.2459C18.1215 14.1931 14.2103 18.0945 13.2533 22.9334C11.4467 32.0642 19.684 38.8709 25.89 37.9089C27.9017 37.5964 28.8881 35.2429 27.9652 33.4314C26.8373 31.2146 28.4486 28.6267 30.9389 28.6267H34.8305C36.5785 28.6267 37.9945 27.1814 37.9994 25.4382C37.975 17.7429 30.973 11.6882 22.975 13.2459ZM17.6869 28.6267C16.8226 28.6267 16.1244 27.9285 16.1244 27.0642C16.1244 26.2 16.8226 25.5017 17.6869 25.5017C18.5512 25.5017 19.2494 26.2 19.2494 27.0642C19.2494 27.9285 18.5512 28.6267 17.6869 28.6267ZM19.2494 22.3767C18.3851 22.3767 17.6869 21.6785 17.6869 20.8142C17.6869 19.95 18.3851 19.2517 19.2494 19.2517C20.1137 19.2517 20.8119 19.95 20.8119 20.8142C20.8119 21.6785 20.1137 22.3767 19.2494 22.3767ZM25.4994 19.2517C24.6351 19.2517 23.9369 18.5535 23.9369 17.6892C23.9369 16.825 24.6351 16.1267 25.4994 16.1267C26.3637 16.1267 27.0619 16.825 27.0619 17.6892C27.0619 18.5535 26.3637 19.2517 25.4994 19.2517ZM31.7494 22.3767C30.8851 22.3767 30.1869 21.6785 30.1869 20.8142C30.1869 19.95 30.8851 19.2517 31.7494 19.2517C32.6137 19.2517 33.3119 19.95 33.3119 20.8142C33.3119 21.6785 32.6137 22.3767 31.7494 22.3767Z"
+                                                fill="#3D6B6B" />
+                                        </svg>
+                                    </figure>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <figure class="fragment"><img src="../images/workshop_metaphor/Gaffer.jpg" />
+                                    <figcaption>
+                                        <h4>Gaffer</h4>
+                                    </figcaption>
+                                </figure>
+                                <div class="fragment">
+                                    <figure>
+                                        <svg width="140" height="140" viewBox="0 0 50 50" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="50" height="50" fill="white" />
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M41 31.1579H40.9728C40.4856 22.7042 33.5206 16 25 16C16.4794 16 9.51439 22.7042 9.02722 31.1579H9.00001V32.0834L9 32.1053L9.00001 32.1271V34H41V31.1579ZM37.1646 31.1579C37.1951 30.9019 37.297 30.6296 37.403 30.3463C37.5429 29.9724 37.69 29.5793 37.69 29.179C37.69 28.3369 37.0132 26.8211 35.998 27.1579C35.1859 27.4274 34.1368 26.2597 33.7984 25.4737C33.46 24.9684 33.257 24.0926 33.1216 23.2842C32.9524 22.2737 31.4296 21.4316 30.2452 20.9263C29.0608 20.4211 26.8612 20.5895 25.3384 21.0948C23.8156 21.6 23.3345 21.5301 21.616 20.9263C19.847 20.3048 18.7948 21.0542 17.6465 21.8719C17.6162 21.8935 17.5857 21.9152 17.5552 21.9369C16.4304 22.7366 16.4939 23.8333 16.534 24.5252C16.5361 24.5618 16.5382 24.5973 16.54 24.6316C16.5854 25.4892 16.0324 26.1474 14.848 26.1474C13.6636 26.1474 13.3252 26.4842 13.156 27.3263C13.0848 27.6809 13.1635 28.0056 13.2533 28.3759C13.3768 28.885 13.5211 29.4803 13.3252 30.3579C13.2455 30.7148 13.1346 30.9734 13.0105 31.1579H37.1646Z"
+                                                fill="#3D6B6B" />
+                                        </svg>
+                                    </figure>
+                                </div>
+                            </div>
+
+                            <div class="column">
+                                <figure class="fragment"><img src="../images/workshop_metaphor/Explanation.jpg" />
+                                    <figcaption>
+                                        <h4>Possible explanation</h4>
+                                    </figcaption>
+                                </figure>
+                                <div class="cite-area">
+                                    <p>[1] E.H. Adelson, A.P. Pentland - The Perception of Shading and Reflectance -
+                                        1996</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- --- -->
+                <!-- 
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Inverse Rendering</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <p><video data-autoplay loop data-src="../images/per_scene_decomposition/trike_200k_rgb.mp4" style="width: 60%;
+object-fit: contain; height: 250px;"></video></p>
+<h2 id="plenoptic-function">Plenoptic function</h2>
+<div style="display: flex">
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M38 28.6249V36.4374C38 37.3002 37.3003 37.9999 36.4375 37.9999H28.625C27.7622 37.9999 27.0625 37.3002 27.0625 36.4374V28.6249C27.0625 27.7621 27.7622 27.0624 28.625 27.0624H36.4375C37.3003 27.0624 38 27.7621 38 28.6249ZM19.25 25.4999C15.7983 25.4999 13 28.2982 13 31.7499C13 35.2015 15.7983 37.9999 19.25 37.9999C22.7017 37.9999 25.5 35.2015 25.5 31.7499C25.5 28.2982 22.7017 25.4999 19.25 25.4999ZM36.3901 23.9374C37.6274 23.9374 38.4009 22.6351 37.7822 21.5936L33.1421 13.7811C32.5234 12.7396 30.9766 12.7396 30.3579 13.7811L25.7178 21.5936C25.0991 22.6351 25.8726 23.9374 27.1099 23.9374H36.3901Z" fill="#3D6B6B"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M22.975 13.2459C18.1215 14.1931 14.2103 18.0945 13.2533 22.9334C11.4467 32.0642 19.684 38.8709 25.89 37.9089C27.9017 37.5964 28.8881 35.2429 27.9652 33.4314C26.8373 31.2146 28.4486 28.6267 30.9389 28.6267H34.8305C36.5785 28.6267 37.9945 27.1814 37.9994 25.4382C37.975 17.7429 30.973 11.6882 22.975 13.2459ZM17.6869 28.6267C16.8226 28.6267 16.1244 27.9285 16.1244 27.0642C16.1244 26.2 16.8226 25.5017 17.6869 25.5017C18.5512 25.5017 19.2494 26.2 19.2494 27.0642C19.2494 27.9285 18.5512 28.6267 17.6869 28.6267ZM19.2494 22.3767C18.3851 22.3767 17.6869 21.6785 17.6869 20.8142C17.6869 19.95 18.3851 19.2517 19.2494 19.2517C20.1137 19.2517 20.8119 19.95 20.8119 20.8142C20.8119 21.6785 20.1137 22.3767 19.2494 22.3767ZM25.4994 19.2517C24.6351 19.2517 23.9369 18.5535 23.9369 17.6892C23.9369 16.825 24.6351 16.1267 25.4994 16.1267C26.3637 16.1267 27.0619 16.825 27.0619 17.6892C27.0619 18.5535 26.3637 19.2517 25.4994 19.2517ZM31.7494 22.3767C30.8851 22.3767 30.1869 21.6785 30.1869 20.8142C30.1869 19.95 30.8851 19.2517 31.7494 19.2517C32.6137 19.2517 33.3119 19.95 33.3119 20.8142C33.3119 21.6785 32.6137 22.3767 31.7494 22.3767Z" fill="#3D6B6B"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M37.8489 24.6997C35.4952 20.1072 30.8355 17 25.5 17C20.1645 17 15.5034 20.1094 13.151 24.7001C13.0517 24.8965 13 25.1135 13 25.3336C13 25.5536 13.0517 25.7706 13.151 25.967C15.5048 30.5595 20.1645 33.6667 25.5 33.6667C30.8355 33.6667 35.4965 30.5573 37.8489 25.9666C37.9482 25.7702 38 25.5532 38 25.3331C38 25.113 37.9482 24.8961 37.8489 24.6997ZM25.5 31.5833C24.2638 31.5833 23.0555 31.2168 22.0277 30.53C20.9999 29.8433 20.1988 28.8671 19.7257 27.7251C19.2527 26.5831 19.1289 25.3264 19.3701 24.114C19.6112 22.9016 20.2065 21.788 21.0806 20.9139C21.9546 20.0398 23.0683 19.4446 24.2807 19.2034C25.493 18.9623 26.7497 19.086 27.8917 19.5591C29.0338 20.0321 30.0099 20.8332 30.6967 21.861C31.3834 22.8888 31.75 24.0972 31.75 25.3333C31.7504 26.1542 31.589 26.9671 31.275 27.7256C30.9611 28.484 30.5007 29.1732 29.9203 29.7536C29.3398 30.3341 28.6507 30.7944 27.8922 31.1084C27.1338 31.4223 26.3208 31.5837 25.5 31.5833ZM25.5 21.1667C25.1281 21.1719 24.7586 21.2272 24.4015 21.3312C24.6958 21.7312 24.8371 22.2235 24.7996 22.7187C24.7621 23.214 24.5484 23.6794 24.1972 24.0306C23.846 24.3818 23.3806 24.5955 22.8854 24.633C22.3901 24.6704 21.8978 24.5292 21.4978 24.2348C21.27 25.074 21.3111 25.9636 21.6154 26.7782C21.9196 27.5928 22.4717 28.2916 23.1938 28.776C23.916 29.2605 24.7719 29.5063 25.641 29.4788C26.5102 29.4514 27.3489 29.152 28.039 28.623C28.7291 28.0939 29.236 27.3617 29.4882 26.5295C29.7404 25.6973 29.7253 24.8069 29.445 23.9838C29.1647 23.1606 28.6333 22.446 27.9256 21.9407C27.2179 21.4353 26.3696 21.1646 25.5 21.1667Z" fill="#045FAE"/>
+</svg>
+</figure>
+</div>
+<ul>
+<li>Main use-case: novel view synthesis</li>
+<li>Estimate the view-dependent color</li>
+<li>No relighting possible</li>
+</ul>
+ </div>
+        
+            <div class="column"> <p><img src="../images/inverse_rendering/intrinsic_images.jpg" style="height: 250px;"></p>
+<h2 id="intrinsic-image">Intrinsic image</h2>
+<div style="display: flex">
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M38 28.6249V36.4374C38 37.3002 37.3003 37.9999 36.4375 37.9999H28.625C27.7622 37.9999 27.0625 37.3002 27.0625 36.4374V28.6249C27.0625 27.7621 27.7622 27.0624 28.625 27.0624H36.4375C37.3003 27.0624 38 27.7621 38 28.6249ZM19.25 25.4999C15.7983 25.4999 13 28.2982 13 31.7499C13 35.2015 15.7983 37.9999 19.25 37.9999C22.7017 37.9999 25.5 35.2015 25.5 31.7499C25.5 28.2982 22.7017 25.4999 19.25 25.4999ZM36.3901 23.9374C37.6274 23.9374 38.4009 22.6351 37.7822 21.5936L33.1421 13.7811C32.5234 12.7396 30.9766 12.7396 30.3579 13.7811L25.7178 21.5936C25.0991 22.6351 25.8726 23.9374 27.1099 23.9374H36.3901Z" fill="#3D6B6B"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M22.975 13.2459C18.1215 14.1931 14.2103 18.0945 13.2533 22.9334C11.4467 32.0642 19.684 38.8709 25.89 37.9089C27.9017 37.5964 28.8881 35.2429 27.9652 33.4314C26.8373 31.2146 28.4486 28.6267 30.9389 28.6267H34.8305C36.5785 28.6267 37.9945 27.1814 37.9994 25.4382C37.975 17.7429 30.973 11.6882 22.975 13.2459ZM17.6869 28.6267C16.8226 28.6267 16.1244 27.9285 16.1244 27.0642C16.1244 26.2 16.8226 25.5017 17.6869 25.5017C18.5512 25.5017 19.2494 26.2 19.2494 27.0642C19.2494 27.9285 18.5512 28.6267 17.6869 28.6267ZM19.2494 22.3767C18.3851 22.3767 17.6869 21.6785 17.6869 20.8142C17.6869 19.95 18.3851 19.2517 19.2494 19.2517C20.1137 19.2517 20.8119 19.95 20.8119 20.8142C20.8119 21.6785 20.1137 22.3767 19.2494 22.3767ZM25.4994 19.2517C24.6351 19.2517 23.9369 18.5535 23.9369 17.6892C23.9369 16.825 24.6351 16.1267 25.4994 16.1267C26.3637 16.1267 27.0619 16.825 27.0619 17.6892C27.0619 18.5535 26.3637 19.2517 25.4994 19.2517ZM31.7494 22.3767C30.8851 22.3767 30.1869 21.6785 30.1869 20.8142C30.1869 19.95 30.8851 19.2517 31.7494 19.2517C32.6137 19.2517 33.3119 19.95 33.3119 20.8142C33.3119 21.6785 32.6137 22.3767 31.7494 22.3767Z" fill="#3D6B6B"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M41 31.1579H40.9728C40.4856 22.7042 33.5206 16 25 16C16.4794 16 9.51439 22.7042 9.02722 31.1579H9.00001V32.0834L9 32.1053L9.00001 32.1271V34H41V31.1579ZM37.1646 31.1579C37.1951 30.9019 37.297 30.6296 37.403 30.3463C37.5429 29.9724 37.69 29.5793 37.69 29.179C37.69 28.3369 37.0132 26.8211 35.998 27.1579C35.1859 27.4274 34.1368 26.2597 33.7984 25.4737C33.46 24.9684 33.257 24.0926 33.1216 23.2842C32.9524 22.2737 31.4296 21.4316 30.2452 20.9263C29.0608 20.4211 26.8612 20.5895 25.3384 21.0948C23.8156 21.6 23.3345 21.5301 21.616 20.9263C19.847 20.3048 18.7948 21.0542 17.6465 21.8719C17.6162 21.8935 17.5857 21.9152 17.5552 21.9369C16.4304 22.7366 16.4939 23.8333 16.534 24.5252C16.5361 24.5618 16.5382 24.5973 16.54 24.6316C16.5854 25.4892 16.0324 26.1474 14.848 26.1474C13.6636 26.1474 13.3252 26.4842 13.156 27.3263C13.0848 27.6809 13.1635 28.0056 13.2533 28.3759C13.3768 28.885 13.5211 29.4803 13.3252 30.3579C13.2455 30.7148 13.1346 30.9734 13.0105 31.1579H37.1646Z" fill="#3D6B6B"/>
+<path d="M47.6551 10.4828L43.7159 8.5L47.6551 6.51717C47.9818 6.35271 48.0972 5.97422 47.9108 5.67834L47.3712 4.82163C47.1848 4.52576 46.7696 4.42811 46.4508 4.60523L42.608 6.74089L42.7042 2.62243C42.7122 2.28085 42.4123 2 42.0396 2H40.9604C40.5877 2 40.2878 2.28085 40.2958 2.62243L40.392 6.74089L36.5492 4.60526C36.2304 4.42813 35.8152 4.52578 35.6288 4.82166L35.0892 5.67837C34.9028 5.97424 35.0182 6.35274 35.345 6.5172L39.2841 8.5L35.3449 10.4828C35.0182 10.6473 34.9028 11.0258 35.0892 11.3217L35.6288 12.1784C35.8152 12.4742 36.2304 12.5719 36.5492 12.3948L40.392 10.2591L40.2958 14.3776C40.2878 14.7192 40.5877 15 40.9604 15H42.0396C42.4123 15 42.7122 14.7192 42.7043 14.3776L42.608 10.2591L46.4508 12.3947C46.7696 12.5719 47.1848 12.4742 47.3712 12.1783L47.9108 11.3216C48.0972 11.0258 47.9818 10.6473 47.6551 10.4828Z" fill="#3D6B6B"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M37.8489 24.6997C35.4952 20.1072 30.8355 17 25.5 17C20.1645 17 15.5034 20.1094 13.151 24.7001C13.0517 24.8965 13 25.1135 13 25.3336C13 25.5536 13.0517 25.7706 13.151 25.967C15.5048 30.5595 20.1645 33.6667 25.5 33.6667C30.8355 33.6667 35.4965 30.5573 37.8489 25.9666C37.9482 25.7702 38 25.5532 38 25.3331C38 25.113 37.9482 24.8961 37.8489 24.6997ZM25.5 31.5833C24.2638 31.5833 23.0555 31.2168 22.0277 30.53C20.9999 29.8433 20.1988 28.8671 19.7257 27.7251C19.2527 26.5831 19.1289 25.3264 19.3701 24.114C19.6112 22.9016 20.2065 21.788 21.0806 20.9139C21.9546 20.0398 23.0683 19.4446 24.2807 19.2034C25.493 18.9623 26.7497 19.086 27.8917 19.5591C29.0338 20.0321 30.0099 20.8332 30.6967 21.861C31.3834 22.8888 31.75 24.0972 31.75 25.3333C31.7504 26.1542 31.589 26.9671 31.275 27.7256C30.9611 28.484 30.5007 29.1732 29.9203 29.7536C29.3398 30.3341 28.6507 30.7944 27.8922 31.1084C27.1338 31.4223 26.3208 31.5837 25.5 31.5833ZM25.5 21.1667C25.1281 21.1719 24.7586 21.2272 24.4015 21.3312C24.6958 21.7312 24.8371 22.2235 24.7996 22.7187C24.7621 23.214 24.5484 23.6794 24.1972 24.0306C23.846 24.3818 23.3806 24.5955 22.8854 24.633C22.3901 24.6704 21.8978 24.5292 21.4978 24.2348C21.27 25.074 21.3111 25.9636 21.6154 26.7782C21.9196 27.5928 22.4717 28.2916 23.1938 28.776C23.916 29.2605 24.7719 29.5063 25.641 29.4788C26.5102 29.4514 27.3489 29.152 28.039 28.623C28.7291 28.0939 29.236 27.3617 29.4882 26.5295C29.7404 25.6973 29.7253 24.8069 29.445 23.9838C29.1647 23.1606 28.6333 22.446 27.9256 21.9407C27.2179 21.4353 26.3696 21.1646 25.5 21.1667Z" fill="#045FAE"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M20.6904 34.1851C20.6909 34.4922 20.7817 34.793 20.9521 35.0489L21.7866 36.3033C21.9292 36.5177 22.1225 36.6936 22.3495 36.8152C22.5764 36.9369 22.8299 37.0005 23.0874 37.0005H26.1006C26.3581 37.0005 26.6116 36.9369 26.8385 36.8152C27.0655 36.6936 27.2588 36.5177 27.4014 36.3033L28.2358 35.0489C28.4062 34.793 28.4972 34.4925 28.4976 34.1851L28.4995 32.3125H20.688L20.6904 34.1851ZM16 20.5938C16 22.7603 16.8032 24.7369 18.127 26.2471C18.9336 27.1675 20.1953 29.0904 20.6763 30.7124C20.6782 30.7251 20.6797 30.7378 20.6816 30.7505H28.5059C28.5078 30.7378 28.5093 30.7256 28.5112 30.7124C28.9922 29.0904 30.2539 27.1675 31.0605 26.2471C32.3843 24.7369 33.1875 22.7603 33.1875 20.5938C33.1875 15.8384 29.3257 11.9854 24.5669 12C19.5859 12.0152 16 16.0513 16 20.5938ZM24.5938 16.6875C22.4399 16.6875 20.6875 18.44 20.6875 20.5938C20.6875 21.0254 20.3379 21.375 19.9062 21.375C19.4746 21.375 19.125 21.0254 19.125 20.5938C19.125 17.5782 21.5781 15.125 24.5938 15.125C25.0254 15.125 25.375 15.4747 25.375 15.9063C25.375 16.3379 25.0254 16.6875 24.5938 16.6875Z" fill="#045FAE"/>
+<path d="M47.6551 10.4828L43.7159 8.5L47.6551 6.51717C47.9818 6.35271 48.0972 5.97422 47.9108 5.67834L47.3712 4.82163C47.1848 4.52576 46.7696 4.42811 46.4508 4.60523L42.608 6.74089L42.7042 2.62243C42.7122 2.28085 42.4123 2 42.0396 2H40.9604C40.5877 2 40.2878 2.28085 40.2958 2.62243L40.392 6.74089L36.5492 4.60526C36.2304 4.42813 35.8152 4.52578 35.6288 4.82166L35.0892 5.67837C34.9028 5.97424 35.0182 6.35274 35.345 6.5172L39.2841 8.5L35.3449 10.4828C35.0182 10.6473 34.9028 11.0258 35.0892 11.3217L35.6288 12.1784C35.8152 12.4742 36.2304 12.5719 36.5492 12.3948L40.392 10.2591L40.2958 14.3776C40.2878 14.7192 40.5877 15 40.9604 15H42.0396C42.4123 15 42.7122 14.7192 42.7043 14.3776L42.608 10.2591L46.4508 12.3947C46.7696 12.5719 47.1848 12.4742 47.3712 12.1783L47.9108 11.3216C48.0972 11.0258 47.9818 10.6473 47.6551 10.4828Z" fill="#045FAE"/>
+</svg>
+</figure>
+</div>
+<ul>
+<li>Splits an image into layers</li>
+<li>Layers have no physical meaning</li>
+<li>Limited relighting possible</li>
+</ul>
+ </div>
+        
+            <div class="column"> <p><video data-autoplay loop data-src="../images/per_scene_decomposition/neural_pil/chair.mp4" style="width: 45%;
+object-fit: contain; height: 250px;"></video></p>
+<h2 id="full-decomposition">Full decomposition</h2>
+<div style="display: flex">
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M38 28.6249V36.4374C38 37.3002 37.3003 37.9999 36.4375 37.9999H28.625C27.7622 37.9999 27.0625 37.3002 27.0625 36.4374V28.6249C27.0625 27.7621 27.7622 27.0624 28.625 27.0624H36.4375C37.3003 27.0624 38 27.7621 38 28.6249ZM19.25 25.4999C15.7983 25.4999 13 28.2982 13 31.7499C13 35.2015 15.7983 37.9999 19.25 37.9999C22.7017 37.9999 25.5 35.2015 25.5 31.7499C25.5 28.2982 22.7017 25.4999 19.25 25.4999ZM36.3901 23.9374C37.6274 23.9374 38.4009 22.6351 37.7822 21.5936L33.1421 13.7811C32.5234 12.7396 30.9766 12.7396 30.3579 13.7811L25.7178 21.5936C25.0991 22.6351 25.8726 23.9374 27.1099 23.9374H36.3901Z" fill="#3D6B6B"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M22.975 13.2459C18.1215 14.1931 14.2103 18.0945 13.2533 22.9334C11.4467 32.0642 19.684 38.8709 25.89 37.9089C27.9017 37.5964 28.8881 35.2429 27.9652 33.4314C26.8373 31.2146 28.4486 28.6267 30.9389 28.6267H34.8305C36.5785 28.6267 37.9945 27.1814 37.9994 25.4382C37.975 17.7429 30.973 11.6882 22.975 13.2459ZM17.6869 28.6267C16.8226 28.6267 16.1244 27.9285 16.1244 27.0642C16.1244 26.2 16.8226 25.5017 17.6869 25.5017C18.5512 25.5017 19.2494 26.2 19.2494 27.0642C19.2494 27.9285 18.5512 28.6267 17.6869 28.6267ZM19.2494 22.3767C18.3851 22.3767 17.6869 21.6785 17.6869 20.8142C17.6869 19.95 18.3851 19.2517 19.2494 19.2517C20.1137 19.2517 20.8119 19.95 20.8119 20.8142C20.8119 21.6785 20.1137 22.3767 19.2494 22.3767ZM25.4994 19.2517C24.6351 19.2517 23.9369 18.5535 23.9369 17.6892C23.9369 16.825 24.6351 16.1267 25.4994 16.1267C26.3637 16.1267 27.0619 16.825 27.0619 17.6892C27.0619 18.5535 26.3637 19.2517 25.4994 19.2517ZM31.7494 22.3767C30.8851 22.3767 30.1869 21.6785 30.1869 20.8142C30.1869 19.95 30.8851 19.2517 31.7494 19.2517C32.6137 19.2517 33.3119 19.95 33.3119 20.8142C33.3119 21.6785 32.6137 22.3767 31.7494 22.3767Z" fill="#3D6B6B"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M41 31.1579H40.9728C40.4856 22.7042 33.5206 16 25 16C16.4794 16 9.51439 22.7042 9.02722 31.1579H9.00001V32.0834L9 32.1053L9.00001 32.1271V34H41V31.1579ZM37.1646 31.1579C37.1951 30.9019 37.297 30.6296 37.403 30.3463C37.5429 29.9724 37.69 29.5793 37.69 29.179C37.69 28.3369 37.0132 26.8211 35.998 27.1579C35.1859 27.4274 34.1368 26.2597 33.7984 25.4737C33.46 24.9684 33.257 24.0926 33.1216 23.2842C32.9524 22.2737 31.4296 21.4316 30.2452 20.9263C29.0608 20.4211 26.8612 20.5895 25.3384 21.0948C23.8156 21.6 23.3345 21.5301 21.616 20.9263C19.847 20.3048 18.7948 21.0542 17.6465 21.8719C17.6162 21.8935 17.5857 21.9152 17.5552 21.9369C16.4304 22.7366 16.4939 23.8333 16.534 24.5252C16.5361 24.5618 16.5382 24.5973 16.54 24.6316C16.5854 25.4892 16.0324 26.1474 14.848 26.1474C13.6636 26.1474 13.3252 26.4842 13.156 27.3263C13.0848 27.6809 13.1635 28.0056 13.2533 28.3759C13.3768 28.885 13.5211 29.4803 13.3252 30.3579C13.2455 30.7148 13.1346 30.9734 13.0105 31.1579H37.1646Z" fill="#3D6B6B"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M37.8489 24.6997C35.4952 20.1072 30.8355 17 25.5 17C20.1645 17 15.5034 20.1094 13.151 24.7001C13.0517 24.8965 13 25.1135 13 25.3336C13 25.5536 13.0517 25.7706 13.151 25.967C15.5048 30.5595 20.1645 33.6667 25.5 33.6667C30.8355 33.6667 35.4965 30.5573 37.8489 25.9666C37.9482 25.7702 38 25.5532 38 25.3331C38 25.113 37.9482 24.8961 37.8489 24.6997ZM25.5 31.5833C24.2638 31.5833 23.0555 31.2168 22.0277 30.53C20.9999 29.8433 20.1988 28.8671 19.7257 27.7251C19.2527 26.5831 19.1289 25.3264 19.3701 24.114C19.6112 22.9016 20.2065 21.788 21.0806 20.9139C21.9546 20.0398 23.0683 19.4446 24.2807 19.2034C25.493 18.9623 26.7497 19.086 27.8917 19.5591C29.0338 20.0321 30.0099 20.8332 30.6967 21.861C31.3834 22.8888 31.75 24.0972 31.75 25.3333C31.7504 26.1542 31.589 26.9671 31.275 27.7256C30.9611 28.484 30.5007 29.1732 29.9203 29.7536C29.3398 30.3341 28.6507 30.7944 27.8922 31.1084C27.1338 31.4223 26.3208 31.5837 25.5 31.5833ZM25.5 21.1667C25.1281 21.1719 24.7586 21.2272 24.4015 21.3312C24.6958 21.7312 24.8371 22.2235 24.7996 22.7187C24.7621 23.214 24.5484 23.6794 24.1972 24.0306C23.846 24.3818 23.3806 24.5955 22.8854 24.633C22.3901 24.6704 21.8978 24.5292 21.4978 24.2348C21.27 25.074 21.3111 25.9636 21.6154 26.7782C21.9196 27.5928 22.4717 28.2916 23.1938 28.776C23.916 29.2605 24.7719 29.5063 25.641 29.4788C26.5102 29.4514 27.3489 29.152 28.039 28.623C28.7291 28.0939 29.236 27.3617 29.4882 26.5295C29.7404 25.6973 29.7253 24.8069 29.445 23.9838C29.1647 23.1606 28.6333 22.446 27.9256 21.9407C27.2179 21.4353 26.3696 21.1646 25.5 21.1667Z" fill="#045FAE"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M20.6904 34.1851C20.6909 34.4922 20.7817 34.793 20.9521 35.0489L21.7866 36.3033C21.9292 36.5177 22.1225 36.6936 22.3495 36.8152C22.5764 36.9369 22.8299 37.0005 23.0874 37.0005H26.1006C26.3581 37.0005 26.6116 36.9369 26.8385 36.8152C27.0655 36.6936 27.2588 36.5177 27.4014 36.3033L28.2358 35.0489C28.4062 34.793 28.4972 34.4925 28.4976 34.1851L28.4995 32.3125H20.688L20.6904 34.1851ZM16 20.5938C16 22.7603 16.8032 24.7369 18.127 26.2471C18.9336 27.1675 20.1953 29.0904 20.6763 30.7124C20.6782 30.7251 20.6797 30.7378 20.6816 30.7505H28.5059C28.5078 30.7378 28.5093 30.7256 28.5112 30.7124C28.9922 29.0904 30.2539 27.1675 31.0605 26.2471C32.3843 24.7369 33.1875 22.7603 33.1875 20.5938C33.1875 15.8384 29.3257 11.9854 24.5669 12C19.5859 12.0152 16 16.0513 16 20.5938ZM24.5938 16.6875C22.4399 16.6875 20.6875 18.44 20.6875 20.5938C20.6875 21.0254 20.3379 21.375 19.9062 21.375C19.4746 21.375 19.125 21.0254 19.125 20.5938C19.125 17.5782 21.5781 15.125 24.5938 15.125C25.0254 15.125 25.375 15.4747 25.375 15.9063C25.375 16.3379 25.0254 16.6875 24.5938 16.6875Z" fill="#045FAE"/>
+</svg>
+</figure>
+<figure>
+<svg width="60" height="60" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.0779 13H27.8279V13.625C27.8279 13.8313 27.6592 14 27.4529 14H26.2029C25.9967 14 25.8279 13.8313 25.8279 13.625V13H15.8279V13.625C15.8279 13.8313 15.6592 14 15.4529 14H14.2029C13.9967 14 13.8279 13.8313 13.8279 13.625V13H13.5779C13.1623 13 12.8279 13.3344 12.8279 13.75V24.25C12.8279 24.6656 13.1623 25 13.5779 25H13.8279V24.375C13.8279 24.1687 13.9967 24 14.2029 24H15.4529C15.6592 24 15.8279 24.1687 15.8279 24.375V25H22.156C22.0908 25.2612 22.0456 25.5283 22.0212 25.7989C21.9767 26.2925 22.0024 26.7885 22.096 27.2708H9.85C9.38064 27.2708 9 27.644 9 28.1041V36.4375C9 36.8976 9.38064 37.2708 9.85 37.2708H14.1058C14.775 37.2708 15.3816 36.8862 15.656 36.288L16.3929 34.6828C16.6025 34.226 17.0312 33.9375 17.5 33.9375C17.9688 33.9375 18.3975 34.226 18.6071 34.6828L19.344 36.288C19.6184 36.8862 20.2253 37.2708 20.8942 37.2708H25.15C25.6194 37.2708 26 36.8976 26 36.4375V31.2081C26.7245 31.33 27.4666 31.2737 28.1681 31.0426C28.9154 30.7964 29.5934 30.3595 30.1416 29.7708H32.8584C33.4065 30.3595 34.0844 30.7963 34.8317 31.0425C35.579 31.2888 36.3725 31.3366 37.1416 31.182C37.9108 31.0273 38.6316 30.6748 39.2401 30.1559C39.8485 29.6371 40.3257 28.9679 40.629 28.208C40.9324 27.448 41.0526 26.6209 40.9789 25.8003C40.9052 24.9796 40.64 24.1909 40.2067 23.5043C39.7734 22.8176 39.1856 22.2544 38.4956 21.8647C37.8056 21.4751 37.0348 21.271 36.2517 21.2708H28.8279V13.75C28.8279 13.3344 28.4935 13 28.0779 13ZM22.796 23.5C23.1915 22.8745 23.7154 22.3517 24.3279 21.9696V20.125C24.3279 19.9188 24.1592 19.75 23.9529 19.75H17.7029C17.4967 19.75 17.3279 19.9188 17.3279 20.125V23.125C17.3279 23.3313 17.4967 23.5 17.7029 23.5H22.796ZM26.7503 21.2708H27.8131C27.7676 21.1148 27.623 21 27.4529 21H26.2029C25.9997 21 25.8329 21.1638 25.828 21.3658C26.1307 21.3028 26.4396 21.2707 26.7503 21.2708ZM15.8279 22.625C15.8279 22.8313 15.6592 23 15.4529 23H14.2029C13.9967 23 13.8279 22.8313 13.8279 22.625V21.375C13.8279 21.1687 13.9967 21 14.2029 21H15.4529C15.6592 21 15.8279 21.1687 15.8279 21.375V22.625ZM15.8279 19.625C15.8279 19.8313 15.6592 20 15.4529 20H14.2029C13.9967 20 13.8279 19.8313 13.8279 19.625V18.375C13.8279 18.1688 13.9967 18 14.2029 18H15.4529C15.6592 18 15.8279 18.1688 15.8279 18.375V19.625ZM15.8279 16.625C15.8279 16.8313 15.6592 17 15.4529 17H14.2029C13.9967 17 13.8279 16.8313 13.8279 16.625V15.375C13.8279 15.1688 13.9967 15 14.2029 15H15.4529C15.6592 15 15.8279 15.1688 15.8279 15.375V16.625ZM24.3279 17.875C24.3279 18.0813 24.1592 18.25 23.9529 18.25H17.7029C17.4967 18.25 17.3279 18.0813 17.3279 17.875V14.875C17.3279 14.6688 17.4967 14.5 17.7029 14.5H23.9529C24.1592 14.5 24.3279 14.6688 24.3279 14.875V17.875ZM27.8279 19.625C27.8279 19.8313 27.6592 20 27.4529 20H26.2029C25.9967 20 25.8279 19.8313 25.8279 19.625V18.375C25.8279 18.1688 25.9967 18 26.2029 18H27.4529C27.6592 18 27.8279 18.1688 27.8279 18.375V19.625ZM27.8279 16.625C27.8279 16.8313 27.6592 17 27.4529 17H26.2029C25.9967 17 25.8279 16.8313 25.8279 16.625V15.375C25.8279 15.1688 25.9967 15 26.2029 15H27.4529C27.6592 15 27.8279 15.1688 27.8279 15.375V16.625ZM29.3627 26.6458C29.3627 26.7452 29.3251 26.8406 29.2583 26.911C29.1915 26.9813 29.1009 27.0208 29.0064 27.0208H27.4628V28.6458C27.4628 28.7452 27.4253 28.8406 27.3585 28.911C27.2916 28.9813 27.201 29.0208 27.1066 29.0208H26.3941C26.2996 29.0208 26.209 28.9813 26.1422 28.911C26.0754 28.8406 26.0379 28.7452 26.0379 28.6458V27.0208H24.4943C24.3998 27.0208 24.3092 26.9813 24.2424 26.911C24.1756 26.8406 24.138 26.7452 24.138 26.6458V25.8958C24.138 25.7963 24.1756 25.7009 24.2424 25.6306C24.3092 25.5603 24.3998 25.5208 24.4943 25.5208H26.0379V23.8958C26.0379 23.7963 26.0754 23.7009 26.1422 23.6306C26.209 23.5603 26.2996 23.5208 26.3941 23.5208H27.1066C27.201 23.5208 27.2916 23.5603 27.3585 23.6306C27.4253 23.7009 27.4628 23.7963 27.4628 23.8958V25.5208H29.0064C29.1009 25.5208 29.1915 25.5603 29.2583 25.6306C29.3251 25.7009 29.3627 25.7963 29.3627 25.8958V26.6458ZM35.7747 29.0208C35.5398 29.0208 35.3103 28.9475 35.115 28.8101C34.9197 28.6728 34.7675 28.4775 34.6777 28.2491C34.5878 28.0207 34.5643 27.7694 34.6101 27.5269C34.6559 27.2844 34.769 27.0617 34.9351 26.8869C35.1011 26.7121 35.3127 26.593 35.543 26.5448C35.7734 26.4966 36.0121 26.5213 36.2291 26.6159C36.4461 26.7105 36.6315 26.8708 36.762 27.0763C36.8925 27.2819 36.9621 27.5236 36.9621 27.7708C36.9621 28.1023 36.837 28.4202 36.6143 28.6547C36.3916 28.8891 36.0896 29.0208 35.7747 29.0208ZM37.6746 26.0208C37.4397 26.0208 37.2101 25.9475 37.0149 25.8101C36.8196 25.6728 36.6674 25.4775 36.5775 25.2491C36.4877 25.0207 36.4641 24.7694 36.51 24.5269C36.5558 24.2844 36.6689 24.0617 36.8349 23.8869C37.001 23.7121 37.2126 23.593 37.4429 23.5448C37.6732 23.4966 37.912 23.5213 38.129 23.6159C38.3459 23.7105 38.5314 23.8708 38.6619 24.0763C38.7923 24.2819 38.862 24.5236 38.862 24.7708C38.862 25.1023 38.7369 25.4202 38.5142 25.6547C38.2915 25.8891 37.9895 26.0208 37.6746 26.0208ZM11.55 31.8541C11.55 32.7747 12.311 33.5208 13.25 33.5208C14.189 33.5208 14.95 32.7747 14.95 31.8541C14.95 30.9335 14.189 30.1875 13.25 30.1875C12.311 30.1875 11.55 30.9335 11.55 31.8541ZM20.05 31.8541C20.05 32.7747 20.811 33.5208 21.75 33.5208C22.689 33.5208 23.45 32.7747 23.45 31.8541C23.45 30.9335 22.689 30.1875 21.75 30.1875C20.811 30.1875 20.05 30.9335 20.05 31.8541Z" fill="#045FAE"/>
+</svg>
+</figure>
+</div>
+<ul>
+<li>Decomposes the rendering equation</li>
+<li>Appearance modelled as BRDF</li>
+<li>Illumination as incoming radiance</li>
+<li>Fully relightable</li>
+</ul>
+ </div>
+        
+    </div>
+</div> -->
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="subsection">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                    </div>
+                    <h1> Preliminaries - NeRF</h1>
+                    <div class="description">
+
+
+
+                    </div>
+                </div>
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="video-stepper">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> NeRF: Neural Radiance Fields</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <ul>
+                                <li>NeRF [1] is a method for photorealistic results in novel view synthesis</li>
+                                <li>Goal is to create a 3D radiance field from multiple images</li>
+                                <li>Images have known poses</li>
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <div style="display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; height: 100%;">
+                                <div class="r-stack" style="height: 90%;">
+                                    <p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0000.mp4"
+                                            style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-out" data-fragment-index="0">
+                                        </video></p>
+                                    <p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0001.mp4"
+                                            style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in current-visible" data-fragment-index="0">
+                                        </video></p>
+                                    <p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0002.mp4"
+                                            style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+                                        </video></p>
+                                    <p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0003.mp4"
+                                            style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+                                        </video></p>
+                                    <p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0004.mp4"
+                                            style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+                                        </video></p>
+                                    <p><video data-src="../images/per_scene_decomposition/nerf2d/CreateNerd2d_0005.mp4"
+                                            style="width: 100%; height: 100%;
+object-fit: contain;" class="fragment fade-in">
+                                        </video></p>
+                                </div>
+                            </div>
+                            <div class="cite-area">
+                                <p>[1] Mildenhall <em>et al.</em> - NeRF: Representing Scenes as Neural Radiance Fields
+                                    for View Synthesis - 2020</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> NeRF - Visualization</div>
+                    </div>
+                    <div class="content">
+                        <iframe type="text/html" width="100%" height="100%" data-src="../viz/nerf_explainer/index.html"
+                            data-preload frameborder="0">
+                        </iframe>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> NeRF - Architecture</div>
+                    </div>
+                    <div class="content">
+                        <div style="display:  grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: 
+  'big-top big-top small-top small-top'
+  'bottom bottom bottom bottom-small';">
+                            <div style="grid-area: big-top">
+                                <ul>
+                                    <li>Main section of NeRF learns density and latent code</li>
+                                    <li>Last layers of NeRF estimates view-dependent color
+                                        <ul>
+                                            <li>Shape should not be influenced by the viewing direction</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="fragment" data-fragment-index="3">
+                                    <ul>
+                                        <li>NeRF is not relightable</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="fragment" data-fragment-index="2" style="grid-area: small-top">
+                                <div style="display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;">
+                                    <div style="display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: max-content;
+    align-items: flex-start;">
+                                        <video data-autoplay loop
+                                            data-src="../images/per_scene_decomposition/viewdirs_website_bww.mp4"
+                                            style="max-height: 90%; object-fit: contain;"></video>
+                                        <h4>View dependence with NeRF</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="grid-area: bottom">
+                                <div style="display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;">
+                                    <img src="../images/per_scene_decomposition/nerd/NeRF@3x.png"
+                                        style="display: inline">
+                                    <h4>NeRF architecture</h4>
+                                </div>
+                            </div>
+                            <div style="grid-area: bottom-small" class="fragment" data-fragment-index="1">
+                                <div style="display: flex;
+  justify-content: center;
+  flex-direction: column;
+ height: 100%;">
+                                    <h4 id="fourier-encoding">Fourier encoding</h4>
+                                    <ul>
+                                        <li>Sinusoidal embedding with increasing frequencies</li>
+                                    </ul>
+                                    <p>$$\gamma(x) = (\sin(2^l x))^{L-1}_{l=0}$$</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- 
+--- 
+
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> NeRF - Varying Illumination Extension</div>
+    </div>
+    <div class="content">
+        <div style="display:  grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  'big-top small-top'
+  'bottom bottom';">
+<div style="grid-area: big-top">
+<ul>
+<li>Assume dataset of 4 images</li>
+<li>Images under varying illumination</li>
+</ul>
+</div>
+<div  style="grid-area: bottom">
+<div style="display: flex;
+  justify-content: center;
+  align-items: center;">
+<div class="r-stack">
+<div class="fragment fade-in-then-out" data-fragment-index="1">
+<img src="../images/per_scene_decomposition/nerd/NeRF@3x.png" style="height: 40vh">
+<h4>NeRF architecture</h4>
+</div>
+<div class="fragment fade-in" data-fragment-index="2">
+<img src="../images/per_scene_decomposition/nerd/NeRFA@3x.png" style="height: 40vh">
+<h4>NeRF-A architecture</h4>
+</div>
+</div>
+</div>
+</div>
+<div style="grid-area: small-top">
+<h4 class="fragment" data-fragment-index="2">Potential solution</h4>
+<ul>
+<li class='fragment' data-fragment-index="2">Use additional latent code to express each illumination</li>
+<li class='fragment' data-fragment-index="4">Interpolate between illuminations</li>
+</ul>
+</div>
+
+    </div>
+</div>
+
+---
+
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Illumination Interpolation</div>
+    </div>
+    <div class="content">
+        <iframe type="text/html" width="100%" height="100%" data-src="../viz/blend/index.html"  data-preload frameborder="0">
+</iframe>
+
+    </div>
+</div>
+
+
+---
+
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Issues with Illumination Interpolation</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Only interpolate between seen illuminations</li>
+<li>No issue if dataset is vast and contains all possible illuminations</li>
+<li>However, it is hard to get all possible illumination edge cases
+<br />
+<br /></li>
+</ul>
+<div style="width: 30vmin; height: 30vmin;">
+<figure><img src="../viz/blend/moonlessgolf.png"/><figcaption>
+            <h4>Illumination at night</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div 
+    class="grid-column" style="
+        display: grid; 
+        width: 100%; height: 100%;
+        overflow: hidden;
+        place-content: space-evenly; 
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    40vmin,
+                    45%),
+                1fr
+            )
+        );;"
+>
+    <figure><img src="../viz/blend/alley.png"/>
+</figure>
+<figure><img src="../viz/blend/christmasphotostudio.png"/>
+</figure>
+<figure><img src="../viz/blend/fireonsky.png"/>
+</figure>
+<figure><img src="../viz/blend/studiosmall.png"/>
+</figure>
+</div>
+ </div>
+        
+    </div>
+</div>
+
+---
+
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Full Decomposition - Our Method [1]</div>
+    </div>
+    <div class="content">
+        <div class="cite-area">
+    <p>[1] Boss <em>et al.</em> - NeRD: Neural Reflectance Decomposition from Image Collections - 2021</p>
+</div>
+<iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/nerd-results/render.html?scene=gnome"  data-preload frameborder="0">
+</iframe>
+
+    </div>
+</div> --> -->
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="subsection">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                    </div>
+                    <h1> Methods</h1>
+                    <div class="description">
+
+
+
+                    </div>
+                </div>
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="subsection">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                    </div>
+                    <h1> NeRD: Neural Reflectance Decomposition from Image Collections</h1>
+                    <div class="description">
+
+
+                        Mark Boss, Raphael Braun, Varun Jampani, Jonathan T. Barron, Ce Liu, Hendrik P. A. Lensch
+                        <br />
+                        <em>IEEE International Conference on Computer Vision</em> 2021
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <!-- 
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Contributions</div>
+    </div>
+    <div class="content">
+        <table>
+  <tr>
+    <th></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M38 28.6249V36.4374C38 37.3002 37.3003 37.9999 36.4375 37.9999H28.625C27.7622 37.9999 27.0625 37.3002 27.0625 36.4374V28.6249C27.0625 27.7621 27.7622 27.0624 28.625 27.0624H36.4375C37.3003 27.0624 38 27.7621 38 28.6249ZM19.25 25.4999C15.7983 25.4999 13 28.2982 13 31.7499C13 35.2015 15.7983 37.9999 19.25 37.9999C22.7017 37.9999 25.5 35.2015 25.5 31.7499C25.5 28.2982 22.7017 25.4999 19.25 25.4999ZM36.3901 23.9374C37.6274 23.9374 38.4009 22.6351 37.7822 21.5936L33.1421 13.7811C32.5234 12.7396 30.9766 12.7396 30.3579 13.7811L25.7178 21.5936C25.0991 22.6351 25.8726 23.9374 27.1099 23.9374H36.3901Z" fill="#3D6B6B"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M22.975 13.2459C18.1215 14.1931 14.2103 18.0945 13.2533 22.9334C11.4467 32.0642 19.684 38.8709 25.89 37.9089C27.9017 37.5964 28.8881 35.2429 27.9652 33.4314C26.8373 31.2146 28.4486 28.6267 30.9389 28.6267H34.8305C36.5785 28.6267 37.9945 27.1814 37.9994 25.4382C37.975 17.7429 30.973 11.6882 22.975 13.2459ZM17.6869 28.6267C16.8226 28.6267 16.1244 27.9285 16.1244 27.0642C16.1244 26.2 16.8226 25.5017 17.6869 25.5017C18.5512 25.5017 19.2494 26.2 19.2494 27.0642C19.2494 27.9285 18.5512 28.6267 17.6869 28.6267ZM19.2494 22.3767C18.3851 22.3767 17.6869 21.6785 17.6869 20.8142C17.6869 19.95 18.3851 19.2517 19.2494 19.2517C20.1137 19.2517 20.8119 19.95 20.8119 20.8142C20.8119 21.6785 20.1137 22.3767 19.2494 22.3767ZM25.4994 19.2517C24.6351 19.2517 23.9369 18.5535 23.9369 17.6892C23.9369 16.825 24.6351 16.1267 25.4994 16.1267C26.3637 16.1267 27.0619 16.825 27.0619 17.6892C27.0619 18.5535 26.3637 19.2517 25.4994 19.2517ZM31.7494 22.3767C30.8851 22.3767 30.1869 21.6785 30.1869 20.8142C30.1869 19.95 30.8851 19.2517 31.7494 19.2517C32.6137 19.2517 33.3119 19.95 33.3119 20.8142C33.3119 21.6785 32.6137 22.3767 31.7494 22.3767Z" fill="#3D6B6B"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M41 31.1579H40.9728C40.4856 22.7042 33.5206 16 25 16C16.4794 16 9.51439 22.7042 9.02722 31.1579H9.00001V32.0834L9 32.1053L9.00001 32.1271V34H41V31.1579ZM37.1646 31.1579C37.1951 30.9019 37.297 30.6296 37.403 30.3463C37.5429 29.9724 37.69 29.5793 37.69 29.179C37.69 28.3369 37.0132 26.8211 35.998 27.1579C35.1859 27.4274 34.1368 26.2597 33.7984 25.4737C33.46 24.9684 33.257 24.0926 33.1216 23.2842C32.9524 22.2737 31.4296 21.4316 30.2452 20.9263C29.0608 20.4211 26.8612 20.5895 25.3384 21.0948C23.8156 21.6 23.3345 21.5301 21.616 20.9263C19.847 20.3048 18.7948 21.0542 17.6465 21.8719C17.6162 21.8935 17.5857 21.9152 17.5552 21.9369C16.4304 22.7366 16.4939 23.8333 16.534 24.5252C16.5361 24.5618 16.5382 24.5973 16.54 24.6316C16.5854 25.4892 16.0324 26.1474 14.848 26.1474C13.6636 26.1474 13.3252 26.4842 13.156 27.3263C13.0848 27.6809 13.1635 28.0056 13.2533 28.3759C13.3768 28.885 13.5211 29.4803 13.3252 30.3579C13.2455 30.7148 13.1346 30.9734 13.0105 31.1579H37.1646Z" fill="#3D6B6B"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M38 19.4688V33.5312C38 34.8252 36.9502 35.875 35.6562 35.875H15.3438C14.0498 35.875 13 34.8252 13 33.5312V19.4688C13 18.1748 14.0498 17.125 15.3438 17.125H19.6406L20.2412 15.5186C20.583 14.6055 21.457 14 22.4336 14H28.5615C29.5381 14 30.4121 14.6055 30.7539 15.5186L31.3594 17.125H35.6562C36.9502 17.125 38 18.1748 38 19.4688ZM31.3594 26.5C31.3594 23.2676 28.7324 20.6406 25.5 20.6406C22.2676 20.6406 19.6406 23.2676 19.6406 26.5C19.6406 29.7324 22.2676 32.3594 25.5 32.3594C28.7324 32.3594 31.3594 29.7324 31.3594 26.5ZM29.7969 26.5C29.7969 28.8682 27.8682 30.7969 25.5 30.7969C23.1318 30.7969 21.2031 28.8682 21.2031 26.5C21.2031 24.1318 23.1318 22.2031 25.5 22.2031C27.8682 22.2031 29.7969 24.1318 29.7969 26.5Z" fill="#3D6B6B"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M37.8489 24.6997C35.4952 20.1072 30.8355 17 25.5 17C20.1645 17 15.5034 20.1094 13.151 24.7001C13.0517 24.8965 13 25.1135 13 25.3336C13 25.5536 13.0517 25.7706 13.151 25.967C15.5048 30.5595 20.1645 33.6667 25.5 33.6667C30.8355 33.6667 35.4965 30.5573 37.8489 25.9666C37.9482 25.7702 38 25.5532 38 25.3331C38 25.113 37.9482 24.8961 37.8489 24.6997ZM25.5 31.5833C24.2638 31.5833 23.0555 31.2168 22.0277 30.53C20.9999 29.8433 20.1988 28.8671 19.7257 27.7251C19.2527 26.5831 19.1289 25.3264 19.3701 24.114C19.6112 22.9016 20.2065 21.788 21.0806 20.9139C21.9546 20.0398 23.0683 19.4446 24.2807 19.2034C25.493 18.9623 26.7497 19.086 27.8917 19.5591C29.0338 20.0321 30.0099 20.8332 30.6967 21.861C31.3834 22.8888 31.75 24.0972 31.75 25.3333C31.7504 26.1542 31.589 26.9671 31.275 27.7256C30.9611 28.484 30.5007 29.1732 29.9203 29.7536C29.3398 30.3341 28.6507 30.7944 27.8922 31.1084C27.1338 31.4223 26.3208 31.5837 25.5 31.5833ZM25.5 21.1667C25.1281 21.1719 24.7586 21.2272 24.4015 21.3312C24.6958 21.7312 24.8371 22.2235 24.7996 22.7187C24.7621 23.214 24.5484 23.6794 24.1972 24.0306C23.846 24.3818 23.3806 24.5955 22.8854 24.633C22.3901 24.6704 21.8978 24.5292 21.4978 24.2348C21.27 25.074 21.3111 25.9636 21.6154 26.7782C21.9196 27.5928 22.4717 28.2916 23.1938 28.776C23.916 29.2605 24.7719 29.5063 25.641 29.4788C26.5102 29.4514 27.3489 29.152 28.039 28.623C28.7291 28.0939 29.236 27.3617 29.4882 26.5295C29.7404 25.6973 29.7253 24.8069 29.445 23.9838C29.1647 23.1606 28.6333 22.446 27.9256 21.9407C27.2179 21.4353 26.3696 21.1646 25.5 21.1667Z" fill="#045FAE"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M20.6904 34.1851C20.6909 34.4922 20.7817 34.793 20.9521 35.0489L21.7866 36.3033C21.9292 36.5177 22.1225 36.6936 22.3495 36.8152C22.5764 36.9369 22.8299 37.0005 23.0874 37.0005H26.1006C26.3581 37.0005 26.6116 36.9369 26.8385 36.8152C27.0655 36.6936 27.2588 36.5177 27.4014 36.3033L28.2358 35.0489C28.4062 34.793 28.4972 34.4925 28.4976 34.1851L28.4995 32.3125H20.688L20.6904 34.1851ZM16 20.5938C16 22.7603 16.8032 24.7369 18.127 26.2471C18.9336 27.1675 20.1953 29.0904 20.6763 30.7124C20.6782 30.7251 20.6797 30.7378 20.6816 30.7505H28.5059C28.5078 30.7378 28.5093 30.7256 28.5112 30.7124C28.9922 29.0904 30.2539 27.1675 31.0605 26.2471C32.3843 24.7369 33.1875 22.7603 33.1875 20.5938C33.1875 15.8384 29.3257 11.9854 24.5669 12C19.5859 12.0152 16 16.0513 16 20.5938ZM24.5938 16.6875C22.4399 16.6875 20.6875 18.44 20.6875 20.5938C20.6875 21.0254 20.3379 21.375 19.9062 21.375C19.4746 21.375 19.125 21.0254 19.125 20.5938C19.125 17.5782 21.5781 15.125 24.5938 15.125C25.0254 15.125 25.375 15.4747 25.375 15.9063C25.375 16.3379 25.0254 16.6875 24.5938 16.6875Z" fill="#045FAE"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.0779 13H27.8279V13.625C27.8279 13.8313 27.6592 14 27.4529 14H26.2029C25.9967 14 25.8279 13.8313 25.8279 13.625V13H15.8279V13.625C15.8279 13.8313 15.6592 14 15.4529 14H14.2029C13.9967 14 13.8279 13.8313 13.8279 13.625V13H13.5779C13.1623 13 12.8279 13.3344 12.8279 13.75V24.25C12.8279 24.6656 13.1623 25 13.5779 25H13.8279V24.375C13.8279 24.1687 13.9967 24 14.2029 24H15.4529C15.6592 24 15.8279 24.1687 15.8279 24.375V25H22.156C22.0908 25.2612 22.0456 25.5283 22.0212 25.7989C21.9767 26.2925 22.0024 26.7885 22.096 27.2708H9.85C9.38064 27.2708 9 27.644 9 28.1041V36.4375C9 36.8976 9.38064 37.2708 9.85 37.2708H14.1058C14.775 37.2708 15.3816 36.8862 15.656 36.288L16.3929 34.6828C16.6025 34.226 17.0312 33.9375 17.5 33.9375C17.9688 33.9375 18.3975 34.226 18.6071 34.6828L19.344 36.288C19.6184 36.8862 20.2253 37.2708 20.8942 37.2708H25.15C25.6194 37.2708 26 36.8976 26 36.4375V31.2081C26.7245 31.33 27.4666 31.2737 28.1681 31.0426C28.9154 30.7964 29.5934 30.3595 30.1416 29.7708H32.8584C33.4065 30.3595 34.0844 30.7963 34.8317 31.0425C35.579 31.2888 36.3725 31.3366 37.1416 31.182C37.9108 31.0273 38.6316 30.6748 39.2401 30.1559C39.8485 29.6371 40.3257 28.9679 40.629 28.208C40.9324 27.448 41.0526 26.6209 40.9789 25.8003C40.9052 24.9796 40.64 24.1909 40.2067 23.5043C39.7734 22.8176 39.1856 22.2544 38.4956 21.8647C37.8056 21.4751 37.0348 21.271 36.2517 21.2708H28.8279V13.75C28.8279 13.3344 28.4935 13 28.0779 13ZM22.796 23.5C23.1915 22.8745 23.7154 22.3517 24.3279 21.9696V20.125C24.3279 19.9188 24.1592 19.75 23.9529 19.75H17.7029C17.4967 19.75 17.3279 19.9188 17.3279 20.125V23.125C17.3279 23.3313 17.4967 23.5 17.7029 23.5H22.796ZM26.7503 21.2708H27.8131C27.7676 21.1148 27.623 21 27.4529 21H26.2029C25.9997 21 25.8329 21.1638 25.828 21.3658C26.1307 21.3028 26.4396 21.2707 26.7503 21.2708ZM15.8279 22.625C15.8279 22.8313 15.6592 23 15.4529 23H14.2029C13.9967 23 13.8279 22.8313 13.8279 22.625V21.375C13.8279 21.1687 13.9967 21 14.2029 21H15.4529C15.6592 21 15.8279 21.1687 15.8279 21.375V22.625ZM15.8279 19.625C15.8279 19.8313 15.6592 20 15.4529 20H14.2029C13.9967 20 13.8279 19.8313 13.8279 19.625V18.375C13.8279 18.1688 13.9967 18 14.2029 18H15.4529C15.6592 18 15.8279 18.1688 15.8279 18.375V19.625ZM15.8279 16.625C15.8279 16.8313 15.6592 17 15.4529 17H14.2029C13.9967 17 13.8279 16.8313 13.8279 16.625V15.375C13.8279 15.1688 13.9967 15 14.2029 15H15.4529C15.6592 15 15.8279 15.1688 15.8279 15.375V16.625ZM24.3279 17.875C24.3279 18.0813 24.1592 18.25 23.9529 18.25H17.7029C17.4967 18.25 17.3279 18.0813 17.3279 17.875V14.875C17.3279 14.6688 17.4967 14.5 17.7029 14.5H23.9529C24.1592 14.5 24.3279 14.6688 24.3279 14.875V17.875ZM27.8279 19.625C27.8279 19.8313 27.6592 20 27.4529 20H26.2029C25.9967 20 25.8279 19.8313 25.8279 19.625V18.375C25.8279 18.1688 25.9967 18 26.2029 18H27.4529C27.6592 18 27.8279 18.1688 27.8279 18.375V19.625ZM27.8279 16.625C27.8279 16.8313 27.6592 17 27.4529 17H26.2029C25.9967 17 25.8279 16.8313 25.8279 16.625V15.375C25.8279 15.1688 25.9967 15 26.2029 15H27.4529C27.6592 15 27.8279 15.1688 27.8279 15.375V16.625ZM29.3627 26.6458C29.3627 26.7452 29.3251 26.8406 29.2583 26.911C29.1915 26.9813 29.1009 27.0208 29.0064 27.0208H27.4628V28.6458C27.4628 28.7452 27.4253 28.8406 27.3585 28.911C27.2916 28.9813 27.201 29.0208 27.1066 29.0208H26.3941C26.2996 29.0208 26.209 28.9813 26.1422 28.911C26.0754 28.8406 26.0379 28.7452 26.0379 28.6458V27.0208H24.4943C24.3998 27.0208 24.3092 26.9813 24.2424 26.911C24.1756 26.8406 24.138 26.7452 24.138 26.6458V25.8958C24.138 25.7963 24.1756 25.7009 24.2424 25.6306C24.3092 25.5603 24.3998 25.5208 24.4943 25.5208H26.0379V23.8958C26.0379 23.7963 26.0754 23.7009 26.1422 23.6306C26.209 23.5603 26.2996 23.5208 26.3941 23.5208H27.1066C27.201 23.5208 27.2916 23.5603 27.3585 23.6306C27.4253 23.7009 27.4628 23.7963 27.4628 23.8958V25.5208H29.0064C29.1009 25.5208 29.1915 25.5603 29.2583 25.6306C29.3251 25.7009 29.3627 25.7963 29.3627 25.8958V26.6458ZM35.7747 29.0208C35.5398 29.0208 35.3103 28.9475 35.115 28.8101C34.9197 28.6728 34.7675 28.4775 34.6777 28.2491C34.5878 28.0207 34.5643 27.7694 34.6101 27.5269C34.6559 27.2844 34.769 27.0617 34.9351 26.8869C35.1011 26.7121 35.3127 26.593 35.543 26.5448C35.7734 26.4966 36.0121 26.5213 36.2291 26.6159C36.4461 26.7105 36.6315 26.8708 36.762 27.0763C36.8925 27.2819 36.9621 27.5236 36.9621 27.7708C36.9621 28.1023 36.837 28.4202 36.6143 28.6547C36.3916 28.8891 36.0896 29.0208 35.7747 29.0208ZM37.6746 26.0208C37.4397 26.0208 37.2101 25.9475 37.0149 25.8101C36.8196 25.6728 36.6674 25.4775 36.5775 25.2491C36.4877 25.0207 36.4641 24.7694 36.51 24.5269C36.5558 24.2844 36.6689 24.0617 36.8349 23.8869C37.001 23.7121 37.2126 23.593 37.4429 23.5448C37.6732 23.4966 37.912 23.5213 38.129 23.6159C38.3459 23.7105 38.5314 23.8708 38.6619 24.0763C38.7923 24.2819 38.862 24.5236 38.862 24.7708C38.862 25.1023 38.7369 25.4202 38.5142 25.6547C38.2915 25.8891 37.9895 26.0208 37.6746 26.0208ZM11.55 31.8541C11.55 32.7747 12.311 33.5208 13.25 33.5208C14.189 33.5208 14.95 32.7747 14.95 31.8541C14.95 30.9335 14.189 30.1875 13.25 30.1875C12.311 30.1875 11.55 30.9335 11.55 31.8541ZM20.05 31.8541C20.05 32.7747 20.811 33.5208 21.75 33.5208C22.689 33.5208 23.45 32.7747 23.45 31.8541C23.45 30.9335 22.689 30.1875 21.75 30.1875C20.811 30.1875 20.05 30.9335 20.05 31.8541Z" fill="#045FAE"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M36.9625 28.2642C36.9719 28.1752 37 28.0908 37 28.0018C37 26.3474 35.6547 25.0023 34 25.0023C33.4094 25.0023 32.8656 25.1804 32.4016 25.471C31.5766 23.6526 29.7531 22.3779 27.625 22.3779C24.7281 22.3779 22.375 24.7258 22.375 27.6268C22.375 27.7674 22.4078 27.8987 22.4172 28.0346C20.0922 28.208 18.25 30.1295 18.25 32.5009C18.25 34.9848 20.2656 37 22.75 37H35.5C37.9844 37 40 34.9848 40 32.5009C40 30.5278 38.725 28.8735 36.9625 28.2642ZM16.7875 27.205C14.7391 25.157 14.7391 21.8295 16.7875 19.7862C18.8359 17.7381 22.1641 17.7381 24.2125 19.7862C24.6672 20.2408 25.0047 20.7657 25.2578 21.3187C25.7172 21.1453 26.2 21.0375 26.6969 20.9672L28.0938 16.8008C28.2812 16.2431 27.7516 15.7182 27.1937 15.901L23.0781 17.2742L21.1328 13.3937C20.875 12.8688 20.125 12.8688 19.8625 13.3937L17.9219 17.2742L13.8016 15.901C13.2484 15.7182 12.7188 16.2478 12.9016 16.8008L14.275 20.9156L10.3937 22.8606C9.86875 23.123 9.86875 23.8682 10.3937 24.1306L14.275 26.0709L12.9016 30.1857C12.7141 30.7434 13.2437 31.2683 13.8016 31.0855L17.3687 29.8998C17.6547 29.3187 18.025 28.7891 18.475 28.3298C17.8609 28.0767 17.2844 27.7018 16.7875 27.205ZM16.5625 23.4933C16.5625 25.4054 17.9359 26.9988 19.7453 27.3503C20.1203 27.1301 20.5094 26.9379 20.9266 26.802C21.1797 24.7258 22.3797 22.9356 24.0859 21.8811C23.4672 20.5173 22.0938 19.5612 20.5 19.5612C18.3297 19.5612 16.5625 21.3234 16.5625 23.4933Z" fill="#C52A3A"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M24.5 14C21.4796 14 19.0312 16.4484 19.0312 19.4688C19.0312 21.9106 22.6055 26.3611 23.9748 27.9766C24.2522 28.3038 24.7483 28.3038 25.0252 27.9766C26.3945 26.3611 29.9688 21.9106 29.9688 19.4688C29.9688 16.4484 27.5204 14 24.5 14ZM24.5 21.2917C23.4931 21.2917 22.6771 20.4757 22.6771 19.4688C22.6771 18.4618 23.4931 17.6458 24.5 17.6458C25.5069 17.6458 26.3229 18.4618 26.3229 19.4688C26.3229 20.4757 25.5069 21.2917 24.5 21.2917ZM12.8733 23.3728C12.6155 23.4759 12.3946 23.6539 12.2389 23.8837C12.0833 24.1135 12.0001 24.3847 12 24.6623V35.5269C12 36.0182 12.4961 36.3542 12.9523 36.1719L18.9444 33.4444V23.3281C18.5608 22.6345 18.247 21.9592 18.0221 21.3134L12.8733 23.3728ZM24.5 29.6107C23.8893 29.6107 23.3116 29.3424 22.9154 28.8746C22.0621 27.8676 21.1545 26.7209 20.3333 25.5447V33.444L28.6667 36.2218V25.5451C27.8455 26.7209 26.9384 27.8681 26.0846 28.875C25.6884 29.3424 25.1107 29.6107 24.5 29.6107ZM36.0477 20.9948L30.0556 23.7222V36.2222L36.1267 33.7938C36.3845 33.6908 36.6055 33.5129 36.7611 33.283C36.9168 33.0532 37 32.7819 37 32.5043V21.6398C37 21.1484 36.5039 20.8125 36.0477 20.9948Z" fill="#C52A3A"/>
+</svg>
+</figure></th>
+    <th>
+<figure>
+<svg width="70" height="70" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="50" height="50" fill="white"/>
+<path d="M25.5261 18C8.23707 18 11.5586 33 19.3363 33C20.8949 33 22.3625 32.1918 23.298 30.818L24.3031 29.3418C24.9148 28.4438 26.1378 28.4438 26.7496 29.3418L27.7546 30.818C28.6898 32.1918 30.1574 33 31.716 33C39.1324 33 43.0687 18 25.5261 18ZM20.1875 27.5453C18.5836 27.5453 17.5406 26.543 17.0593 25.9418C16.855 25.6867 16.855 25.3133 17.0593 25.0578C17.5406 24.4562 18.5832 23.4543 20.1875 23.4543C21.7918 23.4543 22.8343 24.4566 23.3156 25.0578C23.5199 25.3129 23.5199 25.6863 23.3156 25.9418C22.8343 26.5434 21.7914 27.5453 20.1875 27.5453ZM30.8125 27.5453C29.2086 27.5453 28.1656 26.543 27.6843 25.9418C27.48 25.6867 27.48 25.3133 27.6843 25.0578C28.1656 24.4562 29.2082 23.4543 30.8125 23.4543C32.4168 23.4543 33.4593 24.4566 33.9406 25.0578C34.1449 25.3129 34.1449 25.6863 33.9406 25.9418C33.4593 26.5434 32.4164 27.5453 30.8125 27.5453Z" fill="#C52A3A"/>
+</svg>
+</figure></th>
+  </tr>
+  <tr>
+    <th>Method</th>
+    <th>Shape</th>
+    <th>Appearance</th>
+    <th>Illumination</th>
+    <th>Pose</th>
+    <th>Novel View</th>
+    <th>Relightable</th>
+    <th>Downstream</th>
+    <th>Varying Illumination</th>
+    <th>Varying Locations</th>
+    <th>No Masks</th>
+  </tr>
+  <tr>
+    <td>NeRF [1]</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10033;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+  </tr>
+  <tr>
+    <td>NeRF-W [2]</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10033;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10033;</td>
+    <td>&#10033;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+  </tr>
+  <tr>
+    <td>NeRV [3]</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+  </tr>
+  <tr>
+    <td>PhySG [4]</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+  </tr>
+  <tr>
+    <td>NvDiffRec [5]</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+  </tr>
+  <tr style="background: #D3D3D3;">
+    <td>NeRD</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+  </tr>
+</table>
+<div class="cite-area">
+    <p>[1] Mildenhall <em>et al.</em> - NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis - 2020</p>
+<p>[2] Martin-Brualla <em>et al.</em> - NeRF in the Wild: Neural Radiance Fields for Unconstrained Photo Collections - 2021</p>
+<p>[3] Srinivasan <em>et al.</em> - NeRV: Neural Reflectance and Visibility Fields for Relighting and View Synthesis - 2021</p>
+<p>[4] Zhang <em>et al.</em> - PhySG: Inverse Rendering with Spherical Gaussians for Physics-based Material Editing and Relighting - 2021</p>
+<p>[5] Munkberg <em>et al.</em> - Extracting Triangular 3D Models, Materials, and Lighting From Images - 2022</p>
+</div>
+
+    </div>
+</div> 
+
+
+--- 
+-->
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Amplifying NeRF for Full Relighting</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div class="r-stack">
+                                <div class="fragment fade-out" data-fragment-index="0">
+                                    <img src="../images/per_scene_decomposition/nerd/NeRF@3x.png" style="height: 60vh">
+                                    <h4>NeRF architecture</h4>
+                                </div>
+                                <div class="fragment current-visible" data-fragment-index="0">
+                                    <img src="../images/per_scene_decomposition/nerd/NeRFA@3x.png" style="height: 60vh">
+                                    <h4>NeRF-A architecture</h4>
+                                </div>
+                                <div class="fragment">
+                                    <img src="../images/per_scene_decomposition/nerd/NeRD@3x.png" style="height: 60vh">
+                                    <h4>NeRD architecture</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Spherical Gaussians</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <h3 id="rendering-equation">Rendering equation</h3>
+                            <p>$$L_{o}({\mathbf x},\,\omega_{o})\,=\,\int_{\Omega}f_{r}({\mathbf
+                                x},\,\omega_{i},\,\omega_{o})
+                                L_{i}(\omega_{i})\,
+                                (\omega_{i}\,\cdot\,{\mathbf n})\,
+                                \operatorname d\omega_{i}$$</p>
+                            <ul>
+                                <li>Rendering requires integrating all incoming light</li>
+                                <li>Spherical Gaussian (<em>SG</em>) have convenient properties</li>
+                                <li>Close-form solution exists for integration 2 SGs</li>
+                                <li>Product of 2 SGs is a SG</li>
+                            </ul>
+                            <div class="fragment" data-fragment-index="2">
+                                <br /><br />
+                                <ul>
+                                    <li>Represent illumination and BRDF as SGs</li>
+                                    <li>Closed form integration enables fast rendering
+                                        <ul>
+                                            <li>No sampling noise compared to Monte Carlo integration</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="grid-column" style="
+        display: grid; 
+        width: 100%; height: 100%;
+        overflow: hidden;
+        place-content: space-evenly; 
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    300px,
+                    40vmin),
+                1fr
+            )
+        );;">
+                                <figure><img src="../images/per_scene_decomposition/nerd/polar1d_gaussian.jpg" />
+                                    <figcaption>
+                                        <h4>Polar plot of 1D Gaussian</h4>
+                                    </figcaption>
+                                </figure>
+                                <div style="display: flex;
+  justify-content: flex-end;
+  flex-direction: column;" class="fragment" data-fragment-index="1">
+                                    <figure><img src="../images/per_scene_decomposition/nerd/specular_lobe.jpg" />
+                                        <figcaption>
+                                            <h4>Specular lobe of BRDF</h4>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Downstream: Mesh Extraction</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <ul>
+                                <li>Extracting textured meshes allows multiple use cases</li>
+                            </ul>
+                            <figure><img src="../images/per_scene_decomposition/nerd/mesh_extraction.png" />
+                            </figure>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <!-- <div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <iframe type="text/html" width="100%" height="100%" data-src="https://markboss.me/files/nerd-results/render.html?scene=car"  data-preload frameborder="0">
+</iframe>
+ </div>
+        
+    </div>
+</div>
+
+--- -->
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Results</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column"> <iframe type="text/html" width="100%" height="100%"
+                                data-src="/files/nerd-results/render.html?scene=chair" data-preload frameborder="0">
+                            </iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Comparisons - Single Illumination</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <figure><img src="../images/per_scene_decomposition/nerd/cape_input.jpg" />
+                                    <figcaption>
+                                        <h4>Input</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <p><video data-autoplay loop controls
+                                        src="../images/per_scene_decomposition/nerd/NeRDNeRFCape.mp4" style="width: 100%;
+object-fit: contain;"></video></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Comparisons - Single Illumination</div>
+                    </div>
+                    <div class="content">
+                        <div class="grid-flex-column" style="
+        display: grid; 
+        place-content: space-evenly;
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    250px,
+                    25vmin),
+                1fr
+            )
+        );">
+
+                            <div class="column">
+                                <figure><img src="../images/per_scene_decomposition/nerd/GT.jpg" />
+                                    <figcaption>
+                                        <h4>GT</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="column">
+                                <figure><img src="../images/per_scene_decomposition/nerd/NeRF.jpg" />
+                                    <figcaption>
+                                        <h4>NeRF</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                            <div class="column">
+                                <figure><img src="../images/per_scene_decomposition/nerd/NeRD.jpg" />
+                                    <figcaption>
+                                        <h4>NeRD</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <!-- 
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Comparisons - Multiple Illumination</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<figure><img src="../images/per_scene_decomposition/nerd/gnome_input.png"/><figcaption>
+            <h4>Input</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<p><video data-autoplay loop controls src="../images/per_scene_decomposition/nerd/NeRDNeRFGnome.mp4" style="width: 100%;
+object-fit: contain;"></video></p>
+</div>
+ </div>
+        
+    </div>
+</div>
+
+--- -->
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Results - Novel View Synthesis</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <table>
+                                    <caption style="caption-side:bottom">
+                                        <h4>Synthetic scenes - PSNR</h4>
+                                    </caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Method</th>
+                                            <th>Single</th>
+                                            <th>Multiple</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>NeRF</td>
+                                            <td><span style="color:Tomato;">34.24</span></td>
+                                            <td>21.05</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NeRF-A</td>
+                                            <td>32.44</td>
+                                            <td><span style="color:Tomato;">28.53</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NeRD (Ours)</td>
+                                            <td>30.07</td>
+                                            <td>27.96</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <table>
+                                    <caption style="caption-side:bottom">
+                                        <h4>Real world scenes - PSNR</h4>
+                                    </caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Method</th>
+                                            <th>Single</th>
+                                            <th>Multiple</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>NeRF</td>
+                                            <td>23.34</td>
+                                            <td>20.11</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NeRF-A</td>
+                                            <td>22.87</td>
+                                            <td><span style="color:Tomato;">26.36</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>NeRD (Ours)</td>
+                                            <td><span style="color:Tomato;">23.86</span></td>
+                                            <td>25.81</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="subsection">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                    </div>
+                    <h1> SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections</h1>
+                    <div class="description">
+
+
+                        Mark Boss, Andreas Engelhardt, Abhishek Kar, Yuanzhen Li, Deqing Sun, Jonathan T. Barron,
+                        Hendrik P. A. Lensch, Varun Jampani
+                        <br />
+                        <em>Advances in Neural Information Processing Systems</em> 2022
+
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Traditional Pose Recovery Fails</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <h3 id="main-idea">Main Idea</h3>
+                            <ul>
+                                <li>Move previous methods to real-world online collections</li>
+                                <li>Traditional pose estimation failed on these datasets</li>
+                                <li>No features can be used in backgrounds and foreground vary too much</li>
+                            </ul>
+                            <div
+                                style="height: 0; width:100%; padding-bottom:27%; position: relative; overflow: hidden;">
+                                <div style="width:100%; position: absolute; top: 0;">
+                                    <video data-autoplay
+                                        data-src="../images/per_scene_decomposition/samurai/samurai_dataset_flyout_v002.mp4"
+                                        style="width: 100%;
+  object-fit: contain;"></video>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- 
+---
+
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Contributions</div>
+    </div>
+    <div class="content">
+        <table>
+  <tr>
+    <th>Method</th>
+    <th>Shape</th>
+    <th>Appearance</th>
+    <th>Illumination</th>
+    <th>Pose</th>
+    <th>Novel View</th>
+    <th>Relightable</th>
+    <th>Downstream</th>
+    <th>Varying Illumination</th>
+    <th>Varying Locations</th>
+    <th>No Masks</th>
+  </tr>
+  <tr>
+    <td>NvDiffRec [1]</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+  </tr>
+  <tr>
+    <td>NeRD</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+  </tr>
+  <tr>
+    <td>Neural-PIL</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+  </tr>
+  <tr>
+    <td>BARF [2]</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10033;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10033;</td>
+  </tr>
+  <tr>
+    <td>GNeRF [3]</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10060;</td>
+    <td>&#10033;</td>
+    <td>&#10060;</td>
+    <td>&#10060;</td>
+    <td>&#10033;</td>
+  </tr>
+  </tr>
+   <tr style="background: #D3D3D3;">
+    <td>SAMURAI</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10004;</td>
+    <td>&#10033;</td>
+  </tr>
+</table>
+<div class="cite-area">
+    <p>[1] Munkberg <em>et al.</em> - Extracting Triangular 3D Models, Materials, and Lighting From Images - 2022</p>
+<p>[2] Lin <em>et al.</em> - BARF: Bundle-Adjusting Neural Radiance Fields - 2021</p>
+<p>[3] Meng <em>et al.</em> - GNeRF: GAN-based Neural Radiance Field without Posed Camera - 2021</p>
+</div>
+
+    </div>
+</div> -->
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Decomposition from Coarsely Posed Images</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div class="r-stack">
+                                <div style="max-width: 30vmin" class="fragment fade-out" data-fragment-index="0">
+                                    <figure><img
+                                            src="../images/per_scene_decomposition/samurai/samples/firetruck/0.jpg" />
+                                    </figure>
+                                    <figure><img
+                                            src="../images/per_scene_decomposition/samurai/samples/firetruck/3.jpg" />
+                                    </figure>
+                                    <figure><img
+                                            src="../images/per_scene_decomposition/samurai/samples/firetruck/18.jpg" />
+                                    </figure>
+                                </div>
+                                <div style="max-width: 30vmin" class="fragment current-visible" data-fragment-index="0">
+                                    <figure><img
+                                            src="../images/per_scene_decomposition/samurai/samples/garbagetruck/1.jpg" />
+                                    </figure>
+                                    <figure><img
+                                            src="../images/per_scene_decomposition/samurai/samples/garbagetruck/23.jpg" />
+                                    </figure>
+                                    <figure><img
+                                            src="../images/per_scene_decomposition/samurai/samples/garbagetruck/51.jpg" />
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="r-stack">
+                                <video loop data-autoplay
+                                    data-src="../images/per_scene_decomposition/samurai/samples/firetruck/rgb.mp4"
+                                    style="width: 100%;
+  object-fit: contain;" class="fragment fade-out" data-fragment-index="0"></video>
+                                <video loop data-autoplay
+                                    data-src="../images/per_scene_decomposition/samurai/samples/garbagetruck/rgb.mp4"
+                                    style="width: 100%;
+  object-fit: contain;" class="fragment current-visible" data-fragment-index="0"></video>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <!-- <div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Approach</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Jointly learn
+<ul>
+<li>Camera extrinsics and intrinsics</li>
+<li>Density field (shape)</li>
+<li>Reflectance field</li>
+<li>Illumination code</li>
+</ul>
+</li>
+</ul>
+</br>
+<div style="display: flex;
+  justify-content: center;
+  align-items: center;">
+<figure><img src="../images/per_scene_decomposition/samurai/Architecture.jpg" width="1050rem"/><figcaption>
+            <h4>Optimize camera parameters, neural reflectance field, and illumination</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+    </div>
+</div>
+
+---  -->
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Coarse-to-Fine &amp; Camera Multiplex</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div class="fragment">
+                                <ul>
+                                    <li>Fourier Encoding Annealing from BARF [1]
+                                        <ul>
+                                            <li>Increases encoding frequencies during training</li>
+                                            <li>Higher $L$ are blended in</li>
+                                            <li>Smooth shapes easier to align</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <h4 id="positional-encoding">Positional encoding</h4>
+                                <p>$$\gamma(x) = (\sin(2^l x))^{L-1}_{l=0}$$</p>
+                            </div>
+                            <div class="fragment">
+                                <ul>
+                                    <li>Gradual increase in resolution</li>
+                                </ul>
+                            </div>
+                            <div class="fragment">
+                                <ul>
+                                    <li>Multiple camera estimates
+                                        <ul>
+                                            <li>Posterior scaling only allows best camera to optimize volume</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <p><video data-autoplay loop data-src="../images/per_scene_decomposition/samurai/anneal.mp4"
+                                    style="width: 80%;
+object-fit: contain;"></video></p>
+                            <h4 id="coarse-to-fine-during-training">Coarse-to-fine during training</h4>
+                            <div class="cite-area">
+                                <p>[1] Lin <em>et al.</em> - BARF: Bundle-adjusting neural radiance fields</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="video-stepper">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Camera Multiplex</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column"> <!-- <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;"> -->
+                            <div class="r-stack" style="height:100%; width: 100%;">
+                                <img src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt1.jpg"
+                                    style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;"
+                                    class="fragment fade-in-then-out">
+                                </img>
+                                <video
+                                    data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt2.mp4"
+                                    style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;"
+                                    class="fragment fade-in-then-out">
+                                </video>
+                                <video
+                                    data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt3.mp4"
+                                    style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;"
+                                    class="fragment fade-in-then-out">
+                                </video>
+                                <video
+                                    data-src="../images/per_scene_decomposition/samurai/CameraMultiplex/CameraMultiplexPt4.mp4"
+                                    style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;"
+                                    class="fragment fade-in">
+                                </video>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Image Posterior Scaling</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <ul>
+                                <li>Posterior scaling also applied on image level</li>
+                                <li>Influence of badly aligned images or segmentation masks reduced</li>
+                                <li>Scaling based on running average of losses</li>
+                            </ul>
+                        </div>
+
+                        <div class="column"> <!-- <figure><img src="../images/per_scene_decomposition/samurai/ImagePosteriorScaling.png"/><figcaption>
+            <h4>Influence of poorly aligned images is reduced</h4>
+        </figcaption>
+</figure>
+ -->
+                            <img src="../images/per_scene_decomposition/samurai/ImagePosteriorScaling.png"
+                                style="min-width: 80%;  min-height: 80%; width: auto; height: auto; object-fit: contain;">
+                            </img>
+                            <h4 id="influence-of-poorly-aligned-images-is-reduced">Influence of poorly aligned images is
+                                reduced</h4>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Results</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column"> <iframe type="text/html" width="100%" height="100%"
+                                data-src="/files/samurai-results/render.html?scene=fireengine" data-preload
+                                frameborder="0">
+                            </iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Results</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column"> <iframe type="text/html" width="100%" height="100%"
+                                data-src="/files/samurai-results/render.html?scene=garbagetruck" data-preload
+                                frameborder="0">
+                            </iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Comparison with BARF</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <figure><img
+                                        src="../images/per_scene_decomposition/samurai/barf_comparison/cape_4x4.jpg" />
+                                    <figcaption>
+                                        <h4>Exemplary Inputs</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <figure>
+                                    <video data-autoplay loop
+                                        data-src="../images/per_scene_decomposition/samurai/barf_comparison/barf_cape.mp4"
+                                        style="min-width: 100%;  object-fit: contain;">
+                                    </video>
+                                    <figcaption>
+                                        <h4 id="barf">BARF</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <figure>
+                                    <video data-autoplay loop
+                                        data-src="../images/per_scene_decomposition/samurai/barf_comparison/samurai_cape.mp4"
+                                        style="min-width: 100%; object-fit: contain;">
+                                    </video>
+                                    <figcaption>
+                                        <h4 id="samurai">SAMURAI</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> NeRF View Conditioning</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <figure><img src="../images/per_scene_decomposition/nerd/NeRF@3x.png" />
+                                    <figcaption>
+                                        <h4>NeRF architecture</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <figure>
+                                    <video data-autoplay loop
+                                        data-src="../images/per_scene_decomposition/viewdirs_website_bww.mp4"
+                                        style="min-width: 100%; object-fit: contain;">
+                                    </video>
+                                    <figcaption>
+                                        <h4 id="frozen-position-with-view-conditioning">Frozen position with view
+                                            conditioning</h4>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> BARF Conditioning Entanglement</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <div>
+                                    <p><strong>Moving Camera</strong></p>
+                                    <video data-autoplay loop
+                                        data-src="../images/per_scene_decomposition/samurai/barf_issues/novel_view_rgb.mp4"
+                                        style="width: 80%; object-fit: contain;">
+                                    </video>
+                                    <p><strong>BARF</strong></p>
+                                    <video data-autoplay loop
+                                        data-src="../images/per_scene_decomposition/samurai/barf_issues/samurai/rgb_jiggle_32.mp4"
+                                        style="width: 80%; object-fit: contain;">
+                                    </video>
+                                    <p><strong>SAMURAI</strong></p>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <div>
+                                    <p><strong>View Conditioning</strong></p>
+                                    <video data-autoplay loop
+                                        data-src="../images/per_scene_decomposition/samurai/barf_issues/novel_view_rgbfrozen.mp4"
+                                        style="width: 80%; object-fit: contain;">
+                                    </video>
+                                    <p><strong> </strong></p>
+                                    <video data-autoplay loop
+                                        data-src="../images/per_scene_decomposition/samurai/barf_issues/samurai/rgb_jiggle_frozenpose_32.mp4"
+                                        style="width: 80%; object-fit: contain;">
+                                    </video>
+                                    <p><strong> </strong></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Results - Novel View Synthesis</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <table>
+                                    <caption style="caption-side:bottom">
+                                        <h4>Single Illumination</h4>
+                                    </caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Method</th>
+                                            <th>Pose Init</th>
+                                            <th>PSNR ↑</th>
+                                            <th>Translation Error ↓</th>
+                                            <th>Rotation° Error ↓</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BARF [1]</td>
+                                            <td>Quadrants</td>
+                                            <td>14.96</td>
+                                            <td>34.64</td>
+                                            <td>0.86</td>
+                                        </tr>
+                                        <tr>
+                                            <td>GNeRF [2]</td>
+                                            <td>Random</td>
+                                            <td><span style="color:Orange;">20.3</span></td>
+                                            <td>81.22</td>
+                                            <td>2.39</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NeRS [3]</td>
+                                            <td>Quadrants</td>
+                                            <td>12.84</td>
+                                            <td><span style="color:Tomato;">32.77</span></td>
+                                            <td><span style="color:Orange;">0.77</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>SAMURAI</td>
+                                            <td>Quadrants</td>
+                                            <td><span style="color:Tomato;">21.08</span></td>
+                                            <td><span style="color:Orange;">33.95</span></td>
+                                            <td><span style="color:Tomato;">0.71</span></td>
+                                        </tr>
+                                        <tr style="color:DarkGray;">
+                                            <td>NeRD</td>
+                                            <td>GT</td>
+                                            <td>23.86</td>
+                                            <td>—</td>
+                                            <td>—</td>
+                                        </tr>
+                                        <tr style="color:DarkGray;">
+                                            <td>Neural-PIL</td>
+                                            <td>GT</td>
+                                            <td>23.95</td>
+                                            <td>—</td>
+                                            <td>—</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="cite-area">
+                                <p>[1] Lin <em>et al.</em> - BARF: Bundle-adjusting neural radiance fields</p>
+                                <p>[2] Meng <em>et al.</em> - GNeRF:
+                                    GAN-based Neural Radiance Field without Posed Camera</p>
+                                <p>[3] Zhang <em>et al.</em> - NeRS: Neural reflectance surfaces for sparse-view 3d
+                                    reconstruction in the wild</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Results - Novel View Synthesis &amp; Relighting</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+                                <table>
+                                    <caption style="caption-side:bottom">
+                                        <h4>Dataset with poses available (NeRD datasets)</h4>
+                                    </caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Method</th>
+                                            <th>Pose Init</th>
+                                            <th>PSNR ↑</th>
+                                            <th>Translation Error ↓</th>
+                                            <th>Rotation° Error ↓</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BARF-A</td>
+                                            <td>Quadrants</td>
+                                            <td>19.7</td>
+                                            <td>23.38</td>
+                                            <td>2.99</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SAMURAI</td>
+                                            <td>Quadrants</td>
+                                            <td><span style="color:Tomato;">22.84</span></td>
+                                            <td><span style="color:Tomato;">8.61</span></td>
+                                            <td><span style="color:Tomato;">0.89</span></td>
+                                        </tr>
+                                        <tr style="color:DarkGray;">
+                                            <td>NeRD</td>
+                                            <td>GT</td>
+                                            <td>26.88</td>
+                                            <td>—</td>
+                                            <td>—</td>
+                                        </tr>
+                                        <tr style="color:DarkGray;">
+                                            <td>Neural-PIL</td>
+                                            <td>GT</td>
+                                            <td>27.73</td>
+                                            <td>—</td>
+                                            <td>—</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;" class="fragment">
+                                <table>
+                                    <caption style="caption-side:bottom">
+                                        <h4>New SAMURAI datasets (No poses recoverable)</h4>
+                                    </caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Method</th>
+                                            <th>Pose Init</th>
+                                            <th>PSNR ↑</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BARF-A</td>
+                                            <td>Quadrants</td>
+                                            <td>16.9</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SAMURAI</td>
+                                            <td>Quadrants</td>
+                                            <td><span style="color:Tomato;">23.46</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="subsection">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                    </div>
+                    <h1> Conclusion</h1>
+                    <div class="description">
+
+
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Conclusion</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: flex-start;">
+                                <figure>
+                                    <svg width="200" height="200" viewBox="0 0 50 50" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="50" height="50" fill="white" />
+                                        <path
+                                            d="M38 28.6249V36.4374C38 37.3002 37.3003 37.9999 36.4375 37.9999H28.625C27.7622 37.9999 27.0625 37.3002 27.0625 36.4374V28.6249C27.0625 27.7621 27.7622 27.0624 28.625 27.0624H36.4375C37.3003 27.0624 38 27.7621 38 28.6249ZM19.25 25.4999C15.7983 25.4999 13 28.2982 13 31.7499C13 35.2015 15.7983 37.9999 19.25 37.9999C22.7017 37.9999 25.5 35.2015 25.5 31.7499C25.5 28.2982 22.7017 25.4999 19.25 25.4999ZM36.3901 23.9374C37.6274 23.9374 38.4009 22.6351 37.7822 21.5936L33.1421 13.7811C32.5234 12.7396 30.9766 12.7396 30.3579 13.7811L25.7178 21.5936C25.0991 22.6351 25.8726 23.9374 27.1099 23.9374H36.3901Z"
+                                            fill="#3D6B6B" />
+                                    </svg>
+                                </figure>
+                                <h4 id="shape">Shape</h4>
+                                <ul>
+                                    <li>3D reconstruction from input images</li>
+                                    <li>Mesh for downstream applications</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: flex-start;">
+                                <figure>
+                                    <svg width="200" height="200" viewBox="0 0 50 50" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="50" height="50" fill="white" />
+                                        <path
+                                            d="M22.975 13.2459C18.1215 14.1931 14.2103 18.0945 13.2533 22.9334C11.4467 32.0642 19.684 38.8709 25.89 37.9089C27.9017 37.5964 28.8881 35.2429 27.9652 33.4314C26.8373 31.2146 28.4486 28.6267 30.9389 28.6267H34.8305C36.5785 28.6267 37.9945 27.1814 37.9994 25.4382C37.975 17.7429 30.973 11.6882 22.975 13.2459ZM17.6869 28.6267C16.8226 28.6267 16.1244 27.9285 16.1244 27.0642C16.1244 26.2 16.8226 25.5017 17.6869 25.5017C18.5512 25.5017 19.2494 26.2 19.2494 27.0642C19.2494 27.9285 18.5512 28.6267 17.6869 28.6267ZM19.2494 22.3767C18.3851 22.3767 17.6869 21.6785 17.6869 20.8142C17.6869 19.95 18.3851 19.2517 19.2494 19.2517C20.1137 19.2517 20.8119 19.95 20.8119 20.8142C20.8119 21.6785 20.1137 22.3767 19.2494 22.3767ZM25.4994 19.2517C24.6351 19.2517 23.9369 18.5535 23.9369 17.6892C23.9369 16.825 24.6351 16.1267 25.4994 16.1267C26.3637 16.1267 27.0619 16.825 27.0619 17.6892C27.0619 18.5535 26.3637 19.2517 25.4994 19.2517ZM31.7494 22.3767C30.8851 22.3767 30.1869 21.6785 30.1869 20.8142C30.1869 19.95 30.8851 19.2517 31.7494 19.2517C32.6137 19.2517 33.3119 19.95 33.3119 20.8142C33.3119 21.6785 32.6137 22.3767 31.7494 22.3767Z"
+                                            fill="#3D6B6B" />
+                                    </svg>
+                                </figure>
+                                <h4 id="appearance">Appearance</h4>
+                                <ul>
+                                    <li>Convincing BRDF materials estimation</li>
+                                    <li>Enables relighting</li>
+                                    <li>Efficient rendering in downstream applications</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: flex-start;">
+                                <figure>
+                                    <svg width="200" height="200" viewBox="0 0 50 50" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="50" height="50" fill="white" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M41 31.1579H40.9728C40.4856 22.7042 33.5206 16 25 16C16.4794 16 9.51439 22.7042 9.02722 31.1579H9.00001V32.0834L9 32.1053L9.00001 32.1271V34H41V31.1579ZM37.1646 31.1579C37.1951 30.9019 37.297 30.6296 37.403 30.3463C37.5429 29.9724 37.69 29.5793 37.69 29.179C37.69 28.3369 37.0132 26.8211 35.998 27.1579C35.1859 27.4274 34.1368 26.2597 33.7984 25.4737C33.46 24.9684 33.257 24.0926 33.1216 23.2842C32.9524 22.2737 31.4296 21.4316 30.2452 20.9263C29.0608 20.4211 26.8612 20.5895 25.3384 21.0948C23.8156 21.6 23.3345 21.5301 21.616 20.9263C19.847 20.3048 18.7948 21.0542 17.6465 21.8719C17.6162 21.8935 17.5857 21.9152 17.5552 21.9369C16.4304 22.7366 16.4939 23.8333 16.534 24.5252C16.5361 24.5618 16.5382 24.5973 16.54 24.6316C16.5854 25.4892 16.0324 26.1474 14.848 26.1474C13.6636 26.1474 13.3252 26.4842 13.156 27.3263C13.0848 27.6809 13.1635 28.0056 13.2533 28.3759C13.3768 28.885 13.5211 29.4803 13.3252 30.3579C13.2455 30.7148 13.1346 30.9734 13.0105 31.1579H37.1646Z"
+                                            fill="#3D6B6B" />
+                                    </svg>
+                                </figure>
+                                <h4 id="illumination">Illumination</h4>
+                                <ul>
+                                    <li>Environment estimation from unconstrained data</li>
+                                    <li>NeRD uses SGs to efficiently integrate illumination</li>
+                                    <li>Varying &amp; fixed illumination possible</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: flex-start;">
+                                <figure>
+                                    <svg width="200" height="200" viewBox="0 0 50 50" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="50" height="50" fill="white" />
+                                        <path
+                                            d="M38 19.4688V33.5312C38 34.8252 36.9502 35.875 35.6562 35.875H15.3438C14.0498 35.875 13 34.8252 13 33.5312V19.4688C13 18.1748 14.0498 17.125 15.3438 17.125H19.6406L20.2412 15.5186C20.583 14.6055 21.457 14 22.4336 14H28.5615C29.5381 14 30.4121 14.6055 30.7539 15.5186L31.3594 17.125H35.6562C36.9502 17.125 38 18.1748 38 19.4688ZM31.3594 26.5C31.3594 23.2676 28.7324 20.6406 25.5 20.6406C22.2676 20.6406 19.6406 23.2676 19.6406 26.5C19.6406 29.7324 22.2676 32.3594 25.5 32.3594C28.7324 32.3594 31.3594 29.7324 31.3594 26.5ZM29.7969 26.5C29.7969 28.8682 27.8682 30.7969 25.5 30.7969C23.1318 30.7969 21.2031 28.8682 21.2031 26.5C21.2031 24.1318 23.1318 22.2031 25.5 22.2031C27.8682 22.2031 29.7969 24.1318 29.7969 26.5Z"
+                                            fill="#3D6B6B" />
+                                    </svg>
+                                </figure>
+                                <h4 id="pose">Pose</h4>
+                                <ul>
+                                    <li>SAMURAI does not require GT poses</li>
+                                    <li>Can run where traditional pose recovery fails</li>
+                                    <li>BRDF decomposition is beneficial</li>
+                                    <li>First to handle full decomposition alongside pose recovery</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Are we there yet?</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <div style="position: absolute">
+                                <ul>
+                                    <li>No, but we are getting closer</li>
+                                </ul>
+                            </div>
+                            <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: flex-start; padding-top: 5rem;">
+                                <figure>
+                                    <svg width="200" height="200" viewBox="0 0 50 50" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="50" height="50" fill="white" />
+                                        <path
+                                            d="M38 28.6249V36.4374C38 37.3002 37.3003 37.9999 36.4375 37.9999H28.625C27.7622 37.9999 27.0625 37.3002 27.0625 36.4374V28.6249C27.0625 27.7621 27.7622 27.0624 28.625 27.0624H36.4375C37.3003 27.0624 38 27.7621 38 28.6249ZM19.25 25.4999C15.7983 25.4999 13 28.2982 13 31.7499C13 35.2015 15.7983 37.9999 19.25 37.9999C22.7017 37.9999 25.5 35.2015 25.5 31.7499C25.5 28.2982 22.7017 25.4999 19.25 25.4999ZM36.3901 23.9374C37.6274 23.9374 38.4009 22.6351 37.7822 21.5936L33.1421 13.7811C32.5234 12.7396 30.9766 12.7396 30.3579 13.7811L25.7178 21.5936C25.0991 22.6351 25.8726 23.9374 27.1099 23.9374H36.3901Z"
+                                            fill="#3D6B6B" />
+                                    </svg>
+                                </figure>
+                                <h4 id="mesh-extraction">Mesh extraction</h4>
+                                <ul>
+                                    <li>Meshes are still the most common downstream representation</li>
+                                    <li>Models are volumetric</li>
+                                    <li>Volumetric models are easier to optimize</li>
+                                    <li>Marching Cubes most commonly used, but meshes do not look good</li>
+                                </ul>
+                                <img style="width:90%" src="../images/games_day2023/outro/flexicubes.png" />
+                                </br>
+                                <ul>
+                                    <li>FlexiCubes [1] is a recent approach which improves upon this</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: flex-start; padding-top: 5rem;">
+                                <figure>
+                                    <svg width="200" height="200" viewBox="0 0 50 50" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="50" height="50" fill="white" />
+                                        <path
+                                            d="M47.0714 7.10714H42.8929V2.92857C42.8929 2.41583 42.477 2 41.9643 2H41.0357C40.523 2 40.1071 2.41583 40.1071 2.92857V7.10714H35.9286C35.4158 7.10714 35 7.52297 35 8.03571V8.96429C35 9.47703 35.4158 9.89286 35.9286 9.89286H40.1071V14.0714C40.1071 14.5842 40.523 15 41.0357 15H41.9643C42.477 15 42.8929 14.5842 42.8929 14.0714V9.89286H47.0714C47.5842 9.89286 48 9.47703 48 8.96429V8.03571C48 7.52297 47.5842 7.10714 47.0714 7.10714Z"
+                                            fill="#3D6B6B" />
+                                        <path
+                                            d="M22.975 13.2459C18.1215 14.1931 14.2103 18.0945 13.2533 22.9334C11.4467 32.0642 19.684 38.8709 25.89 37.9089C27.9017 37.5964 28.8881 35.2429 27.9652 33.4314C26.8373 31.2146 28.4486 28.6267 30.9389 28.6267H34.8305C36.5785 28.6267 37.9945 27.1814 37.9994 25.4382C37.975 17.7429 30.973 11.6882 22.975 13.2459ZM17.6869 28.6267C16.8226 28.6267 16.1244 27.9285 16.1244 27.0642C16.1244 26.2 16.8226 25.5017 17.6869 25.5017C18.5512 25.5017 19.2494 26.2 19.2494 27.0642C19.2494 27.9285 18.5512 28.6267 17.6869 28.6267ZM19.2494 22.3767C18.3851 22.3767 17.6869 21.6785 17.6869 20.8142C17.6869 19.95 18.3851 19.2517 19.2494 19.2517C20.1137 19.2517 20.8119 19.95 20.8119 20.8142C20.8119 21.6785 20.1137 22.3767 19.2494 22.3767ZM25.4994 19.2517C24.6351 19.2517 23.9369 18.5535 23.9369 17.6892C23.9369 16.825 24.6351 16.1267 25.4994 16.1267C26.3637 16.1267 27.0619 16.825 27.0619 17.6892C27.0619 18.5535 26.3637 19.2517 25.4994 19.2517ZM31.7494 22.3767C30.8851 22.3767 30.1869 21.6785 30.1869 20.8142C30.1869 19.95 30.8851 19.2517 31.7494 19.2517C32.6137 19.2517 33.3119 19.95 33.3119 20.8142C33.3119 21.6785 32.6137 22.3767 31.7494 22.3767Z"
+                                            fill="#3D6B6B" />
+                                    </svg>
+                                </figure>
+                                <h4 id="general-decomposition-improvements">General Decomposition Improvements</h4>
+                                <ul>
+                                    <li>BRDF, illumination, and shape work in conjunction</li>
+                                    <li>An improvement in one area leads to improvement in others</li>
+                                    <li>Currently, far-field illumination is often used, but near-field illumination is
+                                        more realistic</li>
+                                    <li>Global illumination is highly important for large scenes</li>
+                                    <li>Shadowing is important for appearance and shape</li>
+                                    <li>High-frequent illumination is important for appearance (reflections)</li>
+                                </ul>
+                            </div>
+                            <div class="cite-area">
+                                <p>[1] Shen <em>et al.</em> - Flexible Isosurface Extraction for Gradient-Based
+                                    Mesh Optimization - 2023</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Current works</div>
+                    </div>
+                    <div class="content">
+
+                        <div class="column">
+                            <ul>
+                                <li>3D Gaussian Splatting [1]</li>
+                                <li>Instead of learning a 3D volume, the scene optimizes a variable number of 3D
+                                    Gaussians</li>
+                                <li>Splatting is quite popular in graphics and proven fast in demoscene projects</li>
+                                <li>Rendering changes: Instead of rendering each pixel with many samples individually,
+                                    primitives are rendered instead.</li>
+                                <li>For example: Full HD with 128 samples equals: 1920x1080x128 = 265,420,800 samples
+                                </li>
+                            </ul>
+                            <h3 id="interactive-demos">Interactive Demos</h3>
+                            <p><a href="https://lumalabs.ai/capture/0b4de2ed-1621-4954-900f-0a94220071f2">Demo</a> -
+                                <a href="https://lumalabs.ai/capture/da82625c-9c8d-4d05-a9f7-3367ecab438c">Demo 2</a>
+                        </div>
+
+                        <div class="column">
+                            <div class="r-stack" style="height:100%; width: 100%;">
+                                <img style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;"
+                                    class="fragment fade-out" data-fragment-index="0"
+                                    src="../images/games_day2023/outro/Scene.jpg" />
+                                <img style="min-width: 100%;  min-height: 100%; width: auto; height: auto; object-fit: contain;"
+                                    class="fragment current-visible" data-fragment-index="0"
+                                    src="../images/games_day2023/outro/IndividualGaussians.jpg" />
+                            </div>
+                            <div class="cite-area">
+                                <p>[1] Kerbl <em>et al.</em> - 3D Gaussian Splatting for Real-Time Radiance Field
+                                    Rendering - 2023</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section data-noprocess data-shortcode-slide class="end">
+
+                <div class="grid-wrapper">
+                    <div class="header">
+                        <div class="logo"></div>
+                        <div class="section"> Invisible</div>
+                    </div>
+                    <div class="content">
+                        <h1 id="thank-you-for-listening">Thank you for listening</h1>
+
+                    </div>
+                </div>
+
+
+
+                <aside class="notes">
+                    <ul>
+                        <li>You found the <strong>speaker notes</strong>!</li>
+                    </ul>
+                </aside>
+            </section>
+
+        </div>
+
+
+    </div>
+    <script type="text/javascript" src=../reveal-hugo/object-assign.js></script>
+
+    <a href="../reveal-js/css/print/" id="print-location" style="display: none;"></a>
+    <script type="text/javascript">
+        var printLocationElement = document.getElementById('print-location');
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <script type="application/json" id="reveal-hugo-site-params">null</script>
+    <script type="application/json"
+        id="reveal-hugo-page-params">{"center":false,"custom_theme":"personal-theme.scss","custom_theme_compile":true,"disable_layout":true,"height":"100%","highlight_theme":"atom-one-dark","margin":0,"max_scale":1,"min_scale":1,"plugins":["plugins/math.js"],"slide_number":true,"width":"100%"}</script>
+
+    <script src="../reveal-js/js/reveal.js"></script>
+
+    <script type="text/javascript">
+
+
+        function camelize(map) {
+            if (map) {
+                Object.keys(map).forEach(function (k) {
+                    newK = k.replace(/(\_\w)/g, function (m) { return m[1].toUpperCase() });
+                    if (newK != k) {
+                        map[newK] = map[k];
+                        delete map[k];
+                    }
+                });
+            }
+            return map;
+        }
+
+        var revealHugoDefaults = {
+            math: {
+                mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+                config: 'TeX-AMS_HTML-full',
+                TeX: {
+                    extensions: ["color.js"]
+                },
+
+                "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
+                SVG: { linebreaks: { automatic: true } }
+            }, center: true, controls: true, history: true, progress: true, transition: "slide"
+        };
+        var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+        var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+
+        var options = Object.assign({},
+            camelize(revealHugoDefaults),
+            camelize(revealHugoSiteParams),
+            camelize(revealHugoPageParams));
+        Reveal.initialize(options);
+
+
+
+        function playCurrentFragment() {
+            [].slice.call(document.querySelectorAll('.fragment')).forEach(function (fragment) {
+
+                if (fragment.tagName == "VIDEO") {
+                    var video = fragment;
+                    if (video.classList.contains('current-fragment')) {
+                        video.play();
+                    }
+                    else {
+
+                    }
+                }
+
+            });
+        }
+
+        Reveal.addEventListener('fragmentshown', playCurrentFragment);
+        Reveal.addEventListener('fragmenthidden', playCurrentFragment);
+
+    </script>
+
+
+
+
+    <script type="text/javascript" src="../reveal-js/plugin/markdown/marked.js"></script>
+
+    <script type="text/javascript" src="../reveal-js/plugin/markdown/markdown.js"></script>
+
+    <script type="text/javascript" src="../reveal-js/plugin/highlight/highlight.js"></script>
+
+    <script type="text/javascript" src="../reveal-js/plugin/zoom-js/zoom.js"></script>
+
+
+    <script type="text/javascript" src="../reveal-js/plugin/notes/notes.js"></script>
+
+
+
+    <script type="text/javascript" src="../plugins/math.js"></script>
+
+
+
+</body>
+
+</html>
