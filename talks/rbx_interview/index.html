@@ -1,0 +1,1294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Roblox Tech Talk</title>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../reveal-js/css/reset.css">
+<link rel="stylesheet" href="../reveal-js/css/reveal.css">
+<link rel="stylesheet" href="../personal.css" id="theme"><link rel="stylesheet" href="../highlight-js/atom-one-dark.min.css">
+   
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    
+<section data-noprocess data-shortcode-slide
+      class="title">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo logo--full"></div>
+    </div>
+    <div class="content">
+        
+        <h1>
+            Game-ready 3D Generative AI
+        </h1>
+        
+        <p class="description">
+            
+    
+
+        </p>
+    </div>
+    <div class="credit">
+        <hr/>
+        <div class="label">Presented By</div>
+        <div class="name">Mark Boss</div>
+        <div class="role">Research Scientist @ Stability AI</div>
+    </div>
+</div>
+</section>
+
+  
+
+    
+<section data-noprocess data-shortcode-slide
+      class="biography">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Biography</div>
+    </div>
+    <div class="content">
+        <div class="profile">
+    <div class="image">
+        <img src="../images/avatar.jpg">
+    </div>
+    <div class="details">
+        <h2>Profile</h2>
+        <p>Mark Boss is a researcher at Stability AI. He worked at Unity Technologies before and completed his PhD at the University of Tübingen in the computer graphics group of Prof. Hendrik Lensch. His research interests lie at the intersection of machine learning and computer graphics, focusing mainly on inferring physical properties (shape, material, illumination) from images.</p>
+    </div>
+    <div class="experience">
+        <div class="experience-wrapper">
+        <h2>Experience</h2>
+            <div class="experience-items">
+                <p class="position">Research Scientist</p>
+                <p class="company">Stability AI</p>
+                <p class="time">January 2024 - present</p>
+            </div>
+            <div class="experience-items">
+                <p class="position">Senior Research Scientist</p>
+                <p class="company">Unity</p>
+                <p class="time">September 2022 - January 2024</p>
+            </div>
+            <div class="experience-items">
+                <p class="position">Student Researcher</p>
+                <p class="company">Google</p>
+                <p class="time">June 2021 - April 2022</p>
+            </div>
+            <div class="experience-items">
+                <p class="position">Research Intern</p>
+                <p class="company">Nvidia</p>
+                <p class="time">April 2019 - Juli 2019</p>
+            </div>
+            <div class="experience-items">
+                <p class="position">Ph.D. Student</p>
+                <p class="company">University of Tübingen</p>
+                <p class="time">June 2018 - Juli 2022</p>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+</section>
+    <section><div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Generative 3D</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="height: 100%; width: 75%; display: flex; flex-direction: row;
+    align-items: center;
+    margin: 50px auto;
+            justify-content: space-between;">
+<style> 
+        .img_col {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        .box {
+            border: 3px solid #000;
+            border-radius: 15px;
+            padding: 20px;
+            width: 150px;
+            text-align: center;
+            background-color: #ADD8E6;
+        }
+        .arrow {
+            width: 100px;
+            height: 3px; /* Increase line thickness */
+            background: black;
+            position: relative;
+        }
+        .arrow::after {
+            content: '→';
+            position: absolute;
+            right: -15px;
+            top: -18px;
+            font-size: 32px;
+        }
+</style>
+<div class="img_col">
+        <div>Text</div>
+        <p><emph>(or)</emph></p>
+        <div>Image</div>
+        <p><emph>(or)</emph></p>
+        <div>Video</div>
+</div>
+<div class="arrow"></div>
+<div class="box">Generative Model</div>
+<div class="arrow"></div>
+</div>
+<div >
+</div>
+ </div>
+        
+            <div class="column"> <div style="height: 100%; width: 100%; display: flex; flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;">
+<div style="height: 75%; width: 100%;">
+<iframe type="text/html" width="100%" height="100%" data-src="https://stable-fast-3d.github.io/render.html?scene=raccoon_wizard"  data-preload frameborder="0">
+</iframe>
+</div>
+<h4 style="margin-top: -0.75em;">3D asset [1]</h4>
+</div>
+<div class="cite-area">
+    <p>[1] <strong>Result from:</strong> Boss <em>et al.</em> - SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement - 2024</p>
+</div> </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Why 3D Gen AI?</div>
+    </div>
+    <div class="content">
+        <div  class="grid-flex-column" style="
+        display: grid; 
+        place-content: space-evenly;
+        grid-template-columns: repeat(
+            auto-fit, 
+            minmax(
+                min(
+                    300px,
+                    40vmin),
+                1fr
+            )
+        );">
+            
+                <div class="column"> <figure><img src="../images/genai/preproduction.jpg"/><figcaption>
+            <h4>Pre-Production</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/genai/ugc_hats.jpg"/><figcaption>
+            <h4>User Generated Content (UGC)</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+                <div class="column"> <figure class="fragment"><img src="../images/genai/assets.jpg"/><figcaption>
+            <h4>Final assets</h4>
+        </figcaption>
+</figure>
+ </div>
+            
+        </div>
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Challenges</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Dataset size are orders of magnitude smaller</li>
+<li>Even more if textures or PBR parameters are required</li>
+</ul>
+ </div>
+        
+            <div class="column"> <figure><img src="../images/genai/dataset_size.png"/><figcaption>
+            <h4>Dataset Size</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Challenges</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <figure><img src="https://stable-fast-3d.github.io/static/models/animal_character_2/input.jpg"/><figcaption>
+            <h4>Image Generation</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+            <div class="column"> <div class="fragment" style="height: 100%; width: 100%; display: flex; flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;">
+<div style="height: 75%; width: 100%;">
+<iframe type="text/html" width="100%" height="100%" data-src="https://stable-fast-3d.github.io/render.html?scene=animal_character_2"  data-preload frameborder="0">
+</iframe>
+</div>
+<h4 style="margin-top: -0.75em;">3D Generation</h4>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Challenges for Games</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Albedo cannot contain light information</li>
+<li>Reflective properties are important</li>
+<li>Mesh topology is important</li>
+</ul>
+ </div>
+        
+            <div class="column"> <div style="display:flex;flex-direction:column;align-items:center;height:100%;">
+<img style="width:60%;height:20%;object-fit:cover;" src="../images/games_day2023/intro/photogrammetry_issues/Delight.png">
+<p>Delighting [1]</p>
+<img style="width:100%;height:30%;object-fit:cover;" src="../images/games_day2023/intro/photogrammetry_issues/SubstanceGraph.png">
+<p>Material Creation in Substance Designer [2]</p>
+<img style=width:70%;height:30%;object-fit:cover;" src="../images/genai/topology.jpg">
+<p>Quad Topology [3]</p>
+<div>
+<div class="cite-area">
+    <p>[1] <strong>Create Photorealistic Game Assets - E-Book</strong> - Unity Technologies - 2017</p>
+<p>[2] <strong><a href="https://www.youtube.com/watch?v=DfCH1cjzvmI">Photogrammetry workflow for surface scanning with the monopod</a></strong> - Grzegorz Baran - 2020</p>
+<p>[3] <strong><a href="https://s11000814.wordpress.com/2012/10/23/3d-mesh-topologies/">Media Production Blog</a></strong></p>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="subsection">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+    </div>
+    <h1> SV3D: Novel Multi-view Synthesis and 3D Generation from a Single Image using Latent Video Diffusion</h1>
+    <div class="description">
+        
+
+Vikram Voleti, Chun-Han Yao, Mark Boss, Adam Letts, David Pankratz, Dmitrii Tochilkin,  Christian Laforte, Robin Rombach, Varun Jampani
+<br/>
+<em>European Conference on Computer Vision ECCV</em> 2024
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Motivation</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Video generation are temporally consistent</li>
+<li>This also entails multi-view consistency</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Use images to train a NeRF</li>
+<li>Requires camera control</li>
+</ul>
+</div>
+<div class="fragment">
+</br>
+<ul>
+<li>Video data is more abundant than 3D</li>
+</ul>
+</div>
+<figure class="fragment"><img src="../images/genai/sv3d/high_level_overview.png"/><figcaption>
+            <h4>Concept of SV3D</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+            <div class="column"> <p><video src="../images/genai/sv3d/sora-big_sur.mp4" style="width: 100%; height: 100%;
+object-fit: contain;" loop autoplay></p>
+<h4 style="margin-top: -0.75em;">OpenAI Sora - Big Sur</h4> </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Adding Camera Controls</div>
+    </div>
+    <div class="content">
+        <div style="display:  grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  'big-top small-top'
+  'bottom bottom';">
+<div style="grid-area: big-top">
+<ul>
+<li>Fine-tune of SVD [1] - 3D Data is scarce</li>
+<li>Similar reasoning as SVD being a fine-tune of Stable Diffusion</li>
+<li>Replace video specific conditioning with camera poses</li>
+<li>Distill camera from camera motions</li>
+</ul>
+</div>
+<div  style="grid-area: bottom">
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div>
+            <img src="../images/genai/sv3d/static.jpg" style="height: 40vh">
+            <h4>Static paths</h4>
+        </div>
+        <div>
+            <img src="../images/genai/sv3d/dynamic.jpg" style="height: 40vh">
+            <h4>Dynamic paths</h4>
+        </div>
+    </div>
+</div>
+</div>
+<div class="cite-area">
+    <p>[1] Blattmann <em>et al.</em> - Stable Video Diffusion: Scaling Latent Video Diffusion Models to Large Datasets - 2023</p>
+</div>
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Video Generations</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; height: 100%;">
+<video src="../images/genai/sv3d/NVS.mp4" style="width: 100%; height: 80%;
+  object-fit: contain;" loop autoplay></video>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Reconstruction - Inital Phase</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Use images and camera poses to train a NeRF</li>
+<li>Add a set of supervision classical supervision losses (MonoNormal, Smoothness, LPIPS, etc.)</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Initial stage only reconstructs a NeRF</li>
+<li>A mesh should be the final output</li>
+<li>Additionally, 21 views can leave some unseen surfaces</li>
+</ul>
+<figure><img src="../images/genai/sv3d/unseen_surfaces.jpg" height="500rem"/><figcaption>
+            <h4>Unseen surfaces</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <figure><img src="../images/genai/sv3d/reconstruction_overview_first_part.jpg"/><figcaption>
+            <h4>3D Reconstruction with SV3D</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Reconstruction - Second Phase</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Extract differentiable mesh with marching tetrahedra</li>
+<li>Add illumination model (Spherical Gaussians)</li>
+<li>Add SDS loss</li>
+</ul>
+<div style="display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; height: 60%;">
+<div class="r-stack" style="height: 90%;">
+<figure class="fragment fade-in-then-out"><img src="../images/genai/sv3d/influence_illumination.png"/><figcaption>
+            <h4>Influence of Illumination Model</h4>
+        </figcaption>
+</figure>
+<div class="fragment fade-in-then-out" style="display: flex;
+  flex-direction: column;
+  justify-content: center;">
+<video src="../images/genai/sv3d/dreamfusion.mp4" style="width: 100%; height: 100%;
+  object-fit: contain;" loop autoplay >
+</video>
+<h4>Dreamfusion - Oversaturated colors</h4>
+</div>
+<figure class="fragment fade-in-then-out"><img src="../images/genai/sv3d/sds_no_mask.jpg" height="500rem"/><figcaption>
+            <h4>Unseen surfaces</h4>
+        </figcaption>
+</figure>
+<figure class="fragment fade-in-then-out"><img src="../images/genai/sv3d/sds_full.jpg" height="500rem"/><figcaption>
+            <h4>Unseen surfaces</h4>
+        </figcaption>
+</figure>
+</div>
+</div>
+ </div>
+        
+            <div class="column"> <figure><img src="../images/genai/sv3d/reconstruction_overview.png"/><figcaption>
+            <h4>3D Reconstruction with SV3D</h4>
+        </figcaption>
+</figure>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: center;">
+<figure><img src="https://sv3d.github.io/static/models/toy_animals_034/preview.jpg"/><figcaption>
+            <h4>Input</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="height: 100%; width: 100%; display: flex; flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;">
+<div style="height: 75%; width: 100%;">
+<iframe type="text/html" width="100%" height="100%" data-src="https://sv3d.github.io/render.html?scene=toy_animals_034"  data-preload frameborder="0">
+</iframe>
+</div>
+<h4 style="margin-top: -0.75em;">Relightable Asset</h4>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Results</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="height: 100%; width: 100%; display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: center;">
+<figure><img src="https://sv3d.github.io/static/models/CREATIVE_BLOCKS_35_MM/preview.jpg"/><figcaption>
+            <h4>Input</h4>
+        </figcaption>
+</figure>
+</div>
+ </div>
+        
+            <div class="column"> <div style="height: 100%; width: 100%; display: flex; flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;">
+<div style="height: 75%; width: 100%;">
+<iframe type="text/html" width="100%" height="100%" data-src="https://sv3d.github.io/render.html?scene=CREATIVE_BLOCKS_35_MM"  data-preload frameborder="0">
+</iframe>
+</div>
+<h4 style="margin-top: -0.75em;">Relightable Asset</h4>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Metrics</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<table>
+    <caption style="caption-side:bottom"><h4>Comparison on GSO</h4></caption>
+    <thead><tr>
+        <th>Method</th>
+        <th>LPIPS</th>
+        <th>PSNR</th>
+        <th>SSIM</th>
+        <th>CLIP-S</th>
+    </tr></thead>
+    <tbody><tr>
+        <td>EscherNet [1]</td>
+        <td>0.178</td>
+        <td>14.438</td>
+        <td>0.804</td>
+        <td>0.835</td>
+    </tr>
+    <tr>
+        <td>Free3D [2]</td>
+        <td>0.197</td>
+        <td>14.202</td>
+        <td>0.799</td>
+        <td>0.809</td>
+    </tr>
+    <tr>
+        <td>Stable Zero123 [3]</td>
+        <td>0.166</td>
+        <td>14.635</td>
+        <td>0.813</td>
+        <td>0.805</td>
+    </tr>
+    <tr>
+        <td>SV3D</td>
+        <td><span style="color:Tomato;">0.119</span></td>
+        <td><span style="color:Tomato;">17.405</span></td>
+        <td><span style="color:Tomato;">0.849</span></td>
+        <td><span style="color:Tomato;">0.877</span></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<div class="cite-area">
+    <p>[1] Kong <em>et al.</em> - Eschernet:A Generative Model for Scalable View Synthesis - 2024</p>
+<p>[2] Zheng <em>et al.</em> - Free3D: Consistent Novel View Synthesis without 3D Representation - 2023</p>
+<p>[3] Stability AI - Stable Zero123 - 2023</p>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="subsection">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+    </div>
+    <h1> SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement</h1>
+    <div class="description">
+        
+
+Mark Boss, Zixuan Huang,  Aaryaman Vasishta, Varun Jampani
+<br/>
+<em>arXiv</em> 2024
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Motivation</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>Reconstruction times with SV3D are slow (10 mins)</li>
+<li>Recent advances with LRM [1] and TripoSR [2] got 0.5s</li>
+<li>Speed is important for prototyping</li>
+<li>However, the asset have several issues</li>
+</ul>
+ </div>
+        
+            <div class="column"> <iframe
+	src="https://stabilityai-triposr.hf.space"
+	frameborder="0"
+	width="850"
+	height="750"
+></iframe>
+<div class="cite-area">
+    <p>[1] Hong <em>et al.</em> - LRM: Large Reconstruction Model for Single Image to 3D - 2023</p>
+<p>[2] Tochilkin <em>et al.</em> - TripoSR: Fast 3D Object Reconstruction from a Single Image - 2024</p>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Improvements of SF3D</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div class="r-stack">
+<div class="fragment fade-out" data-fragment-index="0" style="width: 100%">
+<div style="display:  grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  'big-top small-top'
+  'bottom bottom';">
+<div style="grid-area: big-top">
+<ul>
+<li>Baked-in illumination</li>
+</ul>
+</div>
+<div  style="grid-area: bottom">
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div>
+            <img src="../images/genai/sf3d/issues/bake_in/gt0004.jpg" style="height: 40vh">
+            <h4>Ground Truth</h4>
+        </div>
+		<div>
+            <img src="../images/genai/sf3d/issues/bake_in/triposr0004.jpg" style="height: 40vh">
+            <h4>TripoSR</h4>
+        </div>
+        <div>
+            <img src="../images/genai/sf3d/issues/bake_in/ours0004.jpg" style="height: 40vh">
+            <h4>Ours</h4>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="fragment current-visible" data-fragment-index="0" style="width: 100%">
+<div style="display:  grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  'big-top small-top'
+  'bottom bottom';">
+<div style="grid-area: big-top">
+<ul>
+<li>Baked-in illumination</li>
+<li>Vertex Color do not produce sharp textures</li>
+</ul>
+</div>
+<div  style="grid-area: bottom">
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div>
+            <img src="../images/genai/sf3d/issues/vertex_colors/gt0004.jpg" style="height: 40vh">
+            <h4>Ground Truth</h4>
+        </div>
+		<div>
+            <img src="../images/genai/sf3d/issues/vertex_colors/triposr0004.jpg" style="height: 40vh">
+            <h4>TripoSR</h4>
+        </div>
+        <div>
+            <img src="../images/genai/sf3d/issues/vertex_colors/ours0004.jpg" style="height: 40vh">
+            <h4>Ours</h4>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="fragment fade-in-then-out" style="width: 100%">
+<div style="display:  grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  'big-top small-top'
+  'bottom bottom';">
+<div style="grid-area: big-top">
+<ul>
+<li>Baked-in illumination</li>
+<li>Vertex Color do not produce sharp textures</li>
+<li>Marching Cubes can generate obvious shading artifacts</li>
+</ul>
+</div>
+<div  style="grid-area: bottom">
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div>
+            <img src="../images/genai/sf3d/issues/mesh_extraction/gt0004.jpg" style="height: 40vh">
+            <h4>Ground Truth</h4>
+        </div>
+		<div>
+            <img src="../images/genai/sf3d/issues/mesh_extraction/triposr0004.jpg" style="height: 40vh">
+            <h4>TripoSR</h4>
+        </div>
+        <div>
+            <img src="../images/genai/sf3d/issues/mesh_extraction/ours0004.jpg" style="height: 40vh">
+            <h4>Ours</h4>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="fragment" style="width: 100%">
+<div style="display:  grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  'big-top small-top'
+  'bottom bottom';">
+<div style="grid-area: big-top">
+<ul>
+<li>Baked-in illumination</li>
+<li>Vertex Color do not produce sharp textures</li>
+<li>Marching Cubes can generate obvious shading artifacts</li>
+<li>No material parameters</li>
+</ul>
+</div>
+<div style="grid-area: bottom">
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div style="display: flex; flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;">
+            <img src="../images/genai/sf3d/issues/material/hat_input.png" style="height: 40vh">
+            <h4>Input</h4>
+        </div>
+		<div style="display: flex; flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;">
+			<div class="r-stack">
+				<div class="fragment fade-out">
+					<video data-autoplay loop style="width:100%;height:90%;object-fit:cover;">
+						<source data-src="../images/genai/sf3d/issues/material/triposr_hat.mp4" type="video/mp4" />
+					</video>
+            		<h4>TripoSR</h4>
+				</div>
+				<div class="fragment fade-in">
+					<video data-autoplay loop style="width:100%;height:90%;object-fit:cover;">
+						<source data-src="../images/genai/sf3d/issues/material/ours_hat.mp4" type="video/mp4" />
+					</video>
+            		<h4>Ours</h4>
+				</div>
+			</div>
+        </div>
+        <div style="display: flex; flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;">
+            <img src="../images/genai/sf3d/issues/material/toaster_input.png" style="height: 40vh">
+            <h4>Input</h4>
+        </div>
+		<div style="display: flex; flex-direction: column;
+		align-items: flex-start;
+		justify-content: center;">
+			<div class="r-stack">
+				<div class="fragment fade-out">
+					<video data-autoplay loop style="width:100%;height:90%;object-fit:cover;">
+						<source data-src="../images/genai/sf3d/issues/material/triposr_toaster.mp4" type="video/mp4" />
+					</video>
+            		<h4>TripoSR</h4>
+				</div>
+				<div class="fragment fade-in">
+					<video data-autoplay loop style="width:100%;height:90%;object-fit:cover;">
+						<source data-src="../images/genai/sf3d/issues/material/ours_toaster.mp4" type="video/mp4" />
+					</video>
+            		<h4>Ours</h4>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div> 
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Overview</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div class="r-stack">
+<figure class="fragment fade-out"><img src="../images/genai/sf3d/overview/Slide1.jpg"/>
+</figure>
+<figure class="fragment visible"><img src="../images/genai/sf3d/overview/Slide2.jpg"/>
+</figure>
+<figure class="fragment"><img src="../images/genai/sf3d/overview/Slide3.jpg"/>
+</figure>
+<figure class="fragment"><img src="../images/genai/sf3d/overview/Slide4.jpg"/>
+</figure>
+<figure class="fragment"><img src="../images/genai/sf3d/overview/Slide5.jpg"/>
+</figure>
+<figure class="fragment"><img src="../images/genai/sf3d/overview/Slide6.jpg"/>
+</figure>
+<figure class="fragment"><img src="../images/genai/sf3d/overview/Slide7.jpg"/>
+</figure>
+<figure class="fragment"><img src="../images/genai/sf3d/overview/Slide8.jpg"/>
+</figure>
+<figure class="fragment"><img src="../images/genai/sf3d/overview/Slide9.jpg"/>
+</figure>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Aliasing</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display:  grid;
+  grid-template-rows: 30% 70%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: 
+  'big-top small-top'
+  'bottom bottom';">
+<div style="grid-area: big-top">
+<ul>
+<li>Previous methods used a low resolution triplane (64x64)</li>
+<li>We found that this can result in grid artifacts</li>
+<li>These are aliasing issues</li>
+<li>We predict high resolution 384x384 triplanes</li>
+</ul>
+</div>
+<div  style="grid-area: bottom">
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div>
+            <img src="../images/genai/sf3d/issues/aliasing/GT.jpg" style="height: 40vh">
+            <h4>Ground Truth</h4>
+        </div>
+		<div>
+            <img src="../images/genai/sf3d/issues/aliasing/Aliased.jpg" style="height: 40vh">
+            <h4>Low Resolution</h4>
+        </div>
+        <div>
+            <img src="../images/genai/sf3d/issues/aliasing/Non-Aliased.jpg" style="height: 40vh">
+            <h4>Ours (High Resolution)</h4>
+        </div>
+    </div>
+</div>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Demo</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <iframe
+	src="https://stabilityai-stable-fast-3d.hf.space"
+	frameborder="0"
+	width="100%"
+	height="90%"
+></iframe>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Comparison</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <video data-autoplay loop style="width:90%;height:40vh;object-fit:contain;">
+	<source data-src="../images/genai/sf3d/comp/triposr_orchidpot.mp4" type="video/mp4" />
+</video>
+<h4>TripoSR [1]</h4>
+ </div>
+        
+            <div class="column"> <video data-autoplay loop style="width:90%;height:40vh;object-fit:contain;">
+	<source data-src="../images/genai/sf3d/comp/crm_orchidpot.mp4" type="video/mp4" />
+</video>
+<h4>CRM [2]</h4>
+ </div>
+        
+            <div class="column"> <video data-autoplay loop style="width:90%;height:40vh;object-fit:contain;">
+	<source data-src="../images/genai/sf3d/comp/instantmesh_orchidpot.mp4" type="video/mp4" />
+</video>
+<h4>InstantMesh [3]</h4>
+ </div>
+        
+            <div class="column"> <video data-autoplay loop style="width:90%;height:40vh;object-fit:contain;">
+	<source data-src="../images/genai/sf3d/comp/ours_orchidpot.mp4" type="video/mp4" />
+</video>
+<h4>Ours</h4>
+ </div>
+        
+    </div>
+</div>
+<div class="cite-area">
+<p>[1] Tochilkin <em>et al.</em> - TripoSR: Fast 3D Object Reconstruction from a Single Image - 2024</p>
+<p>[2] Wang <em>et al.</em> - CRM: Single Image to 3D Textured Mesh with Convolutional Reconstruction Model - 2024</p>
+<p>[3] Xu <em>et al.</em> - InstantMesh: Efficient 3D Mesh Generation from a Single Image with Sparse-view Large Reconstruction Models - 2024</p>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Comparison</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <video data-autoplay loop style="width:90%;height:40vh;object-fit:contain;">
+	<source data-src="../images/genai/sf3d/comp/triposr_vegetable.mp4" type="video/mp4" />
+</video>
+<h4>TripoSR [1]</h4>
+ </div>
+        
+            <div class="column"> <video data-autoplay loop style="width:90%;height:40vh;object-fit:contain;">
+	<source data-src="../images/genai/sf3d/comp/crm_vegetable.mp4" type="video/mp4" />
+</video>
+<h4>CRM [2]</h4>
+ </div>
+        
+            <div class="column"> <video data-autoplay loop style="width:90%;height:40vh;object-fit:contain;">
+	<source data-src="../images/genai/sf3d/comp/instantmesh_vegetable.mp4" type="video/mp4" />
+</video>
+<h4>InstantMesh [3]</h4>
+ </div>
+        
+            <div class="column"> <video data-autoplay loop style="width:90%;height:40vh;object-fit:contain;">
+	<source data-src="../images/genai/sf3d/comp/ours_vegetable.mp4" type="video/mp4" />
+</video>
+<h4>Ours</h4>
+<div class="cite-area">
+    <p>[1] Tochilkin <em>et al.</em> - TripoSR: Fast 3D Object Reconstruction from a Single Image - 2024</p>
+<p>[2] Wang <em>et al.</em> - CRM: Single Image to 3D Textured Mesh with Convolutional Reconstruction Model - 2024</p>
+<p>[3] Xu <em>et al.</em> - InstantMesh: Efficient 3D Mesh Generation from a Single Image with Sparse-view Large Reconstruction Models - 2024</p>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Metrics</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <div style="display: flex;
+  justify-content: center;
+  align-items: center; height: 100%;">
+<table>
+    <caption style="caption-side:bottom"><h4>Comparison on GSO</h4></caption>
+	<thead><tr>
+        <th>Method</th>
+        <th>CD</th>
+        <th>F-Score @ 0.1</th>
+        <th>F-Score @ 0.2</th>
+        <th>F-Score @ 0.5</th>
+		<th>Time [s]</th>
+    </tr></thead>
+	<tbody><tr>
+        <td>ZeroShape [1]</td>
+        <td>0.160</td>
+        <td>0.489</td>
+        <td>0.759</td>
+        <td>0.952</td>
+		<td>0.9</td>
+    </tr>
+	<tr>
+        <td>OpenLRM [2]</td>
+        <td>0.160</td>
+        <td>0.472</td>
+        <td>0.751</td>
+        <td>0.954</td>
+		<td>2.0</td>
+    </tr>
+	<tr>
+        <td>TripoSR [3]</td>
+        <td><span style="color:DarkOrange;">0.111</span></td>
+        <td><span style="color:DarkOrange;">0.645</span></td>
+        <td><span style="color:DarkOrange;">0.860</span></td>
+        <td><span style="color:DarkOrange;">0.980</span></td>
+		<td><span style="color:Tomato;">0.3</span></td>
+    </tr>
+	<tr>
+        <td>LGM [4]</td>
+        <td>0.195</td>
+        <td>0.376</td>
+        <td>0.654</td>
+        <td>0.928</td>
+		<td>64.6</td>
+    </tr>
+	<tr>
+        <td>CRM [5]</td>
+        <td>0.179</td>
+        <td>0.411</td>
+        <td>0.699</td>
+        <td>0.945</td>
+		<td>10.2</td>
+    </tr>
+	<tr>
+        <td>InstantMesh [6]</td>
+        <td>0.138</td>
+        <td>0.549</td>
+        <td>0.801</td>
+        <td>0.967</td>
+		<td>32.4</td>
+    </tr>
+	<tr>
+        <td>SF3D (Ours)</td>
+        <td><span style="color:Tomato;">0.098</span></td>
+        <td><span style="color:Tomato;">0.701</span></td>
+        <td><span style="color:Tomato;">0.894</span></td>
+        <td><span style="color:Tomato;">0.988</span></td>
+		<td><span style="color:DarkOrange;">0.5</span></td>
+    </tr>
+</tbody>
+</table>
+</div>
+<div class="cite-area">
+    <p>[1] Huang <em>et al.</em> - ZeroShape: Regression-based Zero-shot Shape Reconstruction - 2023</p>
+<p>[2] He <em>et al.</em> - OpenLRM: Open-source Large Reconstruction Models - 2023</p>
+<p>[3] Tochilkin <em>et al.</em> - TripoSR: Fast 3D Object Reconstruction from a Single Image - 2024</p>
+<p>[4] Tang <em>et al.</em> - LGM: Large Multi-view Gaussian Model for High-resolution 3D Content Creation - 2024</p>
+<p>[5] Wang <em>et al.</em> - CRM: Single Image to 3D Textured Mesh with Convolutional Reconstruction Model - 2024</p>
+<p>[6] Xu <em>et al.</em> - InstantMesh: Efficient 3D Mesh Generation from a Single Image with Sparse-view Large Reconstruction Models - 2024</p>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="subsection">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+    </div>
+    <h1> Conclusion</h1>
+    <div class="description">
+        
+
+
+    </div>
+</div>
+</section><section>
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Conclusion</div>
+    </div>
+    <div class="content">
+        
+            <div class="column"> <ul>
+<li>3D Gen AI is a hard problem</li>
+<li>Even more so with a focus on games</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Bringing in techniques from inverse rendering is a promising direction</li>
+</ul>
+</div>
+<div class="fragment">
+</br>
+<ul>
+<li>SV3D propose to leverage existing video diffusion models</li>
+<li>This can help overcome data scarcity</li>
+<li>Reconstruction from consistent multi view generations is easily possible</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>However, it is time consuming (10 min)</li>
+</ul>
+</div>
+<div class="fragment">
+</br>
+<ul>
+<li>SF3D propose a feed-forward method which can generate assets in 0.5s</li>
+<li>We explicitly tackle delighting and material generation</li>
+<li>Additionally, we propose fast UV unwrapping and texturing</li>
+</ul>
+</div>
+ </div>
+        
+    </div>
+</div>
+</section>
+    
+<section data-noprocess data-shortcode-slide
+      class="end">
+  
+<div class="grid-wrapper">
+    <div class="header">
+        <div class="logo"></div>
+        <div class="section"> Invisible</div>
+    </div>
+    <div class="content">
+        <h1 id="thank-you-for-listening">Thank you for listening</h1>
+
+    </div>
+</div>
+
+
+
+<aside class="notes"><ul>
+<li>You found the <strong>speaker notes</strong>!</li>
+</ul>
+</aside>
+</section>
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=../reveal-hugo/object-assign.js></script>
+
+<a href="../reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">null</script>
+<script type="application/json" id="reveal-hugo-page-params">{"center":false,"custom_theme":"personal-theme.scss","custom_theme_compile":true,"disable_layout":true,"height":"100%","highlight_theme":"atom-one-dark","margin":0,"max_scale":1,"min_scale":1,"plugins":["plugins/math.js"],"slide_number":true,"width":"100%"}</script>
+
+<script src="../reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { math: {
+				mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+				config: 'TeX-AMS_HTML-full',
+				TeX: {
+					extensions: ["color.js"]
+				},
+        
+        "HTML-CSS": { availableFonts: ["TeX"], linebreaks: { automatic: true } },
+        SVG: { linebreaks: { automatic: true } }
+			},center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+
+  
+
+function playCurrentFragment() {
+  [].slice.call( document.querySelectorAll('.fragment') ).forEach(function(fragment) {
+
+    if(fragment.tagName == "VIDEO"){
+      var video = fragment;
+      if(video.classList.contains('current-fragment')) {
+        video.play();
+      }
+      else {
+        
+      }
+    }
+
+  });
+}
+
+Reveal.addEventListener( 'fragmentshown', playCurrentFragment );
+Reveal.addEventListener( 'fragmenthidden', playCurrentFragment );
+
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="../reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="../reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="../reveal-js/plugin/notes/notes.js"></script>
+
+
+
+<script type="text/javascript" src="../plugins/math.js"></script>
+
+    
+    
+  </body>
+</html>
