@@ -261,7 +261,7 @@ data-callout-metadata=""&gt;
 &lt;/span&gt;
 &lt;div class="callout-content dark:text-neutral-300"&gt;
 &lt;div class="callout-title font-semibold mb-1"&gt;Note&lt;/div&gt;
-&lt;div class="callout-body"&gt;Rotate by clicking and dragging, zoom via mouse wheel, and use the buttons (Teal indicates active) to visualize the NeRF process.&lt;/div&gt;
+&lt;div class="callout-body"&gt;&lt;p&gt;Rotate by clicking and dragging, zoom via mouse wheel, and use the buttons (Teal indicates active) to visualize the NeRF process.&lt;/p&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;iframe
@@ -414,7 +414,7 @@ data-callout-metadata=""&gt;
 &lt;/span&gt;
 &lt;div class="callout-content dark:text-neutral-300"&gt;
 &lt;div class="callout-title font-semibold mb-1"&gt;Note&lt;/div&gt;
-&lt;div class="callout-body"&gt;Rotate by clicking and dragging, zoom via mouse wheel, and use the buttons (Teal indicates active) to visualize the NeRF process.&lt;/div&gt;
+&lt;div class="callout-body"&gt;&lt;p&gt;Rotate by clicking and dragging, zoom via mouse wheel, and use the buttons (Teal indicates active) to visualize the NeRF process.&lt;/p&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;iframe

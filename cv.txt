@@ -59,29 +59,19 @@
 \end{minipage}
 
 \section{Selected Publications}
-\contentitem{ReLi3D: Relightable Multi-view 3D Reconstruction with Disentangled Illumination}%
-    {Jan. 2026 -- \emph{In International Conference on Learning Representations (ICLR)} -- Jan-Niklas Dihlmann, Mark Boss, Simon Donne, Andreas Engelhardt, Hendrik P. A. Lensch, Varun Jampani}
-    {}
-
 \contentitem{Stable Virtual Camera: Generative View Synthesis with Diffusion Models}%
     {Mar. 2025 -- \emph{In ArXiV} -- Jensen Zhou, Hang Gao, Vikram Voleti, Aaryaman Vasishta, Chun-Han Yao, Mark Boss, Philip Torr, Christian Rupprecht, Varun Jampani}
     {}
-
 \contentitem{SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement}%
     {Aug. 2024 -- \emph{In Conference on Computer Vision and Pattern Recognition (CVPR)} -- Mark Boss, Zixuan Huang, Aaryaman Vasishta, Varun Jampani}
     {}
-
 \contentitem{SV3D: Novel Multi-view Synthesis and 3D Generation from a Single Image using Latent Video Diffusion}%
     {Mar. 2024 -- \emph{In European Conference on Computer Vision} -- Vikram Voleti, Chun-Han Yao, Mark Boss, Adam Letts, David Pankratz, Dmitrii Tochilkin, Christian Laforte, Robin Rombach, Varun Jampani}
     {}
-
 \contentitem{SAMURAI: Shape And Material from Unconstrained Real-world Arbitrary Image collections}%
     {Sep. 2022 -- \emph{In Neural Information Processing Systems} -- Mark Boss, Andreas Engelhardt, Abhishek Kar, Yuanzhen Li, Deqing Sun, Jonathan T. Barron, Hendrik P. A. Lensch, Varun Jampani}
     {}
-
 \contentitem{NeRD: Neural Reflectance Decomposition from Image Collections}%
     {Nov. 2020 -- \emph{In IEEE International Conference on Computer Vision} -- Mark Boss, Raphael Braun, Varun Jampani, Jonathan T. Barron, Ce Liu, Hendrik P. A. Lensch}
     {}
-
-
 \end{document}
