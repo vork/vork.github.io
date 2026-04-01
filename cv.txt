@@ -60,7 +60,7 @@
 
 \section{Selected Publications}
 \contentitem{Stable Virtual Camera: Generative View Synthesis with Diffusion Models}%
-    {Mar. 2025 -- \emph{In ArXiV} -- Jensen Zhou, Hang Gao, Vikram Voleti, Aaryaman Vasishta, Chun-Han Yao, Mark Boss, Philip Torr, Christian Rupprecht, Varun Jampani}
+    {Mar. 2025 -- \emph{In IEEE International Conference on Computer Vision} -- Jensen Zhou, Hang Gao, Vikram Voleti, Aaryaman Vasishta, Chun-Han Yao, Mark Boss, Philip Torr, Christian Rupprecht, Varun Jampani}
     {}
 \contentitem{SF3D: Stable Fast 3D Mesh Reconstruction with UV-unwrapping and Illumination Disentanglement}%
     {Aug. 2024 -- \emph{In Conference on Computer Vision and Pattern Recognition (CVPR)} -- Mark Boss, Zixuan Huang, Aaryaman Vasishta, Varun Jampani}
