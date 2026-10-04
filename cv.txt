@@ -2,11 +2,11 @@
 
 \begin{document}
 
-\cvheader{Mark Boss is the Co-Head of 3D \& Image at Stability AI. He worked at Unity Technologies before and completed his PhD at the University of Tübingen in the computer graphics group of Prof. Hendrik Lensch. His research interests lie at the intersection of machine learning and computer graphics, focusing mainly on inferring physical properties (shape, material, illumination) from images. }
+\cvheader{Mark Boss is the Co-Head of Visual Research at Stability AI. He worked at Unity Technologies before and completed his PhD at the University of Tübingen in the computer graphics group of Prof. Hendrik Lensch. His research interests lie at the intersection of machine learning and computer graphics, focusing mainly on inferring physical properties (shape, material, illumination) from images. }
 
 \section{Work Experience}
 \begin{minipage}[t]{0.47\textwidth}
-\contentitem{Co-Head of 3D \& Image -- Stability AI}%
+\contentitem{Co-Head of Visual Research -- Stability AI}%
     {Oct. 2025 -- present}
     {}
 
